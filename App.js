@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import Router from './src/controllers/Routing';
+import Router from './src/config/Routing';
 
 export default class App extends Component {
   render() {

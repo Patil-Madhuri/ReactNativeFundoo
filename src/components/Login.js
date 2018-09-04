@@ -1,42 +1,53 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput } from 'react-native';
-import { Card, Header, Button } from 'react-native-elements';
-
+import { Card, Button, Icon, Divider } from 'react-native-elements';
 
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
 export default class Login extends Component {
   render() {
-    return (
-      <View style={{padding : 8}}>
-        <Card>
-          <Header centerComponent={{
-            text: 'Login', style: {
-              fontWeight: 'bold',
-              fontSize: 30,
-              textAlign: 'center',
-              color: '#fff'
-            }
-          }}
-          ></Header>
+    const { navigate } = this.props.navigation;
 
-          <TextInput placeholder="Username" style={styles.username} />
-          <TextInput secureTextEntry={true} placeholder="Password" style={styles.username} />
+    return (
+      <View style={{ padding: 8, marginTop: 100 }}>
+        <Card>
+          <Text style={styles.titleText}>Login</Text>
+
+          <View style={styles.flexRow}>
+            <Icon color="grey" name='email' size={24} />
+            <TextInput placeholder="Username" style={styles.username} />
+          </View>
+
+          <View style={styles.flexRow}>
+            <Icon color="grey" name='vpn-key' size={24} />
+            <TextInput secureTextEntry={true} placeholder="Password" style={styles.username} />
+          </View>
+
+
           <Button
             title="Login"
-          
             titleStyle={{ fontWeight: "700" }}
-            buttonStyle={{
-              backgroundColor: "rgba(92, 99,216, 1)",
-              width: 100,
-              height: 45,
-              borderColor: "transparent",
-              borderWidth: 0,
-              borderRadius: 5,
-              alignSelf : "center"
-            }}
+            buttonStyle={styles.loginBtn}
             containerStyle={{ marginTop: 20 }}
           />
+          <Divider style={{ marginTop: 10, marginBottom: 10 }} />
+
+          <View style={styles.registerLink}>
+            <Text style={{ fontSize: 15 }}>Don't have an account ?
+              <Text style={styles.links} onPress={() =>
+                navigate('Register')} >
+                Register
+              </Text>
+            </Text>
+          </View>
+
+          <View style={styles.registerLink}>
+            <Text style={styles.links}  onPress={() =>
+                navigate('ForgotPassword')} >
+              {"\n"} Forgot Password
+              </Text>
+          </View>
+
         </Card>
       </View>
 
