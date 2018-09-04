@@ -12,14 +12,14 @@ export default class Register extends Component {
             Firstname: null,
             Lastname: null,
             email: null,
-            Password: null,
-            cnfPassword: null
+            Password: '',
+            cnfPassword: ''
         }
         this.registerUser = this.registerUser.bind(this);
     }
 
-    registerUser(Firstname,Lastname,email,Password,cnfPassword){
-       userCtrl.registerUser(Firstname,Lastname,email,Password,cnfPassword)
+    registerUser(Firstname, Lastname, email, Password, cnfPassword) {
+        userCtrl.registerUser(Firstname, Lastname, email, Password, cnfPassword)
     }
     render() {
         return (
@@ -30,34 +30,34 @@ export default class Register extends Component {
                     <View style={styles.flexRow}>
                         <Icon color="grey" name='person' size={24} />
                         <TextInput placeholder="Firstname" style={styles.username}
-                            onChangeText={(event) => this.setState({ Firstname: event.target.value })} />
+                            onChangeText={(Firstname) => this.setState({ Firstname })}
+                        />
                     </View>
 
                     <View style={styles.flexRow}>
                         <Icon color="grey" name='person' size={24} />
                         <TextInput placeholder="Lastname" style={styles.username}
-                            onChangeText={(event) => this.setState({ Lastname: event.target.value })} />
+                            onChangeText={(Lastname) => this.setState({ Lastname })} />
 
                     </View>
 
                     <View style={styles.flexRow}>
                         <Icon color="grey" name='email' size={24} />
                         <TextInput placeholder="Username" style={styles.username}
-                            onChangeText={(event) => this.setState({ email: event.target.value })} />
-
+                            onChangeText={(email) => this.setState({ email })} />
                     </View>
 
                     <View style={styles.flexRow}>
                         <Icon color="grey" name='vpn-key' size={24} />
                         <TextInput secureTextEntry={true} placeholder="Password" style={styles.username}
-                            onChangeText={(event) => this.setState({ Password: event.target.value })} />
+                            onChangeText={(Password) => this.setState({ Password })} />
 
                     </View>
 
                     <View style={styles.flexRow}>
                         <Icon color="grey" name='vpn-key' size={24} />
                         <TextInput secureTextEntry={true} placeholder="Confirm Password" style={styles.username}
-                            onChangeText={(event) => this.setState({ cnfPassword: event.target.value })} />
+                            onChangeText={(cnfPassword) => this.setState({ cnfPassword })} />
 
                     </View>
 
@@ -67,7 +67,7 @@ export default class Register extends Component {
                         titleStyle={{ fontWeight: "700" }}
                         buttonStyle={styles.loginBtn}
                         containerStyle={{ marginTop: 20 }}
-                        onPress={()=>this.registerUser(this.state.Firstname,this.state.Lastname,this.state.email,this.state.Password,this.state.cnfPassword)}
+                        onPress={() => this.registerUser(this.state.Firstname, this.state.Lastname, this.state.email, this.state.Password, this.state.cnfPassword)}
                     />
 
                 </Card>

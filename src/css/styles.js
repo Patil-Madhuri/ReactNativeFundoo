@@ -14,7 +14,7 @@ export const style = StyleSheet.create({
     },
     links : {
       color: 'blue',
-       fontSize: 15 
+       fontSize: 15    
     },
     flexRow: {
         flexDirection: 'row'

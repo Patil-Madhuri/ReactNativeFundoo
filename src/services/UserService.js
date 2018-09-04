@@ -1,24 +1,14 @@
- import app from '../config/Firebase';
+import app from '../config/Firebase';
 module.exports = {
-  registerUser: function (Firstname, Lastname, email, Password) {
-    // var database = Firebase.database();
-    // var  userRef = database.ref('/users');
-    // userRef.push({
-    //   Firstname : Firstname,
-    //   Lastname : Lastname,
-    //   Email : email,
-    //   Password : Password
-    // })
+  registerUser: function (user) {
+    var database = app.database();
+    var userRef = database.ref('/users');
+    userRef.push({
+      Firstname: user.Firstname,
+      Lastname: user.Lastname,
+      Email: email,
+      Password: Password
+    })
+  user = null;
   }
-  }
-
-  // export const registerUser = (Firstname, Lastname, email, Password) => {
-        // var database = Firebase.database();
-        // var userRef = database.ref('/users');
-        // userRef.push({
-        //   Firstname : Firstname,
-        //   Lastname : Lastname,
-        //   Email : email,
-        //   Password : Password
-        // })
-    // }
+}
