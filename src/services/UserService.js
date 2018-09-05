@@ -6,9 +6,9 @@ module.exports = {
     userRef.push({
       Firstname: user.Firstname,
       Lastname: user.Lastname,
-      Email: email,
-      Password: Password
+      Email: user.email,
+      Password: user.Password
     })
-  user = null;
+    
   }
 }

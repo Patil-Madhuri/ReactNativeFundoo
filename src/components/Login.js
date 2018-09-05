@@ -5,6 +5,13 @@ import { Card, Button, Icon, Divider } from 'react-native-elements';
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
 export default class Login extends Component {
+  constructor(){
+    super();
+    this.loginUser = this.loginUser.bind(this);
+  }
+  loginUser(){
+    this.props.navigation.navigate('Dashboard');
+  }
   render() {
     const { navigate } = this.props.navigation;
 
@@ -29,6 +36,7 @@ export default class Login extends Component {
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={styles.loginBtn}
             containerStyle={{ marginTop: 20 }}
+            onPress={this.loginUser}
           />
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 

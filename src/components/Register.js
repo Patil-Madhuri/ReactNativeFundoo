@@ -3,7 +3,10 @@ import { Text, View, TextInput } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
-var userCtrl = require('../controllers/UserCtrl');
+// var userCtrl = require('../controllers/UserCtrl');
+var userService = require('../services/UserService');
+import { Alert } from 'react-native';
+import app from '../config/Firebase';
 
 export default class Register extends Component {
     constructor(props) {
@@ -19,8 +22,32 @@ export default class Register extends Component {
     }
 
     registerUser(Firstname, Lastname, email, Password, cnfPassword) {
-        userCtrl.registerUser(Firstname, Lastname, email, Password, cnfPassword)
+        var emailExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        if (Firstname == null) {
+            Alert.alert("Invalid name");
+            return;
+        }
+        if (Password.length < 4 && cnfPassword.length < 4) {
+            Alert.alert("Password length not matched");
+            return;
+        }
+        if (Password === cnfPassword) {
+            app.auth().createUserWithEmailAndPassword(email, Password)
+                .then(() => {
+                    const user = {
+                        Firstname: Firstname,
+                        Lastname: Lastname,
+                        email: email,
+                        Password: Password
+                    }
+                    userService.registerUser(user);
+                }).then(() => { 
+                    this.props.navigation.navigate('Login')
+                }
+                )
+        }
     }
+
     render() {
         return (
             <View style={{ padding: 8, marginTop: 50 }}>
