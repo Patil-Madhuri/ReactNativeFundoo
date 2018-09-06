@@ -14,7 +14,7 @@ export default class Register extends Component {
         this.state = {
             Firstname: null,
             Lastname: null,
-            email: null,
+            email: '',
             Password: '',
             cnfPassword: ''
         }
@@ -27,7 +27,11 @@ export default class Register extends Component {
             Alert.alert("Invalid name");
             return;
         }
-        if (Password.length < 4 && cnfPassword.length < 4) {
+        if(email == '' || !emailExp.test(email)){
+            Alert.alert('Invalid email');
+            return;
+          }
+        if (Password.length < 4 || cnfPassword.length < 4) {
             Alert.alert("Password length not matched");
             return;
         }
@@ -45,6 +49,10 @@ export default class Register extends Component {
                     this.props.navigation.navigate('Login')
                 }
                 )
+        }
+        else{
+            Alert.alert("Invalid Password");
+            return;
         }
     }
 

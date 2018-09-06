@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput,Alert } from 'react-native';
 import { Card, Button, Icon, Divider } from 'react-native-elements';
-
+var userService = require('../services/UserService');
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
+
 export default class Login extends Component {
   constructor(){
     super();
+    this.state={
+      email : '',
+      password : ''
+    }
     this.loginUser = this.loginUser.bind(this);
   }
-  loginUser(){
-    this.props.navigation.navigate('Dashboard');
+
+  loginUser(email,password){
+    var emailExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+    if(email == '' || !emailExp.test(email)){
+      Alert.alert('Invalid email');
+      return;
+    }
+    if(password == ''  ){
+      Alert.alert("Invalid password");
+      return;
+    }
+    userService.getUser(email,password);
+    this.props.navigation.navigate('Home');
   }
+
+
   render() {
     const { navigate } = this.props.navigation;
 
@@ -22,12 +40,14 @@ export default class Login extends Component {
 
           <View style={styles.flexRow}>
             <Icon color="grey" name='email' size={24} />
-            <TextInput placeholder="Username" style={styles.username} />
+            <TextInput placeholder="Username" style={styles.username} 
+             onChangeText={(email) => this.setState({ email })} />
           </View>
 
           <View style={styles.flexRow}>
             <Icon color="grey" name='vpn-key' size={24} />
-            <TextInput secureTextEntry={true} placeholder="Password" style={styles.username} />
+            <TextInput secureTextEntry={true} placeholder="Password" style={styles.username} 
+              onChangeText={(password) => this.setState({ password })}/>
           </View>
 
 
@@ -36,7 +56,7 @@ export default class Login extends Component {
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={styles.loginBtn}
             containerStyle={{ marginTop: 20 }}
-            onPress={this.loginUser}
+            onPress={()=>{this.loginUser(this.state.email,this.state.password)}}
           />
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 
