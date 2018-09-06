@@ -1,42 +1,47 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
-import { Icon, Button } from 'react-native-elements';
-const SideMenu = require('react-native-side-menu');
+import { Icon } from 'react-native-elements';
+import { TouchableHighlight, Text, View } from 'react-native';
+
+// import Drawer from 'react-native-drawer';
 var styleSheet = require('../css/styles');
 var style = styleSheet.style;
 
 export default class Navigation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open: false
+        }
+    }
+    handleToggle = () => this.setState({ open: !this.state.open });
+
+    
+
     render() {
         return (
-            <View>
-                {/************************ Navigation Bar ******************/}
-
-                <View style={{ backgroundColor: '#fb0', width: '100%', height: '100%' }}>
+            <View style={{ width: '100%' }}>
+                <View style={style.view1}>
                     <View style={{ flexDirection: 'row', width: '100%' }}>
-                        <Icon name='menu' size={30} color='white' navigator={navigator} />
+                        <Icon name='menu' size={30} color='white'
+                            iconStyle={{ paddingLeft: 10 }}
+                            oonPress={() => { this._drawer.open() }}
 
+                        />
                         <Text style={style.notesTitle}>Notes</Text>
 
                         <View style={style.navigationButton}>
                             <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
                             <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
                             <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
-
-                            {/* <Button icon={{ name: 'view-stream', size: 30 }}
-                            buttonStyle={{
-                                backgroundColor: 'transparent',
-                            }} /> */}
                         </View>
                     </View>
                 </View>
 
-                {/************************ Side Bar ******************/}
-                <View>
-                    <View>
-                        <Text>Madhuris</Text>
-                    </View>
-                </View>
+              
             </View>
         );
+
+       
+
     }
 }

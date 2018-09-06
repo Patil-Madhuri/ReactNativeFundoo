@@ -45,7 +45,16 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         marginLeft : 120,
         paddingTop : 3
+    },
+    view1 : {
+        backgroundColor: '#fb0',
+         width: '100%',
+         height: '100%' 
+    },
+    drawerbg : {
+        backgroundColor : 'red'
     }
+
 })
 
 

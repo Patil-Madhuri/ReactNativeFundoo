@@ -10,7 +10,7 @@ const Router = createStackNavigator({
     Login: { screen: Login },
     Register: { screen: Register },
     ForgotPassword : { screen : ForgotPassword},
-    Home : {screen : Home}
+    Home : {screen : Home},
   },
   {
       initialRouteName:'Home'
