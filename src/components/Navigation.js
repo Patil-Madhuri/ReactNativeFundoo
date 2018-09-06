@@ -33,9 +33,7 @@ export default class Navigation extends Component {
                 {/************************ Side Bar ******************/}
                 <View>
                     <View>
-                        <SideMenu>
-                                madhuri
-                        </SideMenu>
+                        
                     </View>
                 </View>
             </View>
