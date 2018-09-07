@@ -38,22 +38,42 @@ export const style = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
         color: 'white',
-        paddingTop: 6,
-        paddingLeft: 8
+        paddingTop: 3,
+        paddingLeft: 15
     },
     navigationButton: {
         flexDirection: 'row',
-        marginLeft : 120,
-        paddingTop : 3
+        marginLeft: 80,
+        paddingTop: 3
     },
-    view1 : {
-        backgroundColor: '#fb0',
-         width: '100%',
-         height: '100%' 
+    view1: {
+        width: '100%',
+        height: '100%'
     },
-    drawerbg : {
-        backgroundColor : 'red'
+    takeNoteCard: {
+        width: '100%',
+        padding: 0,
+        marginLeft: 0,
+        height: 60
+    },
+    takeNoteCardIcon: {
+        width: '50%',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        right: 10
+    },
+    sidebarReminderBtn : {
+        flexDirection : 'row',
+        height  : 60,
+        marginLeft : 10
+    },
+    sidebarReminderText : {
+        fontSize : 20, 
+        paddingTop : 18,
+        paddingLeft : 20
     }
+
+
 
 })
 
