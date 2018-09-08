@@ -8,15 +8,14 @@ var styleSheet = require('../css/styles');
 var style = styleSheet.style;
 
 export default class Home extends Component {
-
-    constructor(props) {
-        super(props);
-
+    constructor(){
+        super();
+        this.changeView = this.changeView.bind(this);
     }
-    static navigationOptions = {
-        header: null
-    };
-
+    changeView=() => {
+            this.props.navigation.push('AddNote');
+      }
+    
     renderHeader() {
         return (
             <View style={style.view1}>
@@ -51,11 +50,10 @@ export default class Home extends Component {
                     backgroundColor="#fb0"
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
-                    <TakeNote />
+                    <TakeNote  newComponent={this.changeView}/>
                 </View>
-
-
             </DrawerLayoutAndroid>
+           
 
         );
     }

@@ -62,15 +62,36 @@ export const style = StyleSheet.create({
         justifyContent: 'flex-end',
         right: 10
     },
-    sidebarReminderBtn : {
-        flexDirection : 'row',
-        height  : 60,
-        marginLeft : 10
+    sidebarBtn: {
+        flexDirection: 'row',
+        height: 60,
+        marginLeft: 10
     },
-    sidebarReminderText : {
-        fontSize : 20, 
-        paddingTop : 18,
-        paddingLeft : 20
+    sidebarText: {
+        fontSize: 20,
+        paddingTop: 18,
+        paddingLeft: 20
+    },
+    backgroundImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        height: 200
+    },
+    profileImage: {
+        height: 80,
+        width: 80,
+        borderRadius: 50,
+        marginTop: 20,
+        marginLeft: 20
+    },
+    nameFont: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
+    labelText: {
+        fontSize: 20,
+        marginLeft: 10,
+        paddingRight: 140
     }
 
 
