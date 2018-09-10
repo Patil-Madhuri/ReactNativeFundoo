@@ -1,28 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { View, TextInput } from "react-native";
-import { Card, Icon, Text } from 'react-native-elements';
+import { Card, Icon, Text, Header } from 'react-native-elements';
 var noteService = require('../services/NoteService');
 
-export default class AddNote extends Component {
-    static navigationOptions = ({navigation}) =>{
-
-        const params = navigation.state.params || {noteTitle:"",noteDescription:""};
-        return {
-            headerLeft: (
-                <Icon name="arrow-back"
-                      onPress={() => {navigation.goBack();noteService.createNote(params)}}
-                      size={30} color="grey"
-                      iconStyle={{paddingLeft : 8}}/>
-             ),
-            headerTitle:
-                <View style={{ flexDirection: 'row', marginLeft: 220 }}>
-                    <Icon name='pin' type='material-community'  size={30} color="grey" iconStyle={{ padding: 5 }} />
-                    <Icon name='reminder' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
-                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }} />
-                </View>
-        } 
-    }
-
+export default class UpdateNote extends Component {
+   
     constructor() {
         super();
         this.state = {
@@ -30,16 +12,42 @@ export default class AddNote extends Component {
             description: ''
         }
     }
-    
-    render() {
+ 
+    renderHeader() {
+        var noteKey = this.props.noteKey;
         return (
-            <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
+            <View style={{flexDirection : 'row'}}>
+                <Icon name="arrow-back"
+                    onPress={() => {this.props.onClick(!this.props.modalVisible);noteService.updateNote(this.state.title,this.state.description,noteKey)}}
+                    size={30} color="black"
+                    iconStyle={{ma: 10}}
+
+                   />
+                <View style={{ flexDirection: 'row', marginLeft: 220 }}>
+                    <Icon name='pin' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                    <Icon name='reminder' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                </View>
+            </View>
+        )
+    }
+    render() {
+        var note = this.props.note;
+        console.log("Update:  ",note);
+        return (
+            <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
+                <Header
+                    centerComponent={this.renderHeader()}
+                    backgroundColor="white"
+                />
                 <View>
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
-                        onChangeText={(title) => this.props.navigation.setParams({noteTitle:title})} />
+                    defaultValue={note.Notetitle}
+                        onChangeText={(title) => this.setState({ title })} />
 
                     <TextInput placeholder="Note" style={{ fontSize: 20, padding: 15 }} multiline={true}
-                        onChangeText={(description) => this.props.navigation.setParams({noteDescription:description})} />
+                    defaultValue={note.NoteDesc}
+                        onChangeText={(description) => this.setState({ description })} />
 
                 </View>
 

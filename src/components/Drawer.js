@@ -27,7 +27,7 @@ export default class Drawer extends Component {
                             <Text style={styles.sidebarText}>Notes</Text>
                         </View>
                         <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='touch-app' size={30} />
+                            <Icon color="grey" name='reminder' type='material-community' size={30} />
                             <Text style={styles.sidebarText}>Reminders</Text>
                         </View>
 

@@ -1,5 +1,5 @@
 import app from '../config/Firebase';
-import { AsyncStorage } from "react-native"
+import { AsyncStorage } from "react-native";
 
 module.exports = {
   registerUser: function (user) {
@@ -26,8 +26,8 @@ module.exports = {
           var userData = snap.val();
           console.log(userData);
           AsyncStorage.setItem('email', userData.Email);
-          AsyncStorage.setItem('name', userData.Firstname);
-          AsyncStorage.setItem('name', userData.Lastname);
+          AsyncStorage.setItem('firstName', userData.Firstname);
+          AsyncStorage.setItem('lastName', userData.Lastname);
           AsyncStorage.setItem('imageUrl', userData.ImageUrl)
         })
       }

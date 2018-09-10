@@ -1,25 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { Icon, Card } from 'react-native-elements';
-import AddNote from './AddNote';
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
 export default class TakeNote extends Component {
-    // constructor(){
-    //     super();
-    //     this.state={
-    //         view : true
-    //     }
-    // }
-    // changeView(){
-    //     this.setState({
-    //       view: !this.state.view
-    //     })
-    // }
 
     render() {
-        // if(!this.state.view) return <AddNote changeView={ () => this.changeView() } />
-
         return (
             <View style={{ alignSelf: 'flex-end',position: 'absolute', bottom: 0 }}>
                 <View >

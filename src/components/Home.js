@@ -3,6 +3,7 @@ import { View, DrawerLayoutAndroid, Text } from 'react-native';
 import TakeNote from './TakeNote';
 import Drawer from './Drawer';
 import { Header, Icon } from 'react-native-elements';
+import DisplayNotes from './DisplayNotes';
 
 var styleSheet = require('../css/styles');
 var style = styleSheet.style;
@@ -50,6 +51,7 @@ export default class Home extends Component {
                     backgroundColor="#fb0"
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
+                    <DisplayNotes />
                     <TakeNote  newComponent={this.changeView}/>
                 </View>
             </DrawerLayoutAndroid>

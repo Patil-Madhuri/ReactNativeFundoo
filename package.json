@@ -8,6 +8,7 @@
     "debug": "react-devtools"
   },
   "dependencies": {
+    "@appandflow/masonry-list": "^0.4.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
     "firebase": "^4.9.1",
     "react": "16.4.1",
@@ -16,6 +17,8 @@
     "react-native-elements": "^0.19.1",
     "react-native-firebase": "^4.3.8",
     "react-native-form-validator": "^0.2.0",
+    "react-native-masonry": "^0.5.0-alpha.1",
+    "react-native-masonry-layout": "^1.0.6",
     "react-native-material-design": "^0.3.7",
     "react-native-material-design-styles": "^0.2.7",
     "react-native-svg": "^6.5.2",
