@@ -15,18 +15,23 @@ export default class UpdateNote extends Component {
  
     renderHeader() {
         var noteKey = this.props.noteKey;
+        var note = this.props.note;
+
         return (
             <View style={{flexDirection : 'row'}}>
                 <Icon name="arrow-back"
                     onPress={() => {this.props.onClick(!this.props.modalVisible);noteService.updateNote(this.state.title,this.state.description,noteKey)}}
                     size={30} color="black"
-                    iconStyle={{ma: 10}}
-
                    />
+
                 <View style={{ flexDirection: 'row', marginLeft: 220 }}>
-                    <Icon name='pin' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                    <Icon name='pin' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} 
+                    onPress={() => {noteService.isPinNote(noteKey,note)}}/>
+
                     <Icon name='reminder' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
-                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }} />
+
+                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }} 
+                    onPress={() => {noteService.isArchiveNote(noteKey,note)}}/>
                 </View>
             </View>
         )

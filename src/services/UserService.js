@@ -1,5 +1,7 @@
 import app from '../config/Firebase';
-import { AsyncStorage } from "react-native";
+import localStorage from 'react-native-sync-localstorage';
+import Home from '../components/Home';
+var noteService = require('../services/NoteService');
 
 module.exports = {
   registerUser: function (user) {
@@ -14,23 +16,31 @@ module.exports = {
     })
   },
 
-  getUser: function (email, password) {
+  getUser: function (email, password,callback) {
     var database = app.database();
     var userRef = database.ref('/users');
-    userRef.orderByChild("Email").equalTo(email).once('value', function (snapshot) {
-      var value = snapshot.val();
-      if (value.Password === password) {
-        AsyncStorage.setItem("userKey", snapshot.key);
-        var userKey = AsyncStorage.getItem("userKey");
-        usersRef.child(userKey).once('value', function (snap) {
-          var userData = snap.val();
-          console.log(userData);
-          AsyncStorage.setItem('email', userData.Email);
-          AsyncStorage.setItem('firstName', userData.Firstname);
-          AsyncStorage.setItem('lastName', userData.Lastname);
-          AsyncStorage.setItem('imageUrl', userData.ImageUrl)
-        })
-      }
+    userRef.orderByChild("Email").equalTo(email).once('value', function (snap) {
+      snap.forEach(function (snap) {
+        var value = snap.val();
+        var key = snap.key;
+        if (value.Password == password) {
+          localStorage.setItem('userKey', key);
+          var userKey = localStorage.getItem('userKey');
+          userRef.child(userKey).once('value', function (snap) {
+            var userData = snap.val();
+            localStorage.setItem('email', userData.Email);
+            localStorage.setItem('firstName', userData.Firstname);
+            localStorage.setItem('lastName', userData.Lastname);
+            localStorage.setItem('imageUrl', userData.ImageUrl);
+          })
+          callback(true);
+        }
+      })
     })
-  }
+  },
+
+
 }
+
+
+

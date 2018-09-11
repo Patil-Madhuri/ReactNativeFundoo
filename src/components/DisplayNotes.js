@@ -26,7 +26,7 @@ export default class DisplayNotes extends Component {
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {Object.keys(this.state.notes).map((key) => {
+                    { Object.keys(this.state.notes).map((key) => {                        
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
                         return (

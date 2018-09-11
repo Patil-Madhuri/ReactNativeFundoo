@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Text, Modal, TouchableOpacity, View } from "react-native";
+import { Text, Modal, TouchableOpacity } from "react-native";
 import { Card } from "react-native-elements";
-import AddNote from "./AddNote";
 import UpdateNote from "./UpdateNote";
 
 export default class Note extends Component {
@@ -24,7 +23,7 @@ export default class Note extends Component {
         var noteKey = this.props.noteKey;
         // let {setModalVisible} = this.props;
         return (
-            <Card key={noteKey} containerStyle={{ width: '40%'}}>
+            <Card key={noteKey} containerStyle={{ width: '45%',margin: 7 }} className="notes">
                 <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                     <Text style={{fontSize: 20, fontWeight : 'bold'}}>{note.Notetitle}</Text>
                 </TouchableOpacity>
@@ -37,7 +36,9 @@ export default class Note extends Component {
                     animationType="slide"
                     transparent={false}
                     visible={this.state.modalVisible}
-                   >
+                    onRequestClose={() => {
+                        console.log('Modal closed');
+                      }}                   >
                     <UpdateNote note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
                      onClick={this.setModalVisible}/>
                 </Modal>

@@ -6,8 +6,7 @@ import Register from '../components/Register';
 import ForgotPassword from '../components/ForgotPassword';
 import Home from '../components/Home';
 import AddNote from '../components/AddNote';
-import React from 'react';
-import UpdateNote from '../components/UpdateNote';
+// import React from 'react';
 
 const Router = createStackNavigator({
     Login: { screen: Login },
@@ -17,7 +16,7 @@ const Router = createStackNavigator({
     Home : {screen : Home, navigationOptions : {header : null}},
   },
   {
-      initialRouteName:'Home'
+      initialRouteName:'Login'
   },
   { 
     headerMode: 'screen' 

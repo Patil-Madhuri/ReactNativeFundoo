@@ -64,25 +64,25 @@ export const style = StyleSheet.create({
     },
     sidebarBtn: {
         flexDirection: 'row',
-        height: 60,
-        marginLeft: 10
+        height: 40,
+        marginLeft: 10,
+        paddingBottom : 8
     },
     sidebarText: {
         fontSize: 20,
-        paddingTop: 18,
         paddingLeft: 20
     },
     backgroundImage: {
         flex: 1,
         resizeMode: 'cover',
-        height: 200
+        height: 150
     },
     profileImage: {
-        height: 80,
-        width: 80,
+        height: 60,
+        width: 60,
         borderRadius: 50,
-        marginTop: 20,
-        marginLeft: 20
+        marginTop: 15,
+        marginLeft: 15
     },
     nameFont: {
         fontSize: 20,
