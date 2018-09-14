@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View,  TextInput, TouchableOpacity } from "react-native";
 import { Icon, Card } from 'react-native-elements';
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
 export default class TakeNote extends Component {
-
+    constructor(){
+        super();
+        this.state ={
+            modalVisible : true
+        }
+    }
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
+    
     render() {
         return (
             <View style={{ alignSelf: 'flex-end',position: 'absolute', bottom: 0 }}>

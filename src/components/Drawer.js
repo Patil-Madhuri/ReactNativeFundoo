@@ -1,16 +1,45 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground,TouchableOpacity } from "react-native";
+import { View, Text, Image, ImageBackground, TouchableOpacity } from "react-native";
 import { Icon, Divider } from 'react-native-elements';
 import localStorage from 'react-native-sync-localstorage';
+import Constant from '../config/Constant';
 var styleSheet = require('../css/styles');
 var styles = styleSheet.style;
+
 export default class Drawer extends Component {
+
+
     logOut() {
-        console.log("inside logout()...............");
-
         localStorage.clear();
-        this.props.props.navigate('Login');
+        this.props.navigation.navigate('Login');
+    }
 
+    onSelected(noteType) {
+        switch (noteType) {
+            case Constant.NOTES:
+                console.log("inside notes");
+                this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_YELLOW);
+                break;
+            case Constant.REMINDERS:
+                console.log("inside reminders");
+                this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
+                break;
+            case Constant.ARCHIVE:
+                console.log("inside archive");
+                this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
+                break;
+            case Constant.TRASH:
+                console.log("inside Trash");
+                this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_BROWN);
+                break;
+            case Constant.LABEL:
+                console.log("inside Label");
+                this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
+                break;
+            default:
+                console.log("inside default case");
+                break;
+        }
     }
     render() {
         return (
@@ -29,42 +58,51 @@ export default class Drawer extends Component {
                     </View>
 
                     <View style={{ height: '100%' }}>
-                        <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='lightbulb-outline' size={30} />
-                            <Text style={styles.sidebarText}>Notes</Text>
-                        </View>
-                        <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='reminder' type='material-community' size={30} />
-                            <Text style={styles.sidebarText}>Reminders</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => { this.onSelected(Constant.NOTES) }}>
+                            <View style={styles.sidebarBtn} >
+                                <Icon color="grey" name='lightbulb-outline' size={30} />
+                                <Text style={styles.sidebarText}>{Constant.NOTES}</Text>
+                            </View>
+                        </TouchableOpacity>
 
-                        {/* <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='touch-app' size={30} />
-                            <Text style={styles.sidebarText}>Reminders</Text>
-                        </View> */}
-
+                        <TouchableOpacity onPress={() => { this.onSelected(Constant.REMINDERS) }}>
+                            <View style={styles.sidebarBtn} >
+                                <Icon color="grey" name='reminder' type='material-community' size={30} />
+                                <Text style={styles.sidebarText}>{Constant.REMINDERS}</Text>
+                            </View>
+                        </TouchableOpacity>
                         <Divider style={{ marginTop: 10 }} />
+
                         <View style={{ flexDirection: 'row', marginTop: 10 }}>
                             <Text style={styles.labelText}>Labels</Text>
                             <Text style={{ fontSize: 20 }}>EDIT</Text>
                         </View>
-                        <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='add' size={30} />
-                            <Text style={styles.sidebarText}>Create new label</Text>
-                        </View>
+
+                        <TouchableOpacity onPress={() => { this.onSelected(Constant.LABEL) }}>
+                            <View style={styles.sidebarBtn} >
+                                <Icon color="grey" name='add' size={30} />
+                                <Text style={styles.sidebarText} >Create new label</Text>
+                            </View>
+                        </TouchableOpacity>
 
                         <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 
-                        <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='archive' size={30} />
-                            <Text style={styles.sidebarText}>Archive</Text>
-                        </View>
-                        <View style={styles.sidebarBtn} >
-                            <Icon color="grey" name='delete' size={30} />
-                            <Text style={styles.sidebarText}>Trash</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => { this.onSelected(Constant.ARCHIVE) }}>
+                            <View style={styles.sidebarBtn} >
+                                <Icon color="grey" name='archive' size={30} />
+                                <Text style={styles.sidebarText}>{Constant.ARCHIVE}</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={() => { this.onSelected(Constant.TRASH) }}>
+                            <View style={styles.sidebarBtn} >
+                                <Icon color="grey" name='delete' size={30} />
+                                <Text style={styles.sidebarText}>{Constant.TRASH}</Text>
+                            </View>
+                        </TouchableOpacity>
 
                         <Divider />
+
                         <View style={styles.sidebarBtn} >
                             <Icon color="grey" name='settings' size={30} />
                             <Text style={styles.sidebarText}>Settings</Text>
@@ -74,11 +112,11 @@ export default class Drawer extends Component {
                             <Text style={styles.sidebarText}>Help & feedback</Text>
                         </View>
 
-                            <TouchableOpacity onPress={() => { this.logOut() }}>
-                        <View style={styles.sidebarBtn} >
+                        <TouchableOpacity onPress={() => { this.logOut() }}>
+                            <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='power-settings-new' size={30} />
                                 <Text style={styles.sidebarText}>Logout</Text>
-                        </View>
+                            </View>
                         </TouchableOpacity>
 
 

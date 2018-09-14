@@ -36,14 +36,14 @@ export default class Login extends Component {
   }
 
   componentDidMount(){
-    var userKey = localStorage.getItem('userKey');
-    console.log("uhuhuh-----------------",userKey);
+    // var userKey = localStorage.getItem('userKey'); 
+    // console.log("From Login----------------",userKey);
     
-    if(userKey !== null && userKey !== undefined){
-      this.props.navigation.navigate('Home');
-    }else{
-      this.props.navigation.navigate('Login');
-    }
+    // if(userKey !== null && userKey !== undefined){
+    //   this.props.navigation.navigate('Home');
+    // }else{
+    //   this.props.navigation.navigate('Login');
+    // }
   }
 
   render() {

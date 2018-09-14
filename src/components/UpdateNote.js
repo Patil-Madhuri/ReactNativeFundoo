@@ -7,16 +7,17 @@ export default class UpdateNote extends Component {
    
     constructor() {
         super();
+        var currentTime = new Date().toLocaleTimeString([], { hour12: true});
         this.state = {
             title: '',
-            description: ''
+            description: '',
+            time : currentTime
         }
     }
  
     renderHeader() {
         var noteKey = this.props.noteKey;
         var note = this.props.note;
-
         return (
             <View style={{flexDirection : 'row'}}>
                 <Icon name="arrow-back"
@@ -38,7 +39,7 @@ export default class UpdateNote extends Component {
     }
     render() {
         var note = this.props.note;
-        console.log("Update:  ",note);
+        
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
                 <Header
@@ -67,7 +68,7 @@ export default class UpdateNote extends Component {
                                     <Icon name='add-box' size={30} color="grey" iconStyle={{ paddingTop: 8 }} />
                                 </View>
                                 <View style={{ width: '60%', paddingTop: 8 }}>
-                                    <Text style={{ fontSize: 20 }}>Mukesh</Text>
+                                <Text style={{ fontSize: 15 }}>Edited {this.state.time}</Text>
                                 </View>
                                 <View style={{ width: '20%' }} >
                                     <Icon name='more' size={30} color="grey" iconStyle={{ paddingTop: 8 }} />

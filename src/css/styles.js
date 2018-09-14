@@ -43,7 +43,7 @@ export const style = StyleSheet.create({
     },
     navigationButton: {
         flexDirection: 'row',
-        marginLeft: 80,
+        marginLeft: 60,
         paddingTop: 3
     },
     view1: {
@@ -93,9 +93,6 @@ export const style = StyleSheet.create({
         marginLeft: 10,
         paddingRight: 140
     }
-
-
-
 })
 
 

@@ -4,28 +4,29 @@ import TakeNote from './TakeNote';
 import Drawer from './Drawer';
 import { Header, Icon } from 'react-native-elements';
 import DisplayNotes from './DisplayNotes';
+import Constant from '../config/Constant';
+// var Constant = require('../config/Constant');
 var noteService = require('../services/NoteService');
 var styleSheet = require('../css/styles');
 var style = styleSheet.style;
 
 export default class Home extends Component {
-    constructor() {
-        super();
-        this.state = {
-            switchGrid: false
-        }
+    constructor(props) {
+        super(props);
         this.changeView = this.changeView.bind(this);
-        this.handleListGridView = this.handleListGridView.bind(this);
+        this.state = {
+            noteType : Constant.NOTES,
+            headerColor : Constant.HEADER_COLOR_DARK_YELLOW,
+            headerTitle : Constant.NOTES
+        }
     }
     changeView = () => {
         this.props.navigation.push('AddNote');
     }
-
-    handleListGridView() {
-        console.log("inside handleListGridView");
-
-        this.setState = ({
-            switchGrid: !this.state.switchGrid
+    didSelectMenuItem = (noteType,headerColor) =>{
+        this.setState ({
+            noteType : noteType,
+            headerColor : headerColor
         })
     }
 
@@ -34,20 +35,17 @@ export default class Home extends Component {
             <View style={style.view1}>
                 <View style={{ flexDirection: 'row', width: '100%' }}>
                     <Icon name='menu' size={30} color='white'
+                        iconStyle={{ marginLeft: -10 }}
                         onPress={() => { this.drawer.openDrawer() }}
                     />
-                    <Text style={style.notesTitle}>Notes</Text>
+                    <Text style={style.notesTitle}>{this.state.noteType}</Text>
 
                     <View style={style.navigationButton}>
                         <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
                         <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        {!this.state.switchGrid ?
-                            <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }}
-                                onPress={() => { this.handleListGridView();noteService.listView() }} />
-                            :
-                            <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
-                                onPress={() => { this.handleListGridView().noteService.gridView() }} />
-                        }
+                        <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }}  />
+                        <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
+                        />
                     </View>
                 </View>
             </View>
@@ -55,7 +53,9 @@ export default class Home extends Component {
     }
     render() {
         var navigationView = (
-            <Drawer props={this.props.navigation} />
+            <Drawer navigation={this.props.navigation} onItemSelected={(noteType,headerColor)=> {
+                    this.didSelectMenuItem(noteType,headerColor)
+            }} />
         );
 
         return (
@@ -66,7 +66,7 @@ export default class Home extends Component {
                 renderNavigationView={() => navigationView}>
                 <Header
                     centerComponent={this.renderHeader()}
-                    backgroundColor="#fb0"
+                    backgroundColor= {this.state.headerColor}
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
                     <DisplayNotes />

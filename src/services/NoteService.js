@@ -62,6 +62,22 @@ module.exports = {
         }
         noteService.updateNoteStatus(key, note);
     },
+    
+    listView: function () {
+        console.log("inside listView.............................");
+        
+        var notes = document.getElementsByClassName("notes");
+        for (var i = 0; i < notes.length; i++) {
+            notes[i].style.width = "70%";
+        }
+    },
+
+    gridView: function () {
+        var notes = document.getElementsByClassName("notes");
+        for (var i = 0; i < notes.length; i++) {
+            notes[i].style.width = "240px";
+        }
+    },
     updateNote: function (title, description, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();
