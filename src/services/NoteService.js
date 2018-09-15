@@ -1,5 +1,6 @@
 import app from '../config/Firebase';
 import localStorage from 'react-native-sync-localstorage';
+import Constant from '../config/Constant';
 var noteService = require('../services/NoteService.js')
 module.exports = {
     createNote: function (note) {
@@ -22,18 +23,32 @@ module.exports = {
         }
 
     },
-    getNotes: function (callback) {
+    getNotes: function (noteType,callback) {
         var database = app.database();
         var noteRef = database.ref('notes');
         var userKey = localStorage.getItem('userKey');
-        console.log("................................",userKey);
+        var notes = [];
+        // noteRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
+        //     var notesResponse = snapshot.val();
+        //     notes = notesResponse;
+        //     return callback(notes);
+        // });        
+            noteRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
+                notes = notesResponseToArray(snapshot);
+                notes = Constant.filteredNoteAccordingStatus(notes, noteType);
+                callback(notes);
+            });
         
-        var notes;
-        noteRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
-            var notesResponse = snapshot.val();
-            notes = notesResponse;
-            return callback(notes);
-        });
+        function notesResponseToArray(snapshot) {
+            var returnArr = [];
+            snapshot.forEach(function (childSnapshot) {
+                var note = childSnapshot.val();
+                note.key = childSnapshot.key;
+                returnArr.push(note);
+            });
+
+            return returnArr;
+        };
     },
     isPinNote: function (key, note) {
         if (note.isPin === false) {
@@ -62,22 +77,6 @@ module.exports = {
         }
         noteService.updateNoteStatus(key, note);
     },
-    
-    listView: function () {
-        console.log("inside listView.............................");
-        
-        var notes = document.getElementsByClassName("notes");
-        for (var i = 0; i < notes.length; i++) {
-            notes[i].style.width = "70%";
-        }
-    },
-
-    gridView: function () {
-        var notes = document.getElementsByClassName("notes");
-        for (var i = 0; i < notes.length; i++) {
-            notes[i].style.width = "240px";
-        }
-    },
     updateNote: function (title, description, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();
@@ -88,7 +87,7 @@ module.exports = {
             }
             noteRef.child(key).update(note);
         }
-    }
+    },
 }
 
 exports.updateNoteStatus = (key, note) => {
