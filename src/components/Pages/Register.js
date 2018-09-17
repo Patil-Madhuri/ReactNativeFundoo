@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { Text, View, TextInput,Alert } from 'react-native';
 import { Card, Button, Icon } from 'react-native-elements';
-var styleSheet = require('../css/styles');
+var styleSheet = require('../../css/styles');
 var styles = styleSheet.style;
 // var userCtrl = require('../controllers/UserCtrl');
-var userService = require('../services/UserService');
-import { Alert } from 'react-native';
-import app from '../config/Firebase';
+var userService = require('../../services/UserService');
+import app from '../../config/Firebase';
 
 export default class Register extends Component {
     constructor(props) {

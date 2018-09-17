@@ -34,6 +34,11 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'flex-end'
     },
+    noteStatus : {
+         fontWeight: 'bold', 
+         fontSize: 20,
+         marginLeft : 15
+    },
     notesTitle: {
         fontSize: 30,
         fontWeight: "bold",
@@ -43,7 +48,7 @@ export const style = StyleSheet.create({
     },
     navigationButton: {
         flexDirection: 'row',
-        marginLeft: 60,
+        marginLeft: 45,
         paddingTop: 3
     },
     view1: {
@@ -55,6 +60,17 @@ export const style = StyleSheet.create({
         padding: 0,
         marginLeft: 0,
         height: 60
+    },
+    labelCard : {
+        width: '100%',
+        padding: 0,
+        marginLeft: 0,
+        height: 70,
+        marginTop : -8
+    },
+    labelCardView :{
+        flexDirection : 'row',
+        marginTop : 7
     },
     takeNoteCardIcon: {
         width: '50%',

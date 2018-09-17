@@ -1,33 +1,21 @@
 import React, { Component } from 'react';
 import { View, DrawerLayoutAndroid, Text } from 'react-native';
-import TakeNote from './TakeNote';
-import Drawer from './Drawer';
+import TakeNote from '../Notes/Actions/TakeNote';
+import Drawer from '../Notes/Actions/Drawer';
 import { Header, Icon } from 'react-native-elements';
-import DisplayNotes from './DisplayNotes';
-import Constant from '../config/Constant';
-// var Constant = require('../config/Constant');
-var noteService = require('../services/NoteService');
-var styleSheet = require('../css/styles');
+import DisplayNotes from '../Notes/DisplayNotes';
+import ArchiveNotes from '../Notes/Actions/ArchiveNotes';
+import TrashNotes from '../Notes/Actions/TrashNotes';
+var styleSheet = require('../../css/styles');
 var style = styleSheet.style;
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
         this.changeView = this.changeView.bind(this);
-        this.state = {
-            noteType : Constant.NOTES,
-            headerColor : Constant.HEADER_COLOR_DARK_YELLOW,
-            headerTitle : Constant.NOTES
-        }
     }
     changeView = () => {
         this.props.navigation.push('AddNote');
-    }
-    didSelectMenuItem = (noteType,headerColor) =>{
-        this.setState ({
-            noteType : noteType,
-            headerColor : headerColor
-        })
     }
 
     renderHeader() {
@@ -38,7 +26,7 @@ export default class Home extends Component {
                         iconStyle={{ marginLeft: -10 }}
                         onPress={() => { this.drawer.openDrawer() }}
                     />
-                    <Text style={style.notesTitle}>{this.state.noteType}</Text>
+                    <Text style={style.notesTitle}>Notes</Text>
 
                     <View style={style.navigationButton}>
                         <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
@@ -53,9 +41,7 @@ export default class Home extends Component {
     }
     render() {
         var navigationView = (
-            <Drawer navigation={this.props.navigation} onItemSelected={(noteType,headerColor)=> {
-                    this.didSelectMenuItem(noteType,headerColor)
-            }} />
+            <Drawer navigation={this.props.navigation} />
         );
 
         return (
@@ -66,10 +52,12 @@ export default class Home extends Component {
                 renderNavigationView={() => navigationView}>
                 <Header
                     centerComponent={this.renderHeader()}
-                    backgroundColor= {this.state.headerColor}
+                    backgroundColor= "#fb0"
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
                     <DisplayNotes />
+                    {/* <ArchiveNotes />
+                    <TrashNotes/> */}
                     <TakeNote newComponent={this.changeView} />
                 </View>
             </DrawerLayoutAndroid>

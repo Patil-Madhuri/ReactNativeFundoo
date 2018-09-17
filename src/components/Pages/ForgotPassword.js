@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput } from 'react-native';
-import { Card, Button, Icon, Divider } from 'react-native-elements';
-
-
-var styleSheet = require('../css/styles');
+import { Card, Button, Icon } from 'react-native-elements';
+var styleSheet = require('../../css/styles');
 var styles = styleSheet.style;
 export default class ForgotPassword extends Component {
     render() {

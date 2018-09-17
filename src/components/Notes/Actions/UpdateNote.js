@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, TextInput } from "react-native";
 import { Card, Icon, Text, Header } from 'react-native-elements';
-var noteService = require('../services/NoteService');
+var noteService = require('../../../services/NoteService');
 
 export default class UpdateNote extends Component {
    

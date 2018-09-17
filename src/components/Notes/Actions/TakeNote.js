@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View,  TextInput, TouchableOpacity } from "react-native";
 import { Icon, Card } from 'react-native-elements';
-var styleSheet = require('../css/styles');
+var styleSheet = require('../../../css/styles');
 var styles = styleSheet.style;
+
 export default class TakeNote extends Component {
     constructor(){
         super();

@@ -1,7 +1,5 @@
 import app from '../config/Firebase';
 import localStorage from 'react-native-sync-localstorage';
-import Home from '../components/Home';
-var noteService = require('../services/NoteService');
 
 module.exports = {
   registerUser: function (user) {
@@ -34,6 +32,9 @@ module.exports = {
             localStorage.setItem('imageUrl', userData.ImageUrl);
           })
           callback(true);
+        }
+        else{
+          alert("Wrong Password");
         }
       })
     })

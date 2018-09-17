@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Alert } from 'react-native';
 import { Card, Button, Icon, Divider } from 'react-native-elements';
-import localStorage from 'react-native-sync-localstorage';
-var userService = require('../services/UserService');
-var styleSheet = require('../css/styles');
+// import localStorage from 'react-native-sync-localstorage';
+var userService = require('../../services/UserService');
+var styleSheet = require('../../css/styles');
 var styles = styleSheet.style;
 
 export default class Login extends Component {

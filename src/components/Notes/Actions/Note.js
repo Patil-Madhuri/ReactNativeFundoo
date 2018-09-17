@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Text, Modal, TouchableOpacity } from "react-native";
-import { Card } from "react-native-elements";
-import UpdateNote from "./UpdateNote";
+import { Text, Modal, TouchableOpacity, View } from "react-native";
+import { Card, Icon } from "react-native-elements";
+import UpdateNote from "../Actions/UpdateNote";
 
 export default class Note extends Component {
     constructor() {
         super();
-
         this.setModalVisible = this.setModalVisible.bind(this);
         this.state = {
             modalVisible: false,
@@ -22,13 +21,19 @@ export default class Note extends Component {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         return (
-            <Card key={noteKey} containerStyle={{ width: '45%',margin: 7 }} className="notes">
-                <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
-                    <Text style={{fontSize: 20, fontWeight : 'bold'}}>{note.Notetitle}</Text>
-                </TouchableOpacity>
+            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7 }} >
+                <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>
+                    </TouchableOpacity>
+                    {note.isPin === true ?
+                        <Icon name='pin' type='material-community' size={25} color="#4285f4" iconStyle={{ padding: 5, justifyContent: 'flex-end' }} />
+                        : null
+                    }
+                </View>
 
                 <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
-                    <Text style={{fontSize: 20}}>{note.NoteDesc}</Text>
+                    <Text style={{ fontSize: 20 }}>{note.NoteDesc}</Text>
                 </TouchableOpacity>
 
                 <Modal
@@ -37,9 +42,9 @@ export default class Note extends Component {
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
                         console.log('Modal closed');
-                      }}                   >
+                    }}>
                     <UpdateNote note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
-                     onClick={this.setModalVisible}/>
+                        onClick={this.setModalVisible} />
                 </Modal>
             </Card>
 

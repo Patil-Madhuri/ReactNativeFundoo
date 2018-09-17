@@ -4,13 +4,12 @@ import { Card, Icon, Text } from 'react-native-elements';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { renderers } from 'react-native-popup-menu';
 const { SlideInMenu } = renderers;
-var noteService = require('../services/NoteService');
-var styleSheet = require('../css/styles');
+var noteService = require('../../../services/NoteService');
+var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
 
 export default class AddNote extends Component {
     static navigationOptions = ({ navigation }) => {
-
         const params = navigation.state.params || { noteTitle: "", noteDescription: "" };
         return {
             headerLeft: (
@@ -21,9 +20,11 @@ export default class AddNote extends Component {
             ),
             headerTitle:
                 <View style={{ flexDirection: 'row', marginLeft: 220 }}>
-                    <Icon name='pin' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                    <Icon name='pin' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }}
+                        onPress={() => { noteService.isPinNote(noteKey, note) }} />
                     <Icon name='reminder' type='material-community' size={30} color="grey" iconStyle={{ padding: 5 }} />
-                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }} />
+                    <Icon name='archive' size={30} color="grey" iconStyle={{ padding: 5 }}
+                        onPress={() => { noteService.isArchiveNote(noteKey, note) }} />
                 </View>
         }
     }
@@ -41,7 +42,7 @@ export default class AddNote extends Component {
 
     render() {
         return (
-            <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1,zIndex : 0 }}>
+            <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1, zIndex: 0 }}>
                 <View>
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
                         onChangeText={(title) => this.props.navigation.setParams({ noteTitle: title })} />
@@ -57,11 +58,11 @@ export default class AddNote extends Component {
                         <Card containerStyle={{
                             width: '100%', height: 60, padding: 0,
                             marginLeft: 0, flexDirection: 'row',
-                            position  :'relative'
+                            position: 'relative'
                         }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: '20%'}}>
-                                    <MenuProvider style={{ flex: 1}}>
+                                <View style={{ width: '20%' }}>
+                                    <MenuProvider style={{ flex: 1 }}>
                                         <Menu name="numbers" renderer={SlideInMenu}  >
                                             <MenuTrigger customStyles={{
                                                 trigger: {
@@ -69,9 +70,9 @@ export default class AddNote extends Component {
                                                     margin: 5,
                                                 }
                                             }}>
-                                                <Icon name='add-box' size={30} color="grey" iconStyle={{ paddingTop: 12, paddingLeft: 15}} />
+                                                <Icon name='add-box' size={30} color="grey" iconStyle={{ paddingTop: 12, paddingLeft: 15 }} />
                                             </MenuTrigger>
-                                            <MenuOptions customStyles={{optionWrapper: {position: 'relative' , zIndex:3} }}>
+                                            <MenuOptions customStyles={{ optionWrapper: { position: 'relative', zIndex: 3 } }}>
                                                 <MenuOption text='Option one' />
                                                 <MenuOption text='Option two' />
                                                 <MenuOption text='Option three' />
