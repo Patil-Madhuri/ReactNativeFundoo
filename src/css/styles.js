@@ -72,6 +72,12 @@ export const style = StyleSheet.create({
         flexDirection : 'row',
         marginTop : 7
     },
+    displayLabelName : {
+        fontSize:20,
+        width:'70%',
+        paddingLeft : 10,
+        paddingRight :10
+    },
     takeNoteCardIcon: {
         width: '50%',
         flexDirection: 'row',

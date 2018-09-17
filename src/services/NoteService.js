@@ -76,6 +76,29 @@ module.exports = {
             noteRef.child(key).update(note);
         }
     },
+    createLabel : function(labelName){
+        var userKey = localStorage.getItem('userKey');
+        var database = app.database();
+        var labelRef = database.ref('labels');
+        if(labelName !== null){
+            labelRef.push({
+                UserId : userKey,
+                labelName : labelName
+            })
+        }
+        
+    },
+    getLabels: function (callback) {
+        var userKey = localStorage.getItem('userKey');
+        var database = app.database();
+        var labelRef = database.ref('labels');
+        var labels;
+        labelRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
+            var labelResponse = snapshot.val();
+            labels = labelResponse;
+            return callback(labels);
+        });
+    },
 }
 
 exports.updateNoteStatus = (key, note) => {
