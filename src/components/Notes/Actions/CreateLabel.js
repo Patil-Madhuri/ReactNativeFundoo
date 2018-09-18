@@ -25,9 +25,7 @@ export default class CreateLabel extends Component {
         super();
         this.state = {
             labelName: null,
-            showEdit: true,
-            labels : [],
-            text : null
+            labels : []
         }
     }
     componentDidMount() {
@@ -50,10 +48,9 @@ export default class CreateLabel extends Component {
                         <Icon name="close" color="grey" size={30} iconStyle={{ alignItems: 'flex-start' }} />
                         <TextInput placeholder="Create new label" selectTextOnFocus={true}
                             onChangeText={(labelName) => this.setState({ labelName })} style={{ width: '80%', fontSize: 20 }} 
-                            value={this.state.text}
-                            />
+                            ref={input => { this.textInput = input }} />
                         <Icon name="done" color="grey" size={30} iconStyle={{ alignItems: 'flex-end' }} 
-                        onPress={() => noteService.createLabel(this.state.labelName)}/>
+                        onPress={() => {this.textInput.clear();noteService.createLabel(this.state.labelName)}} />
                     </View>
                 </Card>
 
@@ -63,8 +60,8 @@ export default class CreateLabel extends Component {
                         var label = this.state.labels[labelId];
                         if (label) {
                             return (
-                                <View style={{flexDirection : 'row'}}>
-                                    <Icon name="label" color="grey" size={30} iconStyle={{alignItems : 'flex-start',paddingLeft : 10}}/>
+                                <View style={{flexDirection : 'row',padding : 10}}>
+                                    <Icon name="label" color="grey" size={30} iconStyle={{alignItems : 'flex-start',paddingLeft : 15}}/>
                                     <Text style={style.displayLabelName}>{label.labelName}</Text>
                                     <Icon name="edit" color="grey" size={30} iconStyle={{alignItems : 'flex-end'}}/>
 

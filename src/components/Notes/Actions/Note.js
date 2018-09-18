@@ -27,7 +27,7 @@ export default class Note extends Component {
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>
                     </TouchableOpacity>
                     {note.isPin === true ?
-                        <Icon name='pin' type='material-community' size={25} color="#4285f4" iconStyle={{ padding: 5, justifyContent: 'flex-end' }} />
+                        <Icon name='pin' type='material-community' size={25} color="#4285f4" iconStyle={{ alignItems: 'flex-end' }} />
                         : null
                     }
                 </View>
