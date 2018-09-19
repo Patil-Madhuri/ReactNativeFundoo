@@ -114,7 +114,92 @@ export const style = StyleSheet.create({
         fontSize: 20,
         marginLeft: 10,
         paddingRight: 140
-    }
+    },
+    addNoteBottomStyle : {
+        shadowOffset: {
+            height: -2,
+            width: 0
+        },
+        backgroundColor: 'white',
+        shadowOpacity: 1,
+        elevation: 4,
+        shadowColor: '#000000',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        bottom: 0,
+    },
+    parentStyle: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        shadowOffset: {
+            height: -1,
+            width: 0
+        },
+        backgroundColor: '#FBFCFC',
+        shadowOpacity: 0.8,
+        shadowColor: '#000000',
+        elevation: 4,
+
+    },
+    viewMiddle: {
+        flex: 1,
+        justifyContent: 'center',
+        height: 50,
+        backgroundColor: '#FBFCFC',
+
+    },
+    viewFirst: {
+        backgroundColor: '#FBFCFC',
+        height: 50,
+        justifyContent: 'center'
+    },
+    viewLast: {
+        backgroundColor: '#FBFCFC',
+        height: 50,
+        justifyContent: 'center'
+    },
+    textStyle: {
+        height: 50,
+        color: 'grey',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        backgroundColor: '#FBFCFC'
+
+    },
+    buttonsGroupStyle: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        justifyContent: 'center'
+    },
+    slideMenuStyle: {
+        shadowOffset: {
+            height: 0,
+            width: 0
+        },
+        backgroundColor: 'white',
+        shadowOpacity: 1,
+        elevation: 4,
+        shadowColor: '#000000',
+        width: '100%',
+    },
+    slidemenustyle: {
+        backgroundColor: 'white',        
+        height: 50,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        paddingLeft:8
+        
+    },
+    slideMenuCellTextStyle: {
+        textAlign: 'center',
+        textAlignVertical:'center',
+        paddingLeft: 8,
+        fontSize: 14,
+    }    
 })
 
 

@@ -99,6 +99,7 @@ module.exports = {
             return callback(labels);
         });
     },
+   
 }
 
 exports.updateNoteStatus = (key, note) => {

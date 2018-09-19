@@ -73,6 +73,8 @@ export default class CreateLabel extends Component {
                         }
                     })}
                 </View>
+
+                
             </View>
         );
     }

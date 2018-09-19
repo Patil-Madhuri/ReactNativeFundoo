@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, TextInput } from "react-native";
-import { Card, Icon, Text } from 'react-native-elements';
-import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { renderers } from 'react-native-popup-menu';
-const { SlideInMenu } = renderers;
+import { View, TextInput, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Icon } from 'react-native-elements';
+import AddNoteBottom from './AddNoteBottom';
+import ColorList from './ColorList';
+import HandleMorePress from './HandleMorePress';
+import HandleAddPress from './HandleAddPress';
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
@@ -36,63 +37,41 @@ export default class AddNote extends Component {
             title: '',
             description: '',
             time: currentTime,
-            log: []
+            log: [],
+            color: "#fafafa",
+            isOpenedPlusMenu: false,
+            isOpenedMoreMenu: false
         }
+    }
+    handleAddPress = () => {
+        this.setState({ isOpenedPlusMenu: !this.state.isOpenedPlusMenu });
+    }
+
+    handleMorePress = () => {
+        this.setState({ isOpenedMoreMenu: !this.state.isOpenedMoreMenu });
+    }
+    onNoteColorChange = (color) => {
+        this.setState({ color: color });
     }
 
     render() {
         return (
-            <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1, zIndex: 0 }}>
-                <View>
+            <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
+                <ScrollView>
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
                         onChangeText={(title) => this.props.navigation.setParams({ noteTitle: title })} />
 
                     <TextInput placeholder="Note" style={{ fontSize: 20, padding: 15 }}
                         selectTextOnFocus={true} multiline={true}
                         onChangeText={(description) => this.props.navigation.setParams({ noteDescription: description })} />
+                </ScrollView>
 
+                <View style={style.slideMenuStyle}>
+                    <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
+                    <HandleMorePress openMoreMenu={this.state.isOpenedMoreMenu} />
                 </View>
-
-                <View style={{ alignSelf: 'flex-end', position: 'absolute', bottom: 0 }}>
-                    <View>
-                        <Card containerStyle={{
-                            width: '100%', height: 60, padding: 0,
-                            marginLeft: 0, flexDirection: 'row',
-                            position: 'relative'
-                        }}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <View style={{ width: '20%' }}>
-                                    <MenuProvider style={{ flex: 1 }}>
-                                        <Menu name="numbers" renderer={SlideInMenu}  >
-                                            <MenuTrigger customStyles={{
-                                                trigger: {
-                                                    padding: 5,
-                                                    margin: 5,
-                                                }
-                                            }}>
-                                                <Icon name='add-box' size={30} color="grey" iconStyle={{ paddingTop: 12, paddingLeft: 15 }} />
-                                            </MenuTrigger>
-                                            <MenuOptions customStyles={{ optionWrapper: { position: 'relative', zIndex: 3 } }}>
-                                                <MenuOption text='Option one' />
-                                                <MenuOption text='Option two' />
-                                                <MenuOption text='Option three' />
-                                                <MenuOption text='Option four' />
-                                                <MenuOption text='Option five' />
-                                            </MenuOptions>
-                                        </Menu>
-                                    </MenuProvider>
-                                </View>
-                                <View style={{ width: '60%', paddingTop: 8 }}>
-                                    <Text style={{ fontSize: 20 }}>Edited {this.state.time}</Text>
-                                </View>
-                                <View style={{ width: '20%' }} >
-                                    <Icon name='more' size={30} color="grey" iconStyle={{ paddingTop: 8 }} />
-                                </View>
-                            </View>
-                        </Card>
-
-
-                    </View>
+                <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>
+                    <AddNoteBottom time={this.state.time} onPressPlus={this.handleAddPress} onPressMore={this.handleMorePress}></AddNoteBottom>
                 </View>
 
             </View>

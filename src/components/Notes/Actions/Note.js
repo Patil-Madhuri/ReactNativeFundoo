@@ -19,6 +19,7 @@ export default class Note extends Component {
 
     render() {
         var note = this.props.note;
+    
         var noteKey = this.props.noteKey;
         return (
             <Card key={noteKey} containerStyle={{ width: '45%', margin: 7 }} >
@@ -35,6 +36,7 @@ export default class Note extends Component {
                 <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                     <Text style={{ fontSize: 20 }}>{note.NoteDesc}</Text>
                 </TouchableOpacity>
+                
 
                 <Modal
                     animationType="slide"
