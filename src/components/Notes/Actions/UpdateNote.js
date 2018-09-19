@@ -17,11 +17,17 @@ export default class UpdateNote extends Component {
             title: '',
             description: '',
             time: currentTime,
-            isOpenedMoreMenu: false
+            color : '#fafafa',
+            isOpenedMoreMenu: false,
+            isOpenedPlusMenu : false
         }
     }
     handleMorePress = () => {
         this.setState({ isOpenedMoreMenu: !this.state.isOpenedMoreMenu });
+    }
+
+    handleAddPress = () => {
+        this.setState({ isOpenedPlusMenu: !this.state.isOpenedPlusMenu });
     }
 
     renderHeader() {
@@ -53,6 +59,7 @@ export default class UpdateNote extends Component {
     }
     render() {
         var note = this.props.note;
+        var noteKey = this.props.noteKey;
 
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
@@ -73,7 +80,7 @@ export default class UpdateNote extends Component {
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress openMoreMenu={this.state.isOpenedMoreMenu} />
+                    <HandleMorePress openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey}/>
                 </View>
 
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>

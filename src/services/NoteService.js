@@ -17,7 +17,8 @@ module.exports = {
                 isArchive: false,
                 Reminder: '',
                 ImageUrl: '',
-                Labels: []
+                Labels: [],
+                color: "#fafafa"
             })
         }
 

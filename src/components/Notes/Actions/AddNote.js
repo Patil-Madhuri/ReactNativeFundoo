@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, TextInput, Text, TouchableOpacity, ScrollView } from "react-native";
 import { Icon } from 'react-native-elements';
 import AddNoteBottom from './AddNoteBottom';
-import ColorList from './ColorList';
 import HandleMorePress from './HandleMorePress';
 import HandleAddPress from './HandleAddPress';
 var noteService = require('../../../services/NoteService');
@@ -38,7 +37,6 @@ export default class AddNote extends Component {
             description: '',
             time: currentTime,
             log: [],
-            color: "#fafafa",
             isOpenedPlusMenu: false,
             isOpenedMoreMenu: false
         }
@@ -50,10 +48,7 @@ export default class AddNote extends Component {
     handleMorePress = () => {
         this.setState({ isOpenedMoreMenu: !this.state.isOpenedMoreMenu });
     }
-    onNoteColorChange = (color) => {
-        this.setState({ color: color });
-    }
-
+  
     render() {
         return (
             <View onPress={this.props.newComponent} style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
@@ -73,7 +68,6 @@ export default class AddNote extends Component {
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>
                     <AddNoteBottom time={this.state.time} onPressPlus={this.handleAddPress} onPressMore={this.handleMorePress}></AddNoteBottom>
                 </View>
-
             </View>
         );
     }

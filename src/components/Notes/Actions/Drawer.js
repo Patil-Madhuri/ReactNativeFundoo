@@ -28,33 +28,7 @@ export default class Drawer extends Component {
             }
         });
     }
-    // onSelected(noteType) {
-    //     switch (noteType) {
-    //         case Constant.NOTES:
-    //             console.log("inside notes");
-    //             this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_YELLOW);
-    //             break;
-    //         case Constant.REMINDERS:
-    //             console.log("inside reminders");
-    //             this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
-    //             break;
-    //         case Constant.ARCHIVE:
-    //             console.log("inside archive");
-    //             this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
-    //             break;
-    //         case Constant.TRASH:
-    //             console.log("inside Trash");
-    //             this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_BROWN);
-    //             break;
-    //         case Constant.LABEL:
-    //             console.log("inside Label");
-    //             this.props.onItemSelected(noteType, Constant.HEADER_COLOR_DARK_GRAY);
-    //             break;
-    //         default:
-    //             console.log("inside default case");
-    //             break;
-    //     }
-    // }
+   
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -73,7 +47,7 @@ export default class Drawer extends Component {
 
                     <View style={{ height: '100%' }}>
                         {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.NOTES) }}> */}
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress= {() => this.props.viewState('home')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='lightbulb-outline' size={30} />
                                 <Text style={styles.sidebarText}>Notes</Text>
@@ -124,7 +98,7 @@ export default class Drawer extends Component {
                         <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 
                         {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.ARCHIVE)}}> */}
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('ArchiveNotes')}>
+                        <TouchableOpacity onPress={() => this.props.viewState('archive')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='archive' size={30} />
                                 <Text style={styles.sidebarText}>Archive</Text>
@@ -132,7 +106,7 @@ export default class Drawer extends Component {
                         </TouchableOpacity>
 
                         {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.TRASH) }}> */}
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('TrashNotes')}>
+                        <TouchableOpacity onPress={() => this.props.viewState('trash')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='delete' size={30} />
                                 <Text style={styles.sidebarText}>Trash</Text>

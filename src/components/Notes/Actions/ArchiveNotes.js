@@ -24,34 +24,10 @@ export default class ArchiveNotes extends Component {
             }
         })
     }
-    renderHeader() {
-        return (
-            <View style={style.view1}>
-                <View style={{ flexDirection: 'row', width: '100%' }}>
-                    <Icon name='menu' size={30} color='white'
-                        iconStyle={{ marginLeft: -10 }}
-                        onPress={() => { this.drawer.openDrawer() }}
-                    />
-                    <Text style={style.notesTitle}>Archive</Text>
 
-                    <View style={style.navigationButton}>
-                        <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }}  />
-                        <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
-                        />
-                    </View>
-                </View>
-            </View>
-        );
-    }
     render() {
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
-             <Header
-                    centerComponent={this.renderHeader()}
-                    backgroundColor=  "#607D8B"
-                />
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     {Object.keys(this.state.notes).map((key) => {
                         var noteKey = key;
