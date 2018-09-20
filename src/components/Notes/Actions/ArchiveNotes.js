@@ -32,6 +32,7 @@ export default class ArchiveNotes extends Component {
                     {Object.keys(this.state.notes).map((key) => {
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
+                        note.isSelected = false;
                         if(note.isArchive === true)
                         {
                             return (

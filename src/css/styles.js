@@ -198,8 +198,9 @@ export const style = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical:'center',
         paddingLeft: 8,
-        fontSize: 14,
-    }    
+        fontSize: 20,
+    },
+    
 })
 
 

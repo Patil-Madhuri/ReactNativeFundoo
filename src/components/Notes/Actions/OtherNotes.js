@@ -31,6 +31,7 @@ export default class OtherNotes extends Component{
                     {Object.keys(this.state.notes).map((key) => {                        
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
+                        note.isSelected = false;
                         if(note.isArchive === false && note.isTrash === false && note.isPin === false){
                             return (
                                 <Note note={note} noteKey={noteKey} />

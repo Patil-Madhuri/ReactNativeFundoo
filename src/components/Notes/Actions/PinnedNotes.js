@@ -21,7 +21,8 @@ export default class PinnedNotes extends Component {
             }
         })
     }
-  
+
+    
     render() {
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
@@ -29,12 +30,12 @@ export default class PinnedNotes extends Component {
                     {Object.keys(this.state.notes).map((key) => {
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
-                        if(note.isPin === true)
-                        {
+                        note.isSelected = false;
+                        if (note.isPin === true && note.isTrash === false && note.isArchive === false) {
                             return (
                                 <Note note={note} noteKey={noteKey} />
                             )
-                        }                
+                        }
                     })}
                 </View>
             </View>

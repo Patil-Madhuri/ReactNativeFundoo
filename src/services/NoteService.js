@@ -66,13 +66,18 @@ module.exports = {
         }
         noteService.updateNoteStatus(key, note);
     },
-    updateNote: function (title, description, key) {
+    addReminder : function(key,note){
+        
+
+    },
+    updateNote: function (title, description,color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();
             var noteRef = database.ref('notes');
             var note = {
                 Notetitle: title,
-                NoteDesc: description
+                NoteDesc: description,
+                color : color
             }
             noteRef.child(key).update(note);
         }

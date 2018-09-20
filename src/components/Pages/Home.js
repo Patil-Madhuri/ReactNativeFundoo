@@ -6,6 +6,8 @@ import { Header, Icon } from 'react-native-elements';
 import DisplayNotes from '../Notes/DisplayNotes';
 import ArchiveNotes from '../Notes/Actions/ArchiveNotes';
 import TrashNotes from '../Notes/Actions/TrashNotes';
+// import DashboardHeaderOptions from '../Notes/Actions/DashboardHeaderOptions';
+var noteService = require('../../services/NoteService');
 var styleSheet = require('../../css/styles');
 var style = styleSheet.style;
 
@@ -14,65 +16,84 @@ export default class Home extends Component {
         super(props);
         this.changeView = this.changeView.bind(this);
         this.changeViewState = this.changeViewState.bind(this);
-        this.state={
-            viewState:"home"
+        this.state = {
+            viewState: "home",
+            notes: []
         }
     }
+    componentDidMount() {
+        var self = this;
+        noteService.getNotes(function (notesList) {
+            if (notesList !== null && notesList !== undefined) {
+                self.setState({ notes: notesList });
+            }
+            else {
+                self.setState({ notes: [] });
+            }
+        })
+    }
+
     changeView = () => {
         this.props.navigation.push('AddNote');
     }
 
-    changeViewState(viewState){
-        this.setState({viewState:viewState});
+    changeViewState(viewState) {
+        this.setState({ viewState: viewState });
         this.drawer.closeDrawer();
     }
+    
     renderHeader() {
         let title;
-
-        if(this.state.viewState === 'home'){
+        if (this.state.viewState === 'home') {
             title = "Notes";
-        }else if(this.state.viewState === "archive"){
+        } else if (this.state.viewState === "archive") {
             title = "Archive";
-            }
-            else if(this.state.viewState === "trash"){
-                title = "Trash"
-            }
-          
-        return (
-            <View style={style.view1}>
-                <View style={{ flexDirection: 'row', width: '100%' }}>
-                    <Icon name='menu' size={30} color='white'
-                        iconStyle={{ marginLeft: -10 }}
-                        onPress={() => { this.drawer.openDrawer() }}
-                    />
-                    <Text style={style.notesTitle}>{title}</Text>
+        }
+        else if (this.state.viewState === "trash") {
+            title = "Trash"
+        }
+                return (
+                    <View style={style.view1} >
+                        <View style={{ flexDirection: 'row', width: '100%' }}>
+                            <Icon name='menu' size={30} color='white'
+                                iconStyle={{ marginLeft: -10 }}
+                                onPress={() => { this.drawer.openDrawer() }}
+                            />
+                            <Text style={style.notesTitle}>{title}</Text>
 
-                    <View style={style.navigationButton}>
-                        <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }}  />
-                        <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
-                        />
-                    </View>
-                </View>
-            </View>
-        );
-    }
+                            <View style={style.navigationButton}>
+                                <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
+                                <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
+                                <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
+                                <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
+                                />
+                            </View>
+                        </View>
+                    </View >
+                );
+        }
+    
     render() {
         let view;
+        let noteKey;
+        let note;
         var navigationView = (
-            <Drawer navigation={this.props.navigation} viewState={this.changeViewState}/>
+            <Drawer navigation={this.props.navigation} viewState={this.changeViewState} />
         );
-
+        Object.keys(this.state.notes).map((key) => {
+            noteKey = key;
+            note = this.state.notes[noteKey];
+            note.isSelected = false;
+        })
         if (this.state.viewState === 'home') {
             view = <DisplayNotes />
-        }else if (this.state.viewState === 'archive') {
-                view = <ArchiveNotes />
-            }
+        } else if (this.state.viewState === 'archive') {
+            view = <ArchiveNotes />
+        }
         else if (this.state.viewState === 'trash') {
             view = <TrashNotes />
         }
-        
+
         return (
             <DrawerLayoutAndroid
                 ref={(_drawer) => this.drawer = _drawer}
@@ -82,11 +103,11 @@ export default class Home extends Component {
                 <Header
                     centerComponent={this.renderHeader()}
                     backgroundColor={this.state.viewState === 'home' ? "#fb0" : null ||
-                                    this.state.viewState === 'trash' ? "#636363" : null ||
-                                this.state.viewState === 'archive'? "#607D8B" : null}
+                        this.state.viewState === 'trash' ? "#636363" : null ||
+                            this.state.viewState === 'archive' ? "#607D8B" : null}
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
-                     {view}
+                    {view}
                     <TakeNote newComponent={this.changeView} />
                 </View>
             </DrawerLayoutAndroid>

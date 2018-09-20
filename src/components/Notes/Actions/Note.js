@@ -22,18 +22,18 @@ export default class Note extends Component {
     
         var noteKey = this.props.noteKey;
         return (
-            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7 }} >
+            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7,backgroundColor: note.color, borderColor: 'black', borderWidth: note.isSelected === true ? 2 : 0  }}>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>
                     </TouchableOpacity>
                     {note.isPin === true ?
-                        <Icon name='pin' type='material-community' size={25} color="#4285f4" iconStyle={{ alignItems: 'flex-end' }} />
+                        <Icon name='pin' type='material-community' size={25} color="#4285f4"  />
                         : null
                     }
                 </View>
 
-                <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
+                <TouchableOpacity onPress={() => { this.setModalVisible(true)} }>
                     <Text style={{ fontSize: 20 }}>{note.NoteDesc}</Text>
                 </TouchableOpacity>
                 
@@ -49,7 +49,6 @@ export default class Note extends Component {
                         onClick={this.setModalVisible} />
                 </Modal>
             </Card>
-
         )
     }
 }

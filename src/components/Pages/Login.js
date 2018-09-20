@@ -17,6 +17,8 @@ export default class Login extends Component {
   }
 
   loginUser(email, password) {
+    console.log("inside login.....................");
+    
     var emailExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (email == '' || !emailExp.test(email)) {
       Alert.alert('Invalid email');

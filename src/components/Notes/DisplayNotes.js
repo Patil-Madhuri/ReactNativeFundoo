@@ -11,12 +11,12 @@ export default class DisplayNotes extends Component {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     <View style={{width : '100%'}}>
                         <View><Text style={style.noteStatus}>Pinned</Text></View>
-                        <PinnedNotes />
+                        <PinnedNotes/>
                     </View>
 
                     <View style={{width : '100%'}}>
                         <View><Text style={style.noteStatus}>Others</Text></View>
-                        <OtherNotes />
+                        <OtherNotes/>
                     </View>
                 </View>
             </View>
