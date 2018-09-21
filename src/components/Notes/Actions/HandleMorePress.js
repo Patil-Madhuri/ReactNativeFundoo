@@ -8,7 +8,6 @@ var style = styleSheet.style;
 export default class HandleMorePress extends Component {
     constructor() {
         super();
-        // this.onNoteColorChange = this.onNoteColorChange.bind(this);
         this.state = {
             color: "#fafafa"
         }

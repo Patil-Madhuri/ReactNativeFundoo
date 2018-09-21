@@ -16,8 +16,8 @@ export default class Login extends Component {
     this.loginUser = this.loginUser.bind(this);
   }
 
-  loginUser(email, password) {
-    console.log("inside login.....................");
+  loginUser(email, password) {    
+    console.log("This is login User...........", email);
     
     var emailExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (email == '' || !emailExp.test(email)) {
@@ -34,18 +34,19 @@ export default class Login extends Component {
       }
 
     });
-
   }
 
+  clearInput(){
+    this.textInput.clear();
+    this.textInput1.clear();
+  }
   componentDidMount(){
-    // var userKey = localStorage.getItem('userKey'); 
-    // console.log("From Login----------------",userKey);
-    
-    // if(userKey !== null && userKey !== undefined){
-    //   this.props.navigation.navigate('Home');
-    // }else{
-    //   this.props.navigation.navigate('Login');
-    // }
+    var userKey = localStorage.getItem('userKey');     
+    if(userKey){
+      this.props.navigation.navigate('Home');
+    }else{
+      this.props.navigation.navigate('Login');
+    }
   }
 
   render() {
@@ -59,13 +60,15 @@ export default class Login extends Component {
           <View style={styles.flexRow}>
             <Icon color="grey" name='email' size={24} />
             <TextInput placeholder="Username" style={styles.username}
-              onChangeText={(email) => this.setState({ email })} />
+              onChangeText={(email) => this.setState({ email })} 
+              ref={input => { this.textInput = input }}/>
           </View>
 
           <View style={styles.flexRow}>
             <Icon color="grey" name='vpn-key' size={24} />
             <TextInput secureTextEntry={true} placeholder="Password" style={styles.username}
-              onChangeText={(password) => this.setState({ password })} />
+              onChangeText={(password) => this.setState({ password })} 
+              ref={input1 => { this.textInput1 = input1 }}/>
           </View>
 
 
@@ -74,7 +77,7 @@ export default class Login extends Component {
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={styles.loginBtn}
             containerStyle={{ marginTop: 20 }}
-            onPress={() => { this.loginUser(this.state.email, this.state.password) }}
+            onPress={() => { this.clearInput();this.loginUser(this.state.email, this.state.password) }}
           />
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 

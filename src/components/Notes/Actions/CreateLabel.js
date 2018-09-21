@@ -64,7 +64,6 @@ export default class CreateLabel extends Component {
                                     <Icon name="label" color="grey" size={30} iconStyle={{alignItems : 'flex-start',paddingLeft : 15}}/>
                                     <Text style={style.displayLabelName}>{label.labelName}</Text>
                                     <Icon name="edit" color="grey" size={30} iconStyle={{alignItems : 'flex-end'}}/>
-
                                 </View>
                             );
                         }

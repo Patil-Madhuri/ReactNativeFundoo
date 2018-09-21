@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native'
-import { Card, Button, Text, Icon } from 'react-native-elements';
+import { View, TouchableOpacity, FlatList } from 'react-native'
+import { Icon } from 'react-native-elements';
 export default class ColorList extends Component { 
     colorsList = [
         {
@@ -71,7 +71,6 @@ export default class ColorList extends Component {
     
     isColorSelectedForNote = (color) => {
         console.log('Selected Color:' + color);
-        console.log(this.colorsList);
         this.colorsList.forEach((item)=>{
             item.isSelected = false;
             if(item.color===color){
