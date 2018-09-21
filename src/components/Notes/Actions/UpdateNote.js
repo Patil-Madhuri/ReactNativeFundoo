@@ -6,6 +6,7 @@ import AddNoteBottom from "./AddNoteBottom";
 import HandleAddPress from "./HandleAddPress";
 import { Dialog } from "react-native-simple-dialogs";
 import RadioButton from 'react-native-radio-button'
+import { Dropdown } from 'react-native-material-dropdown';
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
@@ -16,6 +17,7 @@ export default class UpdateNote extends Component {
         super(props);
         var currentTime = new Date().toLocaleTimeString([], { hour12: true });
         this.changeColor = this.changeColor.bind(this);
+        this.getSelectedValue = this.getSelectedValue.bind(this);
         this.state = {
             title: '',
             description: '',
@@ -24,7 +26,26 @@ export default class UpdateNote extends Component {
             isOpenedMoreMenu: false,
             isOpenedPlusMenu: false,
             showDialog: false,
-            isSelectedRadioBtn: true
+            isSelectedRadioBtn: true,    
+
+        }
+    }
+
+    getSelectedValue(value){
+        var noteKey = this.props.noteKey;
+        var note = this.props.note;       
+         if(value === 'Today'){
+            console.log("today.......");
+            
+            noteService.setTodayReminder(noteKey,note);
+        }
+        else if(value === 'Tommorrow'){
+            console.log("Tommorrow-----------------------");
+            noteService.setTomorrowReminder(noteKey,note);
+        }
+        else if(value === 'Next Week'){
+            console.log("Next Weeekk----------");
+            noteService.setNextweekReminder(noteKey,note);
         }
     }
 
@@ -53,6 +74,23 @@ export default class UpdateNote extends Component {
     renderHeader() {
         var noteKey = this.props.noteKey;
         var note = this.props.note;
+        let data = [{
+            value: 'Today',
+        }, {
+            value: 'Tommorrow',
+        }, {
+            value: 'Next Week',
+        },
+        {
+            value: 'Pick a date...'
+        }];
+        let data2 = [{
+            value: 'Pick a date...'
+        }]
+        var month = new Date().toDateString().split(' ')[1];
+        var date = new Date().toDateString().split(' ')[2];
+        var currentDate = month + "  " + date;
+        console.log("CurrentDate:-----", currentDate);
         return (
             <View style={{ flexDirection: 'row' }}>
                 <Icon name="arrow-back"
@@ -85,7 +123,7 @@ export default class UpdateNote extends Component {
                     visible={this.state.showDialog}
                     title="Add reminder"
                     onTouchOutside={() => this.openDialog(false)}
-                    contentStyle={{ justifyContent: 'center', alignItems: 'center', }}
+                    contentStyle={{ justifyContent: 'center', alignItems: 'center' }}
                     animationType="fade">
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <View style={{ flexDirection: 'row', paddingRight: 20 }}>
@@ -106,22 +144,18 @@ export default class UpdateNote extends Component {
                         </View>
                     </View>
 
-                    <View>
-                        <Picker>
-                            <Picker.Item
-                                label='Hello'
-                                value='hello'
-                            />
-                            <Picker.Item
-                                label='Hello'
-                                value='hello'
-                            />
-                            <Picker.Item
-                                label='Hello'
-                                value='hello'
-                            />
-                            
-                        </Picker>
+                    <View style={{ flexDirection: 'row',width:'100%' }}>
+                        <Dropdown
+                            value={currentDate}
+                            data={data}
+                            containerStyle={{ width: '80%' }}
+                            onChangeText={this.getSelectedValue} />
+                    </View>
+                    <View style={{flexDirection: 'row',width:'100%' }}>
+                    <Dropdown
+                            value={'Pick a date...'}
+                            data={data2}
+                            containerStyle={{ width: '80%' }} />
                     </View>
                 </Dialog>
             </View>
