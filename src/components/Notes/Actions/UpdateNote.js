@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, ScrollView, Text, Picker } from "react-native";
+import { View, TextInput, ScrollView, Text, Button } from "react-native";
 import { Icon, Header } from 'react-native-elements';
 import HandleMorePress from "./HandleMorePress";
 import AddNoteBottom from "./AddNoteBottom";
@@ -26,26 +26,22 @@ export default class UpdateNote extends Component {
             isOpenedMoreMenu: false,
             isOpenedPlusMenu: false,
             showDialog: false,
-            isSelectedRadioBtn: true,    
+            isSelectedRadioBtn: true,
 
         }
     }
 
-    getSelectedValue(value){
+    getSelectedValue(value) {
         var noteKey = this.props.noteKey;
-        var note = this.props.note;       
-         if(value === 'Today'){
-            console.log("today.......");
-            
-            noteService.setTodayReminder(noteKey,note);
+        var note = this.props.note;
+        if (value === 'Today') {
+            noteService.setTodayReminder(noteKey, note);
         }
-        else if(value === 'Tommorrow'){
-            console.log("Tommorrow-----------------------");
-            noteService.setTomorrowReminder(noteKey,note);
+        else if (value === 'Tommorrow') {
+            noteService.setTomorrowReminder(noteKey, note);
         }
-        else if(value === 'Next Week'){
-            console.log("Next Weeekk----------");
-            noteService.setNextweekReminder(noteKey,note);
+        else if (value === 'Next Week') {
+            noteService.setNextweekReminder(noteKey, note);
         }
     }
 
@@ -84,9 +80,11 @@ export default class UpdateNote extends Component {
         {
             value: 'Pick a date...'
         }];
+
         let data2 = [{
-            value: 'Pick a date...'
+            value: 'Pick a time...'
         }]
+
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
@@ -144,19 +142,34 @@ export default class UpdateNote extends Component {
                         </View>
                     </View>
 
-                    <View style={{ flexDirection: 'row',width:'100%' }}>
-                        <Dropdown
-                            value={currentDate}
-                            data={data}
-                            containerStyle={{ width: '80%' }}
-                            onChangeText={this.getSelectedValue} />
+                    {this.state.isSelectedRadioBtn ?
+                        <View>
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                                <Dropdown
+                                    value={currentDate}
+                                    data={data}
+                                    containerStyle={{ width: '80%' }}
+                                    onChangeText={this.getSelectedValue} />
+                            </View>
+                            <View style={{ flexDirection: 'row', width: '100%' }}>
+                                <Dropdown
+                                    value={'Pick a date...'}
+                                    data={data2}
+                                    containerStyle={{ width: '80%' }} />
+                            </View>
+                        </View>
+                        :
+                        <View>
+                            <TextInput placeholder="Edit Location"></TextInput>
+                        </View>
+                    }
+                    <View style={style.flexRow}>
+                    <Button title="Delete"/>
+                    <Button title="Cancel"/>
+                    <Button title="Save" onPress={this.getSelectedValue}/>
+
                     </View>
-                    <View style={{flexDirection: 'row',width:'100%' }}>
-                    <Dropdown
-                            value={'Pick a date...'}
-                            data={data2}
-                            containerStyle={{ width: '80%' }} />
-                    </View>
+
                 </Dialog>
             </View>
         )

@@ -200,7 +200,41 @@ export const style = StyleSheet.create({
         paddingLeft: 8,
         fontSize: 20,
     },
-    
+    reminderContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        paddingLeft:8,
+        paddingRight:4
+      },
+      reminderContainerHideStyle: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        height: 0,
+        width:0,
+        opacity:0,
+        paddingLeft:8,
+      },
+      reminderSubContainerStyle: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: "#e8e8e8",
+        paddingLeft: 4,
+        paddingRight: 4,
+        paddingTop: 2,
+        paddingBottom: 2,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#ffffff00'
+      },
+      reminderTextStyle: {
+        fontSize: 14,
+        fontFamily: 'Roboto-Light',
+        paddingLeft: 4,
+        textAlign: 'left',
+      },
 })
 
 

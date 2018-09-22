@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Text, Modal, TouchableOpacity, View } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import UpdateNote from "../Actions/UpdateNote";
+import  ReminderFunction  from '../../../config/ReminderFunction';
+
+var styleSheet = require('../../../css/styles');
+var styles = styleSheet.style;
 
 export default class Note extends Component {
     constructor() {
@@ -19,24 +23,33 @@ export default class Note extends Component {
 
     render() {
         var note = this.props.note;
-    
         var noteKey = this.props.noteKey;
+        const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
+
         return (
-            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7,backgroundColor: note.color, borderColor: 'black', borderWidth: note.isSelected === true ? 2 : 0  }}>
+            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color, borderColor: 'black', borderWidth: note.isSelected === true ? 2 : 0 }}>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>
                     </TouchableOpacity>
                     {note.isPin === true ?
-                        <Icon name='pin' type='material-community' size={25} color="#4285f4"  />
+                        <Icon name='pin' type='material-community' size={25} color="#4285f4" />
                         : null
                     }
                 </View>
 
-                <TouchableOpacity onPress={() => { this.setModalVisible(true)} }>
+                <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                     <Text style={{ fontSize: 20 }}>{note.NoteDesc}</Text>
                 </TouchableOpacity>
                 
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={reminderStyle}>
+                        <View style={styles.reminderSubContainerStyle}>
+                            <Icon name='access-time' size={18} color="grey"></Icon>
+                            <Text style={styles.reminderTextStyle}>{ReminderFunction.getDisplayReminderDate(note.Reminder)}</Text>
+                        </View>
+                    </View>
+                </View>
 
                 <Modal
                     animationType="slide"

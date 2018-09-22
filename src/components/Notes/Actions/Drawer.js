@@ -46,7 +46,6 @@ export default class Drawer extends Component {
                     </View>
 
                     <View style={{ height: '100%' }}>
-                        {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.NOTES) }}> */}
                         <TouchableOpacity onPress= {() => this.props.viewState('home')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='lightbulb-outline' size={30} />
@@ -54,7 +53,6 @@ export default class Drawer extends Component {
                             </View>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.REMINDERS) }}> */}
                         <TouchableOpacity>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='reminder' type='material-community' size={30} />
@@ -97,7 +95,6 @@ export default class Drawer extends Component {
 
                         <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 
-                        {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.ARCHIVE)}}> */}
                         <TouchableOpacity onPress={() => this.props.viewState('archive')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='archive' size={30} />
@@ -105,7 +102,6 @@ export default class Drawer extends Component {
                             </View>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity onPress={() => { this.onSelected(Constant.TRASH) }}> */}
                         <TouchableOpacity onPress={() => this.props.viewState('trash')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='delete' size={30} />
@@ -130,10 +126,6 @@ export default class Drawer extends Component {
                                 <Text style={styles.sidebarText}>Logout</Text>
                             </View>
                         </TouchableOpacity>
-
-
-
-
                     </View>
                 </View>
             </View>
