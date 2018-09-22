@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView,Modal } from "react-native";
 import { Icon } from 'react-native-elements';
 import ColorList from './ColorList';
+import MoreBtnLabel from "./MoreBtnLabel";
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
@@ -9,12 +10,17 @@ export default class HandleMorePress extends Component {
     constructor() {
         super();
         this.state = {
-            color: "#fafafa"
+            color: "#fafafa",
+            modalVisible: false
         }
+        this.setModalVisible = this.setModalVisible.bind(this);
     }
     onNoteColorChange = (color) => {
         this.setState({ color: color });
         this.props.oncolorChange(color);
+    }
+    setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     render() {
@@ -36,13 +42,13 @@ export default class HandleMorePress extends Component {
                     }
                     {
                         note.isPin === false ? */}
-                            <TouchableOpacity onPress={() => noteService.isTrashNote(noteKey, note)} >
-                                <View style={style.slidemenustyle}>
-                                    <View style={{ padding: 8 }}><Icon name='delete' type='material-community' size={24} color="grey"></Icon></View>
-                                    <Text style={style.slideMenuCellTextStyle}>Delete</Text>
-                                </View>
-                            </TouchableOpacity> 
-                            {/* :
+                    <TouchableOpacity onPress={() => noteService.isTrashNote(noteKey, note)} >
+                        <View style={style.slidemenustyle}>
+                            <View style={{ padding: 8 }}><Icon name='delete' type='material-community' size={24} color="grey"></Icon></View>
+                            <Text style={style.slideMenuCellTextStyle}>Delete</Text>
+                        </View>
+                    </TouchableOpacity>
+                    {/* :
                             null
 
                     } */}
@@ -64,12 +70,24 @@ export default class HandleMorePress extends Component {
                             <Text style={style.slideMenuCellTextStyle}>Collaborator</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                         <View style={style.slidemenustyle}>
                             <View style={{ padding: 8 }}><Icon name='label' type='material-community' size={24} color="grey"></Icon></View>
                             <Text style={style.slideMenuCellTextStyle}>Labels</Text>
                         </View>
                     </TouchableOpacity>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            console.log('Modal closed');
+                        }}>
+                        <MoreBtnLabel note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
+                        onClick={this.setModalVisible} />
+                    </Modal>
+
                     <View style={[style.slideMenuCellStyle, { paddingLeft: 0 }]}>
                         <ColorList onColorChanged={(color) => {
                             this.onNoteColorChange(color);

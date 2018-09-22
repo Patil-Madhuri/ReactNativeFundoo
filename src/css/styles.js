@@ -235,6 +235,11 @@ export const style = StyleSheet.create({
         paddingLeft: 4,
         textAlign: 'left',
       },
+      takeLabelInput : {
+        fontSize: 15,
+        width: 350,
+        paddingLeft: 8
+      }
 })
 
 

@@ -209,9 +209,10 @@ export default class UpdateNote extends Component {
                         </View>
                     }
                     <View style={style.flexRow}>
-                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}/>
-                        <Button title="Cancel" onPress={() => this.openDialog(false)} />
-                        <Button title="Save" onPress={this.getSelectedValue} />
+                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}
+                        color="white"/>
+                        <Button title="Cancel" onPress={() => this.openDialog(false)}  color="white"/>
+                        <Button title="Save" onPress={this.getSelectedValue}  color="white"/>
                     </View>
 
                 </Dialog>
@@ -221,12 +222,13 @@ export default class UpdateNote extends Component {
     render() {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
+        var redirect = this.props.redirect;
         const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
 
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1, backgroundColor: note.color }}>
                 <Header
-                    centerComponent={this.renderHeader()}
+                    leftComponent={this.renderHeader()}
                     backgroundColor="white"
                 />
                 <ScrollView>
@@ -251,7 +253,7 @@ export default class UpdateNote extends Component {
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey} />
+                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey}  redirectTo={redirect}/>
                 </View>
 
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>

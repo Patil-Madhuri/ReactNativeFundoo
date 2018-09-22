@@ -59,7 +59,7 @@ export default class Note extends Component {
                         console.log('Modal closed');
                     }}>
                     <UpdateNote note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
-                        onClick={this.setModalVisible} />
+                        onClick={this.setModalVisible}   redirect={this.props.navigation}/>
                 </Modal>
             </Card>
         )
