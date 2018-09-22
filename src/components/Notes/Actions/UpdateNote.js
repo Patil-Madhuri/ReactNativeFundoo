@@ -7,6 +7,8 @@ import HandleAddPress from "./HandleAddPress";
 import { Dialog } from "react-native-simple-dialogs";
 import RadioButton from 'react-native-radio-button'
 import { Dropdown } from 'react-native-material-dropdown';
+// import DateTimePicker from 'react-native-modal-datetime-picker';
+import  ReminderFunction  from '../../../config/ReminderFunction';
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
@@ -17,7 +19,15 @@ export default class UpdateNote extends Component {
         super(props);
         var currentTime = new Date().toLocaleTimeString([], { hour12: true });
         this.changeColor = this.changeColor.bind(this);
+        this.setValue = this.setValue.bind(this);
         this.getSelectedValue = this.getSelectedValue.bind(this);
+        // this.showDateTimePicker = this.showDateTimePicker.bind(this);
+        // this.hideDateTimePicker = this.hideDateTimePicker.bind(this);
+        // this.handleDatePicked = this.handleDatePicked.bind(this);
+        var month = new Date().toDateString().split(' ')[1];
+        var date = new Date().toDateString().split(' ')[2];
+        var currentDate = month + "  " + date;
+        console.log("CurrentDate:-----", currentDate);
         this.state = {
             title: '',
             description: '',
@@ -27,21 +37,46 @@ export default class UpdateNote extends Component {
             isOpenedPlusMenu: false,
             showDialog: false,
             isSelectedRadioBtn: true,
-
+            isDateTimePickerVisible: false,
+            value: currentDate
         }
+    }
+
+    setValue(value) {
+        this.setState({ value: value });
     }
 
     getSelectedValue(value) {
         var noteKey = this.props.noteKey;
         var note = this.props.note;
         if (value === 'Today') {
-            noteService.setTodayReminder(noteKey, note);
+            var today = new Date();
+            today.setHours(20);
+            today.setMinutes(0);
+            today.setMilliseconds(0);
+            note.Reminder = today;
+            this.setValue(today);
+            noteService.setReminder(noteKey, note);
         }
         else if (value === 'Tommorrow') {
-            noteService.setTomorrowReminder(noteKey, note);
+            var tommorow = new Date();
+            tommorow.setDate(tommorow.getDate() + 1);
+            tommorow.setHours(8);
+            tommorow.setMinutes(0);
+            tommorow.setMilliseconds(0);
+            note.Reminder = tommorow;
+            this.setValue(tommorow);
+            noteService.setReminder(noteKey, note);
         }
         else if (value === 'Next Week') {
-            noteService.setNextweekReminder(noteKey, note);
+            var nextWeek = new Date();
+            nextWeek.setDate(nextWeek.getDate() + 6);
+            nextWeek.setHours(8);
+            nextWeek.setMinutes(0);
+            nextWeek.setMilliseconds(0);
+            note.Reminder = nextWeek;
+            this.setValue(nextWeek);
+            noteService.setReminder(noteKey, note);
         }
     }
 
@@ -67,6 +102,15 @@ export default class UpdateNote extends Component {
         })
     }
 
+    // showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+    // hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+    // handleDatePicked = (date) => {
+    //     console.log('A date has been picked: ', date);
+    //     this.hideDateTimePicker();
+    // };
+
     renderHeader() {
         var noteKey = this.props.noteKey;
         var note = this.props.note;
@@ -88,7 +132,7 @@ export default class UpdateNote extends Component {
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
-        console.log("CurrentDate:-----", currentDate);
+        console.log("CurrentDate:-----", this.state.value);
         return (
             <View style={{ flexDirection: 'row' }}>
                 <Icon name="arrow-back"
@@ -146,7 +190,7 @@ export default class UpdateNote extends Component {
                         <View>
                             <View style={{ flexDirection: 'row', width: '100%' }}>
                                 <Dropdown
-                                    value={currentDate}
+                                    value={this.state.value}
                                     data={data}
                                     containerStyle={{ width: '80%' }}
                                     onChangeText={this.getSelectedValue} />
@@ -159,15 +203,15 @@ export default class UpdateNote extends Component {
                             </View>
                         </View>
                         :
-                        <View>
-                            <TextInput placeholder="Edit Location"></TextInput>
+                        <View style={{ width: '100%' }}>
+                            <TextInput placeholder="Edit Location" underlineColorAndroid="black"
+                            />
                         </View>
                     }
                     <View style={style.flexRow}>
-                    <Button title="Delete"/>
-                    <Button title="Cancel"/>
-                    <Button title="Save" onPress={this.getSelectedValue}/>
-
+                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}/>
+                        <Button title="Cancel" onPress={() => this.openDialog(false)} />
+                        <Button title="Save" onPress={this.getSelectedValue} />
                     </View>
 
                 </Dialog>
@@ -177,6 +221,7 @@ export default class UpdateNote extends Component {
     render() {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
+        const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
 
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1, backgroundColor: note.color }}>
@@ -192,6 +237,15 @@ export default class UpdateNote extends Component {
                     <TextInput placeholder="Note" style={{ fontSize: 20, padding: 15 }} multiline={true}
                         defaultValue={note.NoteDesc}
                         onChangeText={(description) => this.setState({ description })} />
+
+                    <View>
+                        <View style={reminderStyle}>
+                            <View style={style.reminderSubContainerStyle}>
+                                <Icon name='access-time' size={18} color="grey"></Icon>
+                                <Text style={style.reminderTextStyle}>{ReminderFunction.getDisplayReminderDate(note.Reminder)}</Text>
+                            </View>
+                        </View>
+                    </View>
 
                 </ScrollView>
 

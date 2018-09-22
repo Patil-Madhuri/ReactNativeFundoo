@@ -66,36 +66,46 @@ module.exports = {
         }
         noteService.updateNoteStatus(key, note);
     },
-    setTodayReminder: function (key, note) {
-        console.log("inside Today............");
-        var today = new Date();
-        today.setHours(20);
-        today.setMinutes(0);
-        today.setMilliseconds(0);
-        note.Reminder = today;
-        noteService.updateNoteStatus(key, note);
-    },
+    // setTodayReminder: function (key, note) {
+    //     console.log("inside Today............");
+    //     var today = new Date();
+    //     today.setHours(20);
+    //     today.setMinutes(0);
+    //     today.setMilliseconds(0);
+    //     note.Reminder = today;
+    //     noteService.updateNoteStatus(key, note);
+    // },
 
-    setTomorrowReminder: function (key, note) {
-        console.log("inside Tommorrow......");
-        var tommorow = new Date();
-        tommorow.setDate(tommorow.getDate() + 1);
-        tommorow.setHours(8);
-        tommorow.setMinutes(0);
-        tommorow.setMilliseconds(0);
-        note.Reminder = tommorow;
-        noteService.updateNoteStatus(key, note);
-    },
+    // setTomorrowReminder: function (key, note) {
+    //     console.log("inside Tommorrow......");
+    //     var tommorow = new Date();
+    //     tommorow.setDate(tommorow.getDate() + 1);
+    //     tommorow.setHours(8);
+    //     tommorow.setMinutes(0);
+    //     tommorow.setMilliseconds(0);
+    //     note.Reminder = tommorow;
+    //     noteService.updateNoteStatus(key, note);
+    // },
 
-    setNextweekReminder: function (key, note) {
-        console.log("inside nextWeek........");
-        var nextWeek = new Date();
-        nextWeek.setDate(nextWeek.getDate() + 6);
-        nextWeek.setHours(8);
-        nextWeek.setMinutes(0);
-        nextWeek.setMilliseconds(0);
-        note.Reminder = nextWeek;
-        noteService.updateNoteStatus(key, note);
+    // setNextweekReminder: function (key, note) {
+    //     console.log("inside nextWeek........");
+    //     var nextWeek = new Date();
+    //     nextWeek.setDate(nextWeek.getDate() + 6);
+    //     nextWeek.setHours(8);
+    //     nextWeek.setMinutes(0);
+    //     nextWeek.setMilliseconds(0);
+    //     note.Reminder = nextWeek;
+    //     noteService.updateNoteStatus(key, note);
+    // },
+    setReminder: function (key,note) {
+        console.log("inside setreminder........");
+        noteService.updateNoteStatus(key,note);
+    },
+    removeRemainder: function (key, note) {
+        console.log("inside remove reminder");
+        note.Reminder = "";
+        noteService.updateNoteStatus(key,note);
+
     },
     updateNote: function (title, description,color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
