@@ -209,10 +209,9 @@ export default class UpdateNote extends Component {
                         </View>
                     }
                     <View style={style.flexRow}>
-                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}
-                        color="white"/>
-                        <Button title="Cancel" onPress={() => this.openDialog(false)}  color="white"/>
-                        <Button title="Save" onPress={this.getSelectedValue}  color="white"/>
+                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}/>
+                        <Button title="Cancel" onPress={() => this.openDialog(false)}  />
+                        <Button title="Save" onPress={this.getSelectedValue}  />
                     </View>
 
                 </Dialog>

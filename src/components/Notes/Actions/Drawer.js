@@ -30,6 +30,9 @@ export default class Drawer extends Component {
     }
    
     render() {
+        var userEmail =  localStorage.getItem('email');
+        var userName = localStorage.getItem('firstName') + " " +localStorage.getItem('lastName');
+   
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: '100%' }}>
@@ -39,8 +42,8 @@ export default class Drawer extends Component {
                                 <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
                             </View>
                             <View style={{ marginTop: 20, marginLeft: 20 }}>
-                                <Text style={styles.nameFont}>Madhuri Patil</Text>
-                                <Text style={{ fontSize: 15 }}>madhuripatil506@gmail.com</Text>
+                                <Text style={styles.nameFont}>{userName}</Text>
+                                <Text style={{ fontSize: 15 }}>{userEmail}</Text>
                             </View>
                         </ImageBackground>
                     </View>
