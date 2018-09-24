@@ -48,7 +48,7 @@ export const style = StyleSheet.create({
     },
     navigationButton: {
         flexDirection: 'row',
-        marginLeft: 45,
+        marginLeft: 35,
         paddingTop: 3
     },
     view1: {
@@ -77,6 +77,14 @@ export const style = StyleSheet.create({
         width:'70%',
         paddingLeft : 10,
         paddingRight :10
+    },
+    displayLabelName1 : {
+        fontSize:20,
+        width:'70%',
+        paddingLeft : 10,
+        paddingRight :10,
+        marginTop : 5,
+        textAlignVertical : 'center'
     },
     takeNoteCardIcon: {
         width: '50%',
@@ -241,11 +249,3 @@ export const style = StyleSheet.create({
         paddingLeft: 8
       }
 })
-
-
-
-
-
-
-
-

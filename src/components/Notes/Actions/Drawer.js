@@ -53,7 +53,7 @@ export default class Drawer extends Component {
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress= {() => this.props.viewState('reminders')}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='reminder' type='material-community' size={30} />
                                 <Text style={styles.sidebarText}>Reminders</Text>

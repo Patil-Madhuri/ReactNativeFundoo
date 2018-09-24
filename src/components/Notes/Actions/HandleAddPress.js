@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { View,Text, TouchableOpacity,ScrollView} from "react-native";
 import {  Icon } from 'react-native-elements';
-import ColorList from './ColorList';
+
 // var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
 
 export default class HandleAddPress extends Component {
+   
     render() {
         return (
             <View style={style.slideMenuStyle}>

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { View, TextInput, Text } from "react-native";
-import { Icon, Header, CheckBox} from 'react-native-elements';
+import { Icon, Header } from 'react-native-elements';
+import CheckBox from 'react-native-check-box';
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
 export default class MoreBtnLabel extends Component {
     constructor() {
         super();
-        // this.handlePressCheckedBox = this.handlePressCheckedBox.bind(this);
         this.state = {
             labelName: null,
             labels: [],
-            isChecked: false
+            isChecked: false,
         }
     }
     componentDidMount() {
@@ -31,6 +31,7 @@ export default class MoreBtnLabel extends Component {
             isChecked: checked,
         });
     }
+
 
     renderHeader() {
         return (
@@ -64,12 +65,15 @@ export default class MoreBtnLabel extends Component {
                                 return (
                                     <View style={{ flexDirection: 'row', padding: 10 }}>
                                         <Icon name="label" color="grey" size={30} iconStyle={{ alignItems: 'flex-start', paddingLeft: 15 }} />
-                                        <Text style={style.displayLabelName}>{label.labelName}</Text>
+                                        <Text style={style.displayLabelName1}>{label.labelName}</Text>
                                         <CheckBox
-                                            checkedIcon='check-box'
-                                            uncheckedIcon='check-box-outline-blank'
-                                            checked={this.state.isChecked}
-                                            onIconPress = {()=> this.handlePressCheckedBox}
+                                            style={{ flex: 1, padding: 10 }}
+                                            onClick={() => {
+                                                this.setState({
+                                                    isChecked: !this.state.isChecked
+                                                })
+                                            }}
+                                            isChecked={this.state.isChecked}
                                         />
 
                                     </View>

@@ -6,6 +6,7 @@ import { Header, Icon } from 'react-native-elements';
 import DisplayNotes from '../Notes/DisplayNotes';
 import ArchiveNotes from '../Notes/Actions/ArchiveNotes';
 import TrashNotes from '../Notes/Actions/TrashNotes';
+import ReminderNotes from '../Notes/Actions/ReminderNotes';
 // import DashboardHeaderOptions from '../Notes/Actions/DashboardHeaderOptions';
 var noteService = require('../../services/NoteService');
 var styleSheet = require('../../css/styles');
@@ -18,7 +19,7 @@ export default class Home extends Component {
         this.changeViewState = this.changeViewState.bind(this);
         this.state = {
             viewState: "home",
-            notes: []
+            notes: [],
         }
     }
     componentDidMount() {
@@ -41,7 +42,7 @@ export default class Home extends Component {
         this.setState({ viewState: viewState });
         this.drawer.closeDrawer();
     }
-    
+
     renderHeader() {
         let title;
         if (this.state.viewState === 'home') {
@@ -52,27 +53,38 @@ export default class Home extends Component {
         else if (this.state.viewState === "trash") {
             title = "Trash"
         }
-                return (
-                    <View style={style.view1} >
-                        <View style={{ flexDirection: 'row', width: '100%' }}>
-                            <Icon name='menu' size={30} color='white'
-                                iconStyle={{ marginLeft: -10 }}
-                                onPress={() => { this.drawer.openDrawer() }}
-                            />
-                            <Text style={style.notesTitle}>{title}</Text>
-
-                            <View style={style.navigationButton}>
-                                <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-                                <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
-                                <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
-                                <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
-                                />
-                            </View>
-                        </View>
-                    </View >
-                );
+        else if (this.state.viewState === "reminders") {
+            title = "Reminders"
         }
-    
+        return (
+            <View style={style.view1} >
+                <View style={{ flexDirection: 'row', width: '100%' }}>
+                    <Icon name='menu' size={30} color='white'
+                        iconStyle={{ marginLeft: -10 }}
+                        onPress={() => { this.drawer.openDrawer() }}
+                    />
+                    <Text style={style.notesTitle}>{title}</Text>
+
+                    {this.state.viewState === 'trash' ?
+                        <View>
+                            <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
+
+                        </View>
+                        :
+                        <View style={style.navigationButton}>
+                            <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
+                            <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
+                            <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
+                            <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
+                            />
+                        </View>
+                    }
+
+                </View>
+            </View >
+        );
+    }
+
     render() {
         let view;
         let noteKey;
@@ -93,7 +105,9 @@ export default class Home extends Component {
         else if (this.state.viewState === 'trash') {
             view = <TrashNotes />
         }
-
+        else if (this.state.viewState === 'reminders') {
+            view = <ReminderNotes />
+        }
         return (
             <DrawerLayoutAndroid
                 ref={(_drawer) => this.drawer = _drawer}
@@ -101,10 +115,11 @@ export default class Home extends Component {
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
                 renderNavigationView={() => navigationView}>
                 <Header
-                    centerComponent={this.renderHeader()}
+                    leftComponent={this.renderHeader()}
                     backgroundColor={this.state.viewState === 'home' ? "#fb0" : null ||
                         this.state.viewState === 'trash' ? "#636363" : null ||
-                            this.state.viewState === 'archive' ? "#607D8B" : null}
+                            this.state.viewState === 'archive' ? "#607D8B" : null ||
+                                this.state.viewState === 'reminders' ? "#607D8B" : null}
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
                     {view}
