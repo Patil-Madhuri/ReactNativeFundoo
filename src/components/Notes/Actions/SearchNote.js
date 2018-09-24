@@ -34,8 +34,9 @@ export default class SearchNote extends Component {
                     </View>
                     <View style={styles.searchCardView1}>
                         <View style={styles.searchCardView2}>
-                            <Icon name='reminder' type='material-community' size={30} color="white" iconStyle={styles.searchSvg}
-                            />
+                        <Image source={require('../../../assets/url.png')} style={styles.searchCardIcons} />
+                        <Text style={{ fontSize: 20, color: 'white', textAlign: 'center' }}>URL's</Text>
+
                         </View>
                     </View>
 

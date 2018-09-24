@@ -268,9 +268,9 @@ export const style = StyleSheet.create({
         paddingBottom: '100%'
     },
   searchCardIcons : {
-    margin : 30,
+    margin : 35,
     tintColor : 'white',
-    height : 30,
-    width : 30
+    height : 35,
+    width : 35
   }
 })
