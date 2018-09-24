@@ -252,7 +252,7 @@ export default class UpdateNote extends Component {
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey}  redirectTo={redirect}/>
+                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey}/>
                 </View>
 
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>

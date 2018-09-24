@@ -34,10 +34,10 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         alignSelf: 'flex-end'
     },
-    noteStatus : {
-         fontWeight: 'bold', 
-         fontSize: 20,
-         marginLeft : 15
+    noteStatus: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        marginLeft: 15
     },
     notesTitle: {
         fontSize: 30,
@@ -61,30 +61,30 @@ export const style = StyleSheet.create({
         marginLeft: 0,
         height: 60
     },
-    labelCard : {
+    labelCard: {
         width: '100%',
         padding: 0,
         marginLeft: 0,
         height: 70,
-        marginTop : -8
+        marginTop: -8
     },
-    labelCardView :{
-        flexDirection : 'row',
-        marginTop : 7
+    labelCardView: {
+        flexDirection: 'row',
+        marginTop: 7
     },
-    displayLabelName : {
-        fontSize:20,
-        width:'70%',
-        paddingLeft : 10,
-        paddingRight :10
+    displayLabelName: {
+        fontSize: 20,
+        width: '70%',
+        paddingLeft: 10,
+        paddingRight: 10
     },
-    displayLabelName1 : {
-        fontSize:20,
-        width:'70%',
-        paddingLeft : 10,
-        paddingRight :10,
-        marginTop : 5,
-        textAlignVertical : 'center'
+    displayLabelName1: {
+        fontSize: 20,
+        width: '70%',
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginTop: 5,
+        textAlignVertical: 'center'
     },
     takeNoteCardIcon: {
         width: '50%',
@@ -96,7 +96,7 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         height: 40,
         marginLeft: 10,
-        paddingBottom : 8
+        paddingBottom: 8
     },
     sidebarText: {
         fontSize: 20,
@@ -123,7 +123,7 @@ export const style = StyleSheet.create({
         marginLeft: 10,
         paddingRight: 140
     },
-    addNoteBottomStyle : {
+    addNoteBottomStyle: {
         shadowOffset: {
             height: -2,
             width: 0
@@ -194,17 +194,17 @@ export const style = StyleSheet.create({
         width: '100%',
     },
     slidemenustyle: {
-        backgroundColor: 'white',        
+        backgroundColor: 'white',
         height: 50,
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        paddingLeft:8
-        
+        paddingLeft: 8
+
     },
     slideMenuCellTextStyle: {
         textAlign: 'center',
-        textAlignVertical:'center',
+        textAlignVertical: 'center',
         paddingLeft: 8,
         fontSize: 20,
     },
@@ -212,19 +212,19 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingLeft:8,
-        paddingRight:4
-      },
-      reminderContainerHideStyle: {
+        paddingLeft: 8,
+        paddingRight: 4
+    },
+    reminderContainerHideStyle: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
         height: 0,
-        width:0,
-        opacity:0,
-        paddingLeft:8,
-      },
-      reminderSubContainerStyle: {
+        width: 0,
+        opacity: 0,
+        paddingLeft: 8,
+    },
+    reminderSubContainerStyle: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
@@ -236,16 +236,41 @@ export const style = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 1,
         borderColor: '#ffffff00'
-      },
-      reminderTextStyle: {
+    },
+    reminderTextStyle: {
         fontSize: 14,
         fontFamily: 'Roboto-Light',
         paddingLeft: 4,
         textAlign: 'left',
-      },
-      takeLabelInput : {
+    },
+    takeLabelInput: {
         fontSize: 15,
         width: 350,
         paddingLeft: 8
-      }
+    },
+    searchCard: {
+        width: "100%",
+        height: 141,
+        position: 'relative',
+        flexDirection: 'row',
+        marginTop : 10
+    },
+    searchCardView1: {
+        height: 140,
+        width: 140,
+        paddingRight : 5
+    },
+    searchCardView2: {
+        height: 130,
+        width: 130,
+        backgroundColor: '#4285f4',
+        position: 'relative',
+        paddingBottom: '100%'
+    },
+  searchCardIcons : {
+    margin : 30,
+    tintColor : 'white',
+    height : 30,
+    width : 30
+  }
 })

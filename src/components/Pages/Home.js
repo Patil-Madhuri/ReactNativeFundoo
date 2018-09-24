@@ -7,6 +7,7 @@ import DisplayNotes from '../Notes/DisplayNotes';
 import ArchiveNotes from '../Notes/Actions/ArchiveNotes';
 import TrashNotes from '../Notes/Actions/TrashNotes';
 import ReminderNotes from '../Notes/Actions/ReminderNotes';
+import SearchNote from '../Notes/Actions/SearchNote';
 // import DashboardHeaderOptions from '../Notes/Actions/DashboardHeaderOptions';
 var noteService = require('../../services/NoteService');
 var styleSheet = require('../../css/styles');
@@ -37,7 +38,7 @@ export default class Home extends Component {
     changeView = () => {
         this.props.navigation.push('AddNote');
     }
-
+  
     changeViewState(viewState) {
         this.setState({ viewState: viewState });
         this.drawer.closeDrawer();
@@ -66,14 +67,14 @@ export default class Home extends Component {
                     <Text style={style.notesTitle}>{title}</Text>
 
                     {this.state.viewState === 'trash' ?
-                        <View>
-                            <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-
+                        <View style={{justifyContent :'flex-end'}}>
+                            <Icon name='more-vert' size={30} color='white' iconStyle={{ padding: 10 }} />
                         </View>
                         :
                         <View style={style.navigationButton}>
                             <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-                            <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} />
+                            <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} 
+                            onPress={() => this.props.navigation.push('SearchNote')} />
                             <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
                             <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
                             />
@@ -108,6 +109,7 @@ export default class Home extends Component {
         else if (this.state.viewState === 'reminders') {
             view = <ReminderNotes />
         }
+       
         return (
             <DrawerLayoutAndroid
                 ref={(_drawer) => this.drawer = _drawer}
