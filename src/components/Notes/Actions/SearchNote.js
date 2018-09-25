@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, TextInput, Image } from 'react-native';
+import { View, Text, TextInput, Image, TouchableOpacity} from 'react-native';
 import { Icon } from "react-native-elements";
 var styleSheet = require('../../../css/styles');
 var styles = styleSheet.style;
@@ -13,23 +13,29 @@ export default class SearchNote extends Component {
         }
     }
 
+    goToReminder () {
+        console.log("inside goToReminder.................");
+        
+        this.props.navigation.navigate('ReminderNotes');
+    }
+
     render() {
         return (
             <View>
                 <Text style={{ fontSize: 20 }}>Types</Text>
                 <View style={styles.searchCard}>
-                    <View style={styles.searchCardView1}>
-                        <View style={styles.searchCardView2}>
-                            {/* <Icon name='touch-app' size={30} color="white"  iconStyle={{height: 30,width : 30}}/> */}
-                            <Image source={require('../../../assets/reminder.png')} style={styles.searchCardIcons}/>
+                <TouchableOpacity onPress={this.goToReminder}>
+                    <View style={styles.searchCardView1} >                   
+                        <View style={styles.searchCardView2} >
+                            <Image source={require('../../../assets/reminder.png')} style={styles.searchCardIcons} />
                             <Text style={{ fontSize: 20, color: 'white', textAlign: 'center' }}>Reminders</Text>
                         </View>
                     </View>
+                    </TouchableOpacity>
                     <View style={styles.searchCardView1}>
                         <View style={styles.searchCardView2}>
                             <Image source={require('../../../assets/images.png')} style={styles.searchCardIcons} />
                             <Text style={{ fontSize: 20, color: 'white', textAlign: 'center' }}>Images</Text>
-
                         </View>
                     </View>
                     <View style={styles.searchCardView1}>
@@ -39,7 +45,6 @@ export default class SearchNote extends Component {
 
                         </View>
                     </View>
-
                 </View>
             </View>
         );

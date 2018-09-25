@@ -75,13 +75,11 @@ export default class Drawer extends Component {
                                 var label = this.state.labels[labelId];
                                 if (label) {
                                     return (
-                                        <TouchableOpacity>
                                             <View style={{ flexDirection: 'row', padding: 10 }}>
                                                 <Icon name="label" color="grey" size={30} iconStyle={{ alignItems: 'flex-start', paddingLeft: 15 }} />
                                                 <Text style={styles.displayLabelName}>{label.labelName}</Text>
                                                 <Icon name="edit" color="grey" size={30} iconStyle={{ alignItems: 'flex-end' }} />
                                             </View>
-                                        </TouchableOpacity>
                                     );
                                 }
                                 else {
