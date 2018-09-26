@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity} from 'react-native';
-import { Icon } from "react-native-elements";
 var styleSheet = require('../../../css/styles');
 var styles = styleSheet.style;
 export default class SearchNote extends Component {
-    static navigationOptions = ({ navigation }) => {
+    constructor(props){
+        super(props);
+        // console.log("Props from constructor.............", props);   
+    }
+    static navigationOptions = () => {
         return {
             headerTitle:
                 <View style={{ width: '100%' }}>
@@ -13,18 +16,12 @@ export default class SearchNote extends Component {
         }
     }
 
-    goToReminder () {
-        console.log("inside goToReminder.................");
-        
-        this.props.navigation.navigate('ReminderNotes');
-    }
-
     render() {
         return (
             <View>
                 <Text style={{ fontSize: 20 }}>Types</Text>
                 <View style={styles.searchCard}>
-                <TouchableOpacity onPress={this.goToReminder}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ReminderNotes')}>
                     <View style={styles.searchCardView1} >                   
                         <View style={styles.searchCardView2} >
                             <Image source={require('../../../assets/reminder.png')} style={styles.searchCardIcons} />

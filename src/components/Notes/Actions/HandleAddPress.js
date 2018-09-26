@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { View,Text, TouchableOpacity,ScrollView} from "react-native";
-import {  Icon } from 'react-native-elements';
-
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { Icon } from 'react-native-elements';
 // var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
 var style = styleSheet.style;
 
 export default class HandleAddPress extends Component {
-   
+
     render() {
         return (
             <View style={style.slideMenuStyle}>
@@ -23,7 +22,7 @@ export default class HandleAddPress extends Component {
                             <View style={{ padding: 9 }}><Icon name='photo' size={24} color="grey"></Icon></View>
                             <Text style={style.slideMenuCellTextStyle}>Choose image</Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>   
                     <TouchableOpacity >
                         <View style={style.slidemenustyle}>
                             <View style={{ padding: 9 }}><Icon name='pen' type='material-community' size={24} color="grey"></Icon></View>

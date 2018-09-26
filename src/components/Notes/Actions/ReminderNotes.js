@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from 'react-native';
+import { View, TextInput} from 'react-native';
 import Note from "./Note";
 var noteService = require('../../../services/NoteService');
 
@@ -22,7 +22,14 @@ export default class ReminderNotes extends Component {
         })
     }
 
-
+    static navigationOptions = () => {
+        return {
+            headerTitle:
+                <View style={{ width: '100%' }}>
+                    <TextInput placeholder="Reminders" style={{ fontSize: 15, width: '100%' }} />
+                </View>
+        }
+    }
     render() {
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
@@ -31,9 +38,9 @@ export default class ReminderNotes extends Component {
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
                         note.isSelected = false;
-                        console.log("From Reminder:-----------",note);
-                        
-                        if (note.Reminder) {
+                        console.log("From Reminder:-----------", note);
+
+                        if (note.Reminder && note.isTrash === false) {
                             return (
                                 <Note note={note} noteKey={noteKey} />
                             )
