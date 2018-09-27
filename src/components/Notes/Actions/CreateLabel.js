@@ -41,17 +41,13 @@ export default class CreateLabel extends Component {
         });
     }
 
-    changeViewToEditLabel(isEditView) {
-        console.log("isEditView......", isEditView);
-        
+    changeViewToEditLabel(isEditView) {        
         this.setState({
             showEditLabel: !isEditView
         })
     }
 
-    render() {
-        console.log("showEditLabel............", this.state.showEditLabel);
-        
+    render() {        
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
                 <Card containerStyle={style.labelCard}>
@@ -87,7 +83,6 @@ export default class CreateLabel extends Component {
                                             <View style={{ flexDirection: 'row', padding: 10 }}>
                                                 <Icon name="delete" color="grey" size={30} iconStyle={{ alignItems: 'flex-start', paddingLeft: 15 }} 
                                                 onPress={() => noteService.deleteLabel(labelId)}/>
-                                                {/* <Text style={style.displayLabelName}>{label.labelName}</Text> */}
                                                 <TextInput defaultValue={label.labelName}  onChangeText={(labelName) => this.setState({ labelName })} style={{ width: '80%', fontSize: 20 }}/>
                                                 <Icon name="check" color="#4285f4" size={30} iconStyle={{ alignItems: 'flex-end' }} 
                                                 onPress={() => {this.changeViewToEditLabel(this.state.showEditLabel);noteService.renameLabel(labelId,this.state.labelName)}}/>

@@ -63,7 +63,7 @@ export default class AddNote extends Component {
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress openMoreMenu={this.state.isOpenedMoreMenu} />
+                    {/* <HandleMorePress openMoreMenu={this.state.isOpenedMoreMenu} /> */}
                 </View>
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>
                     <AddNoteBottom time={this.state.time} onPressPlus={this.handleAddPress} onPressMore={this.handleMorePress}></AddNoteBottom>
