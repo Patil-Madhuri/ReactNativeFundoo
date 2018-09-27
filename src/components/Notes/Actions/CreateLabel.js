@@ -25,14 +25,15 @@ export default class CreateLabel extends Component {
         super();
         this.state = {
             labelName: null,
-            labels : []
+            labels: [],
+            showEditLabel: true
         }
     }
     componentDidMount() {
         var self = this;
         noteService.getLabels(function (labelList) {
             if (labelList !== null && labelList !== undefined) {
-                self.setState({ labels: labelList });                
+                self.setState({ labels: labelList });
             }
             else {
                 self.setState({ labels: [] });
@@ -40,19 +41,30 @@ export default class CreateLabel extends Component {
         });
     }
 
+    changeViewToEditLabel(isEditView) {
+        console.log("isEditView......", isEditView);
+        
+        this.setState({
+            showEditLabel: !isEditView
+        })
+    }
+
     render() {
+        console.log("showEditLabel............", this.state.showEditLabel);
+        
         return (
             <View style={{ width: '100%', flexDirection: 'column' }}>
                 <Card containerStyle={style.labelCard}>
                     <View style={style.labelCardView}>
                         <Icon name="close" color="grey" size={30} iconStyle={{ alignItems: 'flex-start' }} />
                         <TextInput placeholder="Create new label" selectTextOnFocus={true}
-                            onChangeText={(labelName) => this.setState({ labelName })} style={{ width: '80%', fontSize: 20 }} 
+                            onChangeText={(labelName) => this.setState({ labelName })} style={{ width: '80%', fontSize: 20 }}
                             ref={input => { this.textInput = input }} />
-                        <Icon name="done" color="grey" size={30} iconStyle={{ alignItems: 'flex-end' }} 
-                        onPress={() => {this.textInput.clear();noteService.createLabel(this.state.labelName)}} />
+                        <Icon name="done" color="grey" size={30} iconStyle={{ alignItems: 'flex-end' }}
+                            onPress={() => { this.textInput.clear(); noteService.createLabel(this.state.labelName) }} />
                     </View>
                 </Card>
+
 
                 <View style={{ flexDirection: 'column' }}>
                     {Object.keys(this.state.labels).map((key) => {
@@ -60,20 +72,39 @@ export default class CreateLabel extends Component {
                         var label = this.state.labels[labelId];
                         if (label) {
                             return (
-                                <View style={{flexDirection : 'row',padding : 10}}>
-                                    <Icon name="label" color="grey" size={30} iconStyle={{alignItems : 'flex-start',paddingLeft : 15}}/>
-                                    <Text style={style.displayLabelName}>{label.labelName}</Text>
-                                    <Icon name="edit" color="grey" size={30} iconStyle={{alignItems : 'flex-end'}}/>
+                                <View>
+                                    {
+                                        this.state.showEditLabel ?
+                                            <View style={{ flexDirection: 'row', padding: 10 }}>
+                                                <Icon name="label" color="grey" size={30} iconStyle={{ alignItems: 'flex-start', paddingLeft: 15 }} />
+                                                <Text style={style.displayLabelName}
+                                                    onPress={() => this.changeViewToEditLabel(this.state.showEditLabel)}
+                                                >{label.labelName}</Text>
+                                                <Icon name="edit" color="grey" size={30} iconStyle={{ alignItems: 'flex-end' }} />
+                                            </View>
+
+                                            :
+                                            <View style={{ flexDirection: 'row', padding: 10 }}>
+                                                <Icon name="delete" color="grey" size={30} iconStyle={{ alignItems: 'flex-start', paddingLeft: 15 }} 
+                                                onPress={() => noteService.deleteLabel(labelId)}/>
+                                                {/* <Text style={style.displayLabelName}>{label.labelName}</Text> */}
+                                                <TextInput defaultValue={label.labelName}  onChangeText={(labelName) => this.setState({ labelName })} style={{ width: '80%', fontSize: 20 }}/>
+                                                <Icon name="check" color="#4285f4" size={30} iconStyle={{ alignItems: 'flex-end' }} 
+                                                onPress={() => {this.changeViewToEditLabel(this.state.showEditLabel);noteService.renameLabel(labelId,this.state.labelName)}}/>
+                                            </View>
+
+                                    }
                                 </View>
-                            );
+                            )
+
                         }
-                        else{
+                        else {
                             <View></View>
                         }
                     })}
                 </View>
 
-                
+
             </View>
         );
     }

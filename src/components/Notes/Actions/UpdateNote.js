@@ -221,7 +221,6 @@ export default class UpdateNote extends Component {
     render() {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
-        var redirect = this.props.redirect;
         const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
 
         return (

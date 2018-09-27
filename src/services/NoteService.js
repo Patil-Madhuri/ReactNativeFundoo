@@ -142,6 +142,22 @@ module.exports = {
             return callback(labels);
         });
     },
+    deleteLabel: function (labelId) {
+        console.log("inside deletelabel..........");
+        
+        var database = app.database();
+        var labelRef = database.ref('labels');
+        labelRef.child(labelId).remove();
+    },
+
+    renameLabel: function (labelId, labelName) {
+        var database = app.database();
+        var labelRef = database.ref('labels');
+        var label = {
+            labelName: labelName
+        }
+        labelRef.child(labelId).update(label)
+    }
    
 }
 
