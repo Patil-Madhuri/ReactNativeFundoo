@@ -54,9 +54,6 @@
 		696BEDF078DC42ABA8FBFF44 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEB2A8EC622B4BD5A7E44A41 /* Zocial.ttf */; };
 		D25A5D5F327D41E29C1A3F1E /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42BC386FBBB64C368ED736BF /* libRNFirebase.a */; };
 		7AF0C3C510E1429FAFFA7A3D /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D96EBC79BB334B13AA93398C /* libRNFetchBlob.a */; };
-		FA3EDB7083044D0CB41264A6 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85D3EE2682564E8FA2B7DE3E /* libRNImagePicker.a */; };
-		6A60AE1B998C4A939E209900 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE692F5CB850497D81E011E9 /* libRNSVG.a */; };
-		6BB9BC0FB2D743048AC935FD /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD79088604D04319B741419A /* libRNSVG-tvOS.a */; };
 		DD1CBF30F1F04E8E90DE6EC6 /* libRCTToggle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F26B113AB2244FC9F7317D1 /* libRCTToggle.a */; };
 		16C77BC045DE475EA15C8480 /* RCTToggleTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 34AA57D4EF3B4116920CAA40 /* RCTToggleTests.xctest */; };
 		F07F144FB6244374AF8DB164 /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9D58605DCD4159858CD148 /* libRCTImageResizer.a */; };
@@ -386,11 +383,6 @@
 		42BC386FBBB64C368ED736BF /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		76A2BCF6F262495EA8AA1109 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		D96EBC79BB334B13AA93398C /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		360D7A669650469696E04B42 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		85D3EE2682564E8FA2B7DE3E /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		AE98CDA8D8654B9E97664E5B /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		EE692F5CB850497D81E011E9 /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		BD79088604D04319B741419A /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		05B449F2E9394375AB3014B0 /* RCTToggle.xcodeproj */ = {isa = PBXFileReference; name = "RCTToggle.xcodeproj"; path = "../node_modules/react-native-toggle/ios/RCTToggle.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		8F26B113AB2244FC9F7317D1 /* libRCTToggle.a */ = {isa = PBXFileReference; name = "libRCTToggle.a"; path = "libRCTToggle.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		34AA57D4EF3B4116920CAA40 /* RCTToggleTests.xctest */ = {isa = PBXFileReference; name = "RCTToggleTests.xctest"; path = "RCTToggleTests.xctest"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.cfbundle; explicitFileType = undefined; includeInIndex = 0; };
@@ -429,8 +421,6 @@
 				88AD0CEAD7F84E3798316C5E /* libRNVectorIcons.a in Frameworks */,
 				D25A5D5F327D41E29C1A3F1E /* libRNFirebase.a in Frameworks */,
 				7AF0C3C510E1429FAFFA7A3D /* libRNFetchBlob.a in Frameworks */,
-				FA3EDB7083044D0CB41264A6 /* libRNImagePicker.a in Frameworks */,
-				6A60AE1B998C4A939E209900 /* libRNSVG.a in Frameworks */,
 				DD1CBF30F1F04E8E90DE6EC6 /* libRCTToggle.a in Frameworks */,
 				16C77BC045DE475EA15C8480 /* RCTToggleTests.xctest in Resources */,
 				F07F144FB6244374AF8DB164 /* libRCTImageResizer.a in Frameworks */,
@@ -625,8 +615,6 @@
 				2316A8949595489DB73BD1DA /* RNVectorIcons.xcodeproj */,
 				67D6F3FAF5254A079632D16D /* RNFirebase.xcodeproj */,
 				76A2BCF6F262495EA8AA1109 /* RNFetchBlob.xcodeproj */,
-				360D7A669650469696E04B42 /* RNImagePicker.xcodeproj */,
-				AE98CDA8D8654B9E97664E5B /* RNSVG.xcodeproj */,
 				05B449F2E9394375AB3014B0 /* RCTToggle.xcodeproj */,
 				F8F1A023264F457697996254 /* RCTImageResizer.xcodeproj */,
 				E9C9002D552E4163BD846790 /* RNFS.xcodeproj */,
@@ -1299,8 +1287,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1330,8 +1316,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1359,8 +1343,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1387,8 +1369,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1427,8 +1407,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1467,8 +1445,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1506,8 +1482,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
@@ -1545,8 +1519,6 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
-					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-toggle/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",

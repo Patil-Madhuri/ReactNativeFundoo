@@ -16,8 +16,8 @@ module.exports = {
                 isTrash: false,
                 isArchive: false,
                 Reminder: '',
-                ImageUrl: '',
-                Labels: [],
+                ImageUrl: '',    
+                labels: '',
                 color: "#fafafa"
             })
         }
@@ -36,10 +36,6 @@ module.exports = {
            
     },
     isPinNote: function (key, note) {
-        console.log(key);
-        console.log(note);
-        
-        
         if (note.isPin === false) {
             note.isPin = true;
         }
@@ -80,6 +76,21 @@ module.exports = {
         note.Reminder = "";
         noteService.updateNoteStatus(key,note);
     },
+
+    addLabelToNote : function(key,note,labelName){
+        console.log("Key.............", key);
+        console.log("Note.........", note);
+        console.log("++++++++++++++++++++++++++",note.labels);       
+        
+        note.labels = labelName;     
+        console.log("++++++++++++++++++++++++++",note.labels);       
+        noteService.updateNoteStatus(key,note);
+    },
+    // removeLabelFromNote : function(key,note){
+    //     note.Labels = ;
+    //     noteService.updateNoteStatus(key,note);
+
+    // },
     updateNote: function (title, description,color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();
@@ -115,9 +126,7 @@ module.exports = {
             return callback(labels);
         });
     },
-    deleteLabel: function (labelId) {
-        console.log("inside deletelabel..........");
-        
+    deleteLabel: function (labelId) {        
         var database = app.database();
         var labelRef = database.ref('labels');
         labelRef.child(labelId).remove();
@@ -135,6 +144,10 @@ module.exports = {
 }
 
 exports.updateNoteStatus = (key, note) => {
+    console.log("From UpdateNoteStatus............");
+    
+    console.log("From update Key.............", key);
+    console.log("From update Note.........", note);
     var database = app.database();
     var noteRef = database.ref('notes');
     noteRef.child(key).update(note);

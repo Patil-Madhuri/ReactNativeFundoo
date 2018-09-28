@@ -229,7 +229,6 @@ export const style = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: "#e8e8e8",
-        paddingLeft: 4,
         paddingRight: 4,
         paddingTop: 2,
         paddingBottom: 2,

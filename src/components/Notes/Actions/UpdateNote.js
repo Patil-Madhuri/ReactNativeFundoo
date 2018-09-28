@@ -8,9 +8,9 @@ import { Dialog } from "react-native-simple-dialogs";
 import RadioButton from 'react-native-radio-button'
 import { Dropdown } from 'react-native-material-dropdown';
 // import DateTimePicker from 'react-native-modal-datetime-picker';
-import  ReminderFunction  from '../../../config/ReminderFunction';
+import ReminderFunction from '../../../config/ReminderFunction';
 var noteService = require('../../../services/NoteService');
-var styleSheet = require('../../../css/styles');
+var styleSheet = require('../../../css/styles.js');
 var style = styleSheet.style;
 
 export default class UpdateNote extends Component {
@@ -21,9 +21,6 @@ export default class UpdateNote extends Component {
         this.changeColor = this.changeColor.bind(this);
         this.setValue = this.setValue.bind(this);
         this.getSelectedValue = this.getSelectedValue.bind(this);
-        // this.showDateTimePicker = this.showDateTimePicker.bind(this);
-        // this.hideDateTimePicker = this.hideDateTimePicker.bind(this);
-        // this.handleDatePicked = this.handleDatePicked.bind(this);
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
@@ -101,15 +98,6 @@ export default class UpdateNote extends Component {
             isSelectedRadioBtn: !isSelected
         })
     }
-
-    // showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-
-    // hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-
-    // handleDatePicked = (date) => {
-    //     console.log('A date has been picked: ', date);
-    //     this.hideDateTimePicker();
-    // };
 
     renderHeader() {
         var noteKey = this.props.noteKey;
@@ -209,9 +197,9 @@ export default class UpdateNote extends Component {
                         </View>
                     }
                     <View style={style.flexRow}>
-                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey,note)}/>
-                        <Button title="Cancel" onPress={() => this.openDialog(false)}  />
-                        <Button title="Save" onPress={this.getSelectedValue}  />
+                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey, note)} />
+                        <Button title="Cancel" onPress={() => this.openDialog(false)} />
+                        <Button title="Save" onPress={this.getSelectedValue} />
                     </View>
 
                 </Dialog>
@@ -222,6 +210,7 @@ export default class UpdateNote extends Component {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
+        const labelStyle = note.labels === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
 
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1, backgroundColor: note.color }}>
@@ -247,11 +236,19 @@ export default class UpdateNote extends Component {
                         </View>
                     </View>
 
+                    <View style={{ flexDirection: 'row' }}>
+                        <View style={labelStyle}>
+                            <View style={style.reminderSubContainerStyle}>
+                                <Text style={style.reminderTextStyle}>{note.labels}</Text>
+                            </View>
+                        </View>
+                    </View>
+
                 </ScrollView>
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey}/>
+                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey} />
                 </View>
 
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>

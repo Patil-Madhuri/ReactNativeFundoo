@@ -25,6 +25,7 @@ export default class Note extends Component {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
+        const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
 
         return (
             <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color, borderColor: 'black', borderWidth: note.isSelected === true ? 2 : 0 }}>
@@ -50,6 +51,15 @@ export default class Note extends Component {
                         </View>
                     </View>
                 </View>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={labelStyle}>
+                        <View style={styles.reminderSubContainerStyle}>
+                            <Text style={styles.reminderTextStyle}>{note.labels}</Text>
+                        </View>
+                    </View>
+                </View>
+
 
                 <Modal
                     animationType="slide"
