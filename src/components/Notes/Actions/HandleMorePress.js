@@ -13,6 +13,7 @@ export default class HandleMorePress extends Component {
             color: "#fafafa",
             modalVisible: false
         }
+        
         this.setModalVisible = this.setModalVisible.bind(this);
     }
     onNoteColorChange = (color) => {
@@ -20,12 +21,27 @@ export default class HandleMorePress extends Component {
         this.props.oncolorChange(color);
     }
     setModalVisible(visible) {
-        this.setState({ modalVisible: visible });
+        this.setState({ modalVisible: visible});
+        this.props.onModalVisible(visible)
+    }
+
+    tempFunc(){
+        if(this.props.variable === false){
+            console.log("true");
+            // this.setState({modalVisible:true});
+        }else{
+            console.log("sdfgdgfg");
+            // this.setModalVisible(true)
+
+        }
+
     }
 
     render() {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
+        
+        this.tempFunc();
         return (
             <View style={style.slideMenuStyle}>
                 {
@@ -94,7 +110,7 @@ export default class HandleMorePress extends Component {
                                 </View>
                             </TouchableOpacity>
 
-                            <Modal
+                            {/* <Modal
                                 animationType="slide"
                                 transparent={false}
                                 visible={this.state.modalVisible}
@@ -103,7 +119,7 @@ export default class HandleMorePress extends Component {
                                 }}>
                                 <MoreBtnLabel note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
                                     onClick={this.setModalVisible} />
-                            </Modal>
+                            </Modal> */}
 
                             <View style={[style.slideMenuCellStyle, { paddingLeft: 0 }]}>
                                 <ColorList onColorChanged={(color) => {

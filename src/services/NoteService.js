@@ -77,20 +77,15 @@ module.exports = {
         noteService.updateNoteStatus(key,note);
     },
 
-    addLabelToNote : function(key,note,labelName){
-        console.log("Key.............", key);
-        console.log("Note.........", note);
-        console.log("++++++++++++++++++++++++++",note.labels);       
-        
+    addLabelToNote : function(key,note,labelName){    
         note.labels = labelName;     
-        console.log("++++++++++++++++++++++++++",note.labels);       
         noteService.updateNoteStatus(key,note);
     },
-    // removeLabelFromNote : function(key,note){
-    //     note.Labels = ;
-    //     noteService.updateNoteStatus(key,note);
+    removeLabelFromNote : function(key,note){
+        note.labels = '';
+        noteService.updateNoteStatus(key,note);
 
-    // },
+    },
     updateNote: function (title, description,color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();

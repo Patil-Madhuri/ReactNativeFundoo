@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, ScrollView, Text, Button } from "react-native";
+import { View, TextInput, ScrollView, Text, Button, Modal } from "react-native";
 import { Icon, Header } from 'react-native-elements';
 import HandleMorePress from "./HandleMorePress";
 import AddNoteBottom from "./AddNoteBottom";
@@ -7,6 +7,7 @@ import HandleAddPress from "./HandleAddPress";
 import { Dialog } from "react-native-simple-dialogs";
 import RadioButton from 'react-native-radio-button'
 import { Dropdown } from 'react-native-material-dropdown';
+import MoreBtnLabel from "./MoreBtnLabel";
 // import DateTimePicker from 'react-native-modal-datetime-picker';
 import ReminderFunction from '../../../config/ReminderFunction';
 var noteService = require('../../../services/NoteService');
@@ -21,6 +22,7 @@ export default class UpdateNote extends Component {
         this.changeColor = this.changeColor.bind(this);
         this.setValue = this.setValue.bind(this);
         this.getSelectedValue = this.getSelectedValue.bind(this);
+        this.openLabelDaialog = this.openLabelDaialog.bind(this);
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
@@ -35,8 +37,16 @@ export default class UpdateNote extends Component {
             showDialog: false,
             isSelectedRadioBtn: true,
             isDateTimePickerVisible: false,
-            value: currentDate
+            value: currentDate,
+            openLabelDialog: false,
+            temp: false
         }
+    }
+
+    setTemp() {
+        // console.log("asnjascdcbhbc");
+
+        this.setState({ temp: true });
     }
 
     setValue(value) {
@@ -80,7 +90,12 @@ export default class UpdateNote extends Component {
     changeColor(color) {
         this.setState({ color: color });
     }
+    openLabelDaialog(isModalVisible) {
+        console.log("Hello Mukesh");
 
+        console.log("From update: ......", isModalVisible);
+        this.setState({ openLabelDialog: isModalVisible })
+    }
     handleMorePress = () => {
         this.setState({ isOpenedMoreMenu: !this.state.isOpenedMoreMenu });
     }
@@ -237,18 +252,28 @@ export default class UpdateNote extends Component {
                     </View>
 
                     <View style={{ flexDirection: 'row' }}>
-                        <View style={labelStyle}>
+                        <View style={labelStyle} >
                             <View style={style.reminderSubContainerStyle}>
-                                <Text style={style.reminderTextStyle}>{note.labels}</Text>
+                                <Text style={style.reminderTextStyle} onPress={() => this.openLabelDaialog(true)}>{note.labels}</Text>
                             </View>
                         </View>
                     </View>
-
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.openLabelDialog}
+                        onRequestClose={() => {
+                            console.log('Modal closed');
+                        }}>
+                        <MoreBtnLabel note={note} noteKey={noteKey} modalVisible={this.state.openLabelDialog}
+                            onClick={this.openLabelDaialog} />
+                    </Modal>
                 </ScrollView>
 
                 <View style={style.slideMenuStyle}>
                     <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
-                    <HandleMorePress oncolorChange={this.changeColor} openMoreMenu={this.state.isOpenedMoreMenu} note={note} noteKey={noteKey} />
+                    <HandleMorePress oncolorChange={this.changeColor} onModalVisible={this.openLabelDaialog} openMoreMenu={this.state.isOpenedMoreMenu}
+                        note={note} noteKey={noteKey} variable={this.state.temp} />
                 </View>
 
                 <View style={[style.addNoteBottomStyle, { backgroundColor: 'white', height: 50, flexDirection: 'row', justifyContent: 'center' }]}>
