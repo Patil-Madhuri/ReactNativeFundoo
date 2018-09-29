@@ -271,7 +271,7 @@ export default class UpdateNote extends Component {
                 </ScrollView>
 
                 <View style={style.slideMenuStyle}>
-                    <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} />
+                    <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu}  note={note} noteKey={noteKey}/>
                     <HandleMorePress oncolorChange={this.changeColor} onModalVisible={this.openLabelDaialog} openMoreMenu={this.state.isOpenedMoreMenu}
                         note={note} noteKey={noteKey} variable={this.state.temp} />
                 </View>

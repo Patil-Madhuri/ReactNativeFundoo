@@ -86,6 +86,30 @@ module.exports = {
         noteService.updateNoteStatus(key,note);
 
     },
+    uploadImageOnNote: function (noteKey,image) {
+        console.log(noteKey);
+        
+        console.log("inside UploadImage");
+        
+        var storageRef = app.storage().ref();
+        console.log("Path...........",image.path);
+        var image = image.path;
+        var store = storageRef.child('noteImages/' + image);
+        var blob = new Blob([image], { type: "image/jpeg" });
+        store.put(blob).then(function () {
+            store.getDownloadURL().then(function (imageUrl) {
+                var updateNote = {
+                    ImageUrl: imageUrl
+                }
+                console.log(updateNote);
+                var database = app.database();
+                var noteRef = database.ref('notes');
+                noteRef.child(noteKey).update(updateNote);
+            })
+        }, function (error) {
+            console.log(error);
+        });
+    },
     updateNote: function (title, description,color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();

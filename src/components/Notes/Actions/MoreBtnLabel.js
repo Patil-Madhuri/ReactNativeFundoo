@@ -69,7 +69,6 @@ export default class MoreBtnLabel extends Component {
                                         <Text style={style.displayLabelName1}>{label.labelName}</Text>
                                         <CheckBox
                                             style={{ flex: 1, padding: 10 }}
-                                            // onClick={() => {this.handlePressCheckedBox().}
                                             onClick={() => {
                                                 this.setState({
                                                     isChecked: !this.state.isChecked
