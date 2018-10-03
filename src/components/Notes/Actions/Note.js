@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, Modal, TouchableOpacity, View } from "react-native";
+import { Text, Modal, TouchableOpacity, View,Image } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import UpdateNote from "../Actions/UpdateNote";
 import  ReminderFunction  from '../../../config/ReminderFunction';
@@ -26,9 +26,13 @@ export default class Note extends Component {
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
-
+        console.log(note.ImageUrl);
+        
         return (
             <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color, borderColor: 'black', borderWidth: note.isSelected === true ? 2 : 0 }}>
+                <View style={{width: '100%'}}>
+                    <Image source={{uri:note.ImageUrl}} style={{width: '100%', height:'60%'}}></Image>
+                </View>
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>

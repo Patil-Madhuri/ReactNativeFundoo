@@ -1,5 +1,6 @@
 import app from '../config/Firebase';
 import localStorage from 'react-native-sync-localstorage';
+import RNFetchBlob from 'react-native-fetch-blob';
 var noteService = require('../services/NoteService.js')
 module.exports = {
     createNote: function (note) {
@@ -16,7 +17,7 @@ module.exports = {
                 isTrash: false,
                 isArchive: false,
                 Reminder: '',
-                ImageUrl: '',    
+                ImageUrl: '',
                 labels: '',
                 color: "#fafafa"
             })
@@ -32,8 +33,8 @@ module.exports = {
             var notesResponse = snapshot.val();
             notes = notesResponse;
             return callback(notes);
-        });        
-           
+        });
+
     },
     isPinNote: function (key, note) {
         if (note.isPin === false) {
@@ -67,72 +68,58 @@ module.exports = {
         var noteRef = database.ref('notes');
         noteRef.child(noteKey).remove();
     },
-    setReminder: function (key,note) {
+    setReminder: function (key, note) {
         console.log("inside setreminder........");
-        noteService.updateNoteStatus(key,note);
+        noteService.updateNoteStatus(key, note);
     },
     removeRemainder: function (key, note) {
         console.log("inside remove reminder");
         note.Reminder = "";
-        noteService.updateNoteStatus(key,note);
+        noteService.updateNoteStatus(key, note);
     },
 
-    addLabelToNote : function(key,note,labelName){    
-        note.labels = labelName;     
-        noteService.updateNoteStatus(key,note);
+    addLabelToNote: function (key, note, labelName) {
+        note.labels = labelName;
+        noteService.updateNoteStatus(key, note);
     },
-    removeLabelFromNote : function(key,note){
+    removeLabelFromNote: function (key, note) {
         note.labels = '';
-        noteService.updateNoteStatus(key,note);
+        noteService.updateNoteStatus(key, note);
 
     },
-    uploadImageOnNote: function (noteKey,image) {
-        console.log(noteKey);
-        
-        console.log("inside UploadImage");
-        
-        var storageRef = app.storage().ref();
-        console.log("Path...........",image.path);
-        var image = image.path;
-        var store = storageRef.child('noteImages/' + image);
-        var blob = new Blob([image], { type: "image/jpeg" });
-        store.put(blob).then(function () {
-            store.getDownloadURL().then(function (imageUrl) {
-                var updateNote = {
-                    ImageUrl: imageUrl
-                }
-                console.log(updateNote);
-                var database = app.database();
-                var noteRef = database.ref('notes');
-                noteRef.child(noteKey).update(updateNote);
-            })
-        }, function (error) {
-            console.log(error);
-        });
+    uploadImageOnNote: function (noteKey, imageurl) {
+        console.log("inside UploadImage service............",imageurl);
+        var updateNote = {
+            ImageUrl: imageurl
+        }
+        console.log(updateNote);
+        var database = app.database();
+        var noteRef = database.ref('notes');
+        noteRef.child(noteKey).update(updateNote);
     },
-    updateNote: function (title, description,color, key) {
+    updateNote: function (title, description, color, key) {
         if (title !== null && description !== null && title !== "" && description !== "") {
             var database = app.database();
             var noteRef = database.ref('notes');
             var note = {
                 Notetitle: title,
                 NoteDesc: description,
-                color : color
+                color: color
             }
             noteRef.child(key).update(note);
         }
     },
-    createLabel : function(labelName){
+    createLabel: function (labelName) {
         var userKey = localStorage.getItem('userKey');
         var database = app.database();
         var labelRef = database.ref('labels');
-        if(labelName !== null){
+        if (labelName !== null) {
             labelRef.push({
-                UserId : userKey,
-                labelName : labelName
+                UserId: userKey,
+                labelName: labelName
             })
         }
-        
+
     },
     getLabels: function (callback) {
         var userKey = localStorage.getItem('userKey');
@@ -145,7 +132,7 @@ module.exports = {
             return callback(labels);
         });
     },
-    deleteLabel: function (labelId) {        
+    deleteLabel: function (labelId) {
         var database = app.database();
         var labelRef = database.ref('labels');
         labelRef.child(labelId).remove();
@@ -159,12 +146,12 @@ module.exports = {
         }
         labelRef.child(labelId).update(label)
     }
-   
+
 }
 
 exports.updateNoteStatus = (key, note) => {
     console.log("From UpdateNoteStatus............");
-    
+
     console.log("From update Key.............", key);
     console.log("From update Note.........", note);
     var database = app.database();

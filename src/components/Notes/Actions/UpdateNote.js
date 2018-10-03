@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, ScrollView, Text, Button, Modal } from "react-native";
+import { View, TextInput, ScrollView, Text, Button, Modal,Image } from "react-native";
 import { Icon, Header } from 'react-native-elements';
 import HandleMorePress from "./HandleMorePress";
 import AddNoteBottom from "./AddNoteBottom";
@@ -234,6 +234,9 @@ export default class UpdateNote extends Component {
                     backgroundColor="white"
                 />
                 <ScrollView>
+                    <View style={{ width: '100%' }}>
+                        <Image source={{ uri: note.ImageUrl }} style={{ width: '100%' }}></Image>
+                    </View>
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
                         defaultValue={note.Notetitle}
                         onChangeText={(title) => this.setState({ title })} />
@@ -271,7 +274,7 @@ export default class UpdateNote extends Component {
                 </ScrollView>
 
                 <View style={style.slideMenuStyle}>
-                    <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu}  note={note} noteKey={noteKey}/>
+                    <HandleAddPress openAddMenu={this.state.isOpenedPlusMenu} note={note} noteKey={noteKey} />
                     <HandleMorePress oncolorChange={this.changeColor} onModalVisible={this.openLabelDaialog} openMoreMenu={this.state.isOpenedMoreMenu}
                         note={note} noteKey={noteKey} variable={this.state.temp} />
                 </View>
