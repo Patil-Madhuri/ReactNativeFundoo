@@ -44,10 +44,9 @@ module.exports = {
             var update = {
               ImageUrl: imageurl
             }
-            console.log(updateNote);
             var database = app.database();
             var userRef = database.ref('users');
-            userRef.child(noteKey).update(update);
+            userRef.child(userKey).update(update);
   },
 
 }

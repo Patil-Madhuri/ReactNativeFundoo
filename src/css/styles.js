@@ -213,7 +213,8 @@ export const style = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         paddingLeft: 8,
-        paddingRight: 4
+        paddingRight: 4,
+        height : 40
     },
     reminderContainerHideStyle: {
         flexDirection: 'row',
@@ -271,5 +272,6 @@ export const style = StyleSheet.create({
     tintColor : 'white',
     height : 35,
     width : 35
-  }
+  },
+ 
 })

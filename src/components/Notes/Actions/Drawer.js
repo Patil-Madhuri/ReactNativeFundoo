@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity,Platform } from "react-native";
+import { View, Text, Image, ImageBackground, TouchableOpacity, Platform } from "react-native";
 import { Icon, Divider } from 'react-native-elements';
 import localStorage from 'react-native-sync-localstorage';
 import app from '../../../config/Firebase';
@@ -100,7 +100,7 @@ export default class Drawer extends Component {
     render() {
         var userEmail = localStorage.getItem('email');
         var userName = localStorage.getItem('firstName') + " " + localStorage.getItem('lastName');
-
+        var imageurl = localStorage.getItem('imageUrl');
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: '100%' }}>
@@ -108,7 +108,12 @@ export default class Drawer extends Component {
                         <ImageBackground source={require('../../../assets/drawerCover.webp')} style={styles.backgroundImage} >
                             <View>
                                 <TouchableOpacity onPress={() => this.chooseProfilePicImage(this)}>
-                                    <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
+                                    {
+                                        imageurl ?
+                                            <Image source={{ uri: imageurl }} style={styles.profileImage} />
+                                            :
+                                            <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
+                                    }
 
                                 </TouchableOpacity>
                             </View>

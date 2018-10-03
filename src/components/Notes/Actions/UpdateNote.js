@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, TextInput, ScrollView, Text, Button, Modal,Image } from "react-native";
+import { View, TextInput, ScrollView, Text, Button, Modal, Image } from "react-native";
 import { Icon, Header } from 'react-native-elements';
 import HandleMorePress from "./HandleMorePress";
 import AddNoteBottom from "./AddNoteBottom";
@@ -226,7 +226,6 @@ export default class UpdateNote extends Component {
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
         const labelStyle = note.labels === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;
-
         return (
             <View style={{ position: 'relative', flexDirection: 'column', flex: 1, backgroundColor: note.color }}>
                 <Header
@@ -234,9 +233,14 @@ export default class UpdateNote extends Component {
                     backgroundColor="white"
                 />
                 <ScrollView>
-                    <View style={{ width: '100%' }}>
-                        <Image source={{ uri: note.ImageUrl }} style={{ width: '100%' }}></Image>
-                    </View>
+                    {
+                        note.ImageUrl ?
+                            <View >
+                                <Image source={{ uri: note.ImageUrl }} style={{ width: '100%', height: '80%' }}></Image>
+                            </View>
+                            :
+                            null
+                   }
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
                         defaultValue={note.Notetitle}
                         onChangeText={(title) => this.setState({ title })} />
