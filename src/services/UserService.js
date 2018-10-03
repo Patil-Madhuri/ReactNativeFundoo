@@ -14,7 +14,7 @@ module.exports = {
     })
   },
 
-  getUser: function (email, password,callback) {
+  getUser: function (email, password, callback) {
     var database = app.database();
     var userRef = database.ref('/users');
     userRef.orderByChild("Email").equalTo(email).once('value', function (snap) {
@@ -33,13 +33,22 @@ module.exports = {
           })
           callback(true);
         }
-        else{
+        else {
           alert("Wrong Password");
         }
       })
     })
   },
-
+  uploadProfilePic: function (userKey, imageurl) {
+    console.log("inside UploadImage service............", imageurl);
+            var update = {
+              ImageUrl: imageurl
+            }
+            console.log(updateNote);
+            var database = app.database();
+            var userRef = database.ref('users');
+            userRef.child(noteKey).update(update);
+  },
 
 }
 

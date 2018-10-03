@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, ScrollView, Platform } from "react-native
 import { Icon } from 'react-native-elements';
 import app from '../../../config/Firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
-// import ImageCropPicker from 'react-native-image-crop-picker';
 var ImagePicker = require('react-native-image-picker');
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles');
@@ -109,13 +108,6 @@ export default class HandleAddPress extends Component {
                 this.uploadImage(response.uri, image);
             }
         })
-        // ImageCropPicker.openPicker({
-        //     includeBase64 : true,
-        //     forceJpg:true
-        //   }).then(image => {
-        //     noteService.uploadImageOnNote(noteKey,image)
-        //     console.log("Image..................",image);
-        //   });
     }
 
     render() {
