@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, Modal, TouchableOpacity, View, Image,ScrollView} from "react-native";
+import { Text, Modal, TouchableOpacity, View, Image, ScrollView } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import UpdateNote from "../Actions/UpdateNote";
 import ReminderFunction from '../../../config/ReminderFunction';
@@ -27,12 +27,11 @@ export default class Note extends Component {
         const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
 
         return (
-            // <ScrollView>
-            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color}}>
+            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color }}>
                 <View >
-                    <Image source={{ uri: note.ImageUrl }} style={{height : 60, width : '100%'}}></Image>
+                    <Image source={{ uri: note.ImageUrl }} style={{ height: 100, width: '100%' }}></Image>
                 </View>
-                
+
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity onPress={() => { this.setModalVisible(true) }}>
                         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{note.Notetitle}</Text>
@@ -72,11 +71,10 @@ export default class Note extends Component {
                     onRequestClose={() => {
                         console.log('Modal closed');
                     }}>
-                    <UpdateNote note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
-                        onClick={this.setModalVisible} redirect={this.props.navigation} />
+                        <UpdateNote note={note} noteKey={noteKey} modalVisible={this.state.modalVisible}
+                            onClick={this.setModalVisible} redirect={this.props.navigation} />
                 </Modal>
             </Card>
-            // {/* </ScrollView> */}
         )
     }
 }

@@ -11,6 +11,7 @@ import TrashNotes from '../components/Notes/Actions/TrashNotes';
 import CreateLabel from '../components/Notes/Actions/CreateLabel';
 import ReminderNotes from '../components/Notes/Actions/ReminderNotes';
 import SearchNote from '../components/Notes/Actions/SearchNote';
+import NotesWithImages from '../components/Notes/Actions/NotesWithImages';
 
 const Router = createStackNavigator({
     Login: { screen: Login },
@@ -22,7 +23,8 @@ const Router = createStackNavigator({
     TrashNotes: { screen: TrashNotes, navigationOptions: { header: null } },
     CreateLabel: { screen: CreateLabel },
     ReminderNotes: { screen: ReminderNotes },
-    SearchNote: { screen: SearchNote }
+    SearchNote: { screen: SearchNote },
+    ImagesNotes: { screen: NotesWithImages }
 },
     {
         initialRouteName: 'Login'

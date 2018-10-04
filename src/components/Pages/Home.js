@@ -20,7 +20,7 @@ export default class Home extends Component {
         this.changeViewState = this.changeViewState.bind(this);
         this.state = {
             viewState: "home",
-            notes: [],
+            notes: []
         }
     }
     componentDidMount() {
@@ -38,13 +38,13 @@ export default class Home extends Component {
     changeView = () => {
         this.props.navigation.push('AddNote');
     }
-  
+
     changeViewState(viewState) {
         this.setState({ viewState: viewState });
         this.drawer.closeDrawer();
     }
 
-    renderHeader() {
+    renderLeftHeader() {
         let title;
         if (this.state.viewState === 'home') {
             title = "Notes";
@@ -65,27 +65,31 @@ export default class Home extends Component {
                         onPress={() => { this.drawer.openDrawer() }}
                     />
                     <Text style={style.notesTitle}>{title}</Text>
-
-                    {this.state.viewState === 'trash' ?
-                        <View style={{justifyContent :'flex-end'}}>
-                            <Icon name='more-vert' size={30} color='white' iconStyle={{ padding: 10 }} />
-                        </View>
-                        :
-                        <View style={style.navigationButton}>
-                            <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 10 }} />
-                            <Icon name='search' size={30} color='white' iconStyle={{ padding: 10 }} 
-                            onPress={() => this.props.navigation.push('SearchNote')} />
-                            <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 10 }} />
-                            <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 10 }}
-                            />
-                        </View>
-                    }
-
                 </View>
             </View >
         );
     }
+    renderRightHeader() {
+        return (
+            <View>
+                {this.state.viewState === 'trash' ?
+                    <View style={{ justifyContent: 'flex-end' }}>
+                        <Icon name='more-vert' size={30} color='white'  />
+                    </View>
+                    :
+                    <View style={style.navigationButton}>
+                        <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 8 }} />
+                        <Icon name='search' size={30} color='white' iconStyle={{ padding: 8 }}
+                            onPress={() => this.props.navigation.push('SearchNote')} />
+                        <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 8 }} />
+                        <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 8 }}
+                        />
+                    </View>
+                }
 
+            </View>
+        )
+    }
     render() {
         let view;
         let noteKey;
@@ -109,7 +113,7 @@ export default class Home extends Component {
         else if (this.state.viewState === 'reminders') {
             view = <ReminderNotes />
         }
-       
+
         return (
             <DrawerLayoutAndroid
                 ref={(_drawer) => this.drawer = _drawer}
@@ -117,11 +121,12 @@ export default class Home extends Component {
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
                 renderNavigationView={() => navigationView}>
                 <Header
-                    leftComponent={this.renderHeader()}
+                    leftComponent={this.renderLeftHeader()}
                     backgroundColor={this.state.viewState === 'home' ? "#fb0" : null ||
                         this.state.viewState === 'trash' ? "#636363" : null ||
                             this.state.viewState === 'archive' ? "#607D8B" : null ||
                                 this.state.viewState === 'reminders' ? "#607D8B" : null}
+                    rightComponent={this.renderRightHeader()}
                 />
                 <View style={{ position: 'relative', flexDirection: 'column', flex: 1 }}>
                     {view}
