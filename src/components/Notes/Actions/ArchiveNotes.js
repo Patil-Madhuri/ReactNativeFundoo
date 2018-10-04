@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { View,Text } from "react-native";
-import { Header, Icon } from 'react-native-elements';
+import { View,ScrollView } from "react-native";
 import Note from "../Actions/Note";
 var noteService = require('../../../services/NoteService');
-var styleSheet = require('../../../css/styles');
-var style = styleSheet.style;
 
 export default class ArchiveNotes extends Component {
     constructor() {
@@ -27,6 +24,7 @@ export default class ArchiveNotes extends Component {
 
     render() {
         return (
+            <ScrollView style={{ marginBottom: 65 }}>
             <View style={{ width: '100%', flexDirection: 'column' }}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                     {Object.keys(this.state.notes).map((key) => {
@@ -42,6 +40,7 @@ export default class ArchiveNotes extends Component {
                     })}
                 </View>
             </View>
+            </ScrollView>
         );
     }
 }

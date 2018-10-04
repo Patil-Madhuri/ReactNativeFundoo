@@ -120,6 +120,7 @@ export default class Home extends Component {
         if (this.state.viewState === 'home') {
             view = <DisplayNotes layout={this.state.isLayoutChange}/>
         } else if (this.state.viewState === 'archive') {
+            
             view = <ArchiveNotes layout={this.state.isLayoutChange}/>
         }
         else if (this.state.viewState === 'trash') {

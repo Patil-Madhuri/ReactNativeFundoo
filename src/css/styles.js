@@ -274,11 +274,10 @@ export const style = StyleSheet.create({
     width : 35
   },
   gridView : {
-    width: '45%',
-    margin: 7
+    width: '50%',
+ 
   },
   listView : {
-    width: '96%',
-    margin: 7
+    width: '98%',
   }
 })
