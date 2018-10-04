@@ -20,14 +20,16 @@ export default class Note extends Component {
         this.setState({ modalVisible: visible });
     }
 
-    render() {
+    render() {        
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
-
+        var layout = this.props.layout;
+        console.log("Layout+++++++++",layout);
+        
         return (
-            <Card key={noteKey} containerStyle={{ width: '45%', margin: 7, backgroundColor: note.color }}>
+            <Card key={noteKey} containerStyle={layout ? styles.gridView : styles.listView}>
                 <View >
                     <Image source={{ uri: note.ImageUrl }} style={{ height: 100, width: '100%' }}></Image>
                 </View>

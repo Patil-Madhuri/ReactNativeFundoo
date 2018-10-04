@@ -20,8 +20,10 @@ export default class Home extends Component {
         this.changeViewState = this.changeViewState.bind(this);
         this.state = {
             viewState: "home",
-            notes: []
+            notes: [],
+            isLayoutChange: true
         }
+        this.layoutChange = this.layoutChange.bind(this);
     }
     componentDidMount() {
         var self = this;
@@ -35,6 +37,13 @@ export default class Home extends Component {
         })
     }
 
+    layoutChange() {
+        console.log("Layout+++++++++++++",this.state.isLayoutChange);
+        
+        this.setState({
+            isLayoutChange: !this.state.isLayoutChange
+        })
+    }
     changeView = () => {
         this.props.navigation.push('AddNote');
     }
@@ -70,20 +79,26 @@ export default class Home extends Component {
         );
     }
     renderRightHeader() {
+        const layoutIcon = this.state.isLayoutChange ?
+            <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 8 }} 
+            onPress={this.layoutChange}/>
+            :
+            <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 8 }} 
+            onPress={this.layoutChange}/>
+
+
         return (
             <View>
                 {this.state.viewState === 'trash' ?
                     <View style={{ justifyContent: 'flex-end' }}>
-                        <Icon name='more-vert' size={30} color='white'  />
+                        <Icon name='more-vert' size={30} color='white' />
                     </View>
                     :
                     <View style={style.navigationButton}>
                         <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 8 }} />
                         <Icon name='search' size={30} color='white' iconStyle={{ padding: 8 }}
                             onPress={() => this.props.navigation.push('SearchNote')} />
-                        <Icon name='view-stream' size={30} color='white' iconStyle={{ padding: 8 }} />
-                        <Icon name='view-quilt' size={30} color='white' iconStyle={{ padding: 8 }}
-                        />
+                        {layoutIcon}
                     </View>
                 }
 
@@ -103,7 +118,7 @@ export default class Home extends Component {
             note.isSelected = false;
         })
         if (this.state.viewState === 'home') {
-            view = <DisplayNotes />
+            view = <DisplayNotes layout={this.state.isLayoutChange}/>
         } else if (this.state.viewState === 'archive') {
             view = <ArchiveNotes />
         }

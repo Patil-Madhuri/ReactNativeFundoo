@@ -33,7 +33,7 @@ export default class PinnedNotes extends Component {
                         note.isSelected = false;
                         if (note.isPin === true && note.isTrash === false && note.isArchive === false) {
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }
                     })}

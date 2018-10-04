@@ -34,7 +34,7 @@ export default class OtherNotes extends Component{
                         note.isSelected = false;
                         if(note.isArchive === false && note.isTrash === false && note.isPin === false){
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }
                      

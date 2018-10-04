@@ -4,6 +4,7 @@ import PinnedNotes from "../Notes/Actions/PinnedNotes";
 import OtherNotes from "../Notes/Actions/OtherNotes";
 var styles = require('../../css/styles');
 var style = styles.style;
+
 export default class DisplayNotes extends Component {
     render() {
         return (
@@ -12,12 +13,12 @@ export default class DisplayNotes extends Component {
                     <View style={{ flexDirection: 'column', flexWrap: 'wrap' }}>
                         <View style={{ width: '100%' }}>
                             <View><Text style={style.noteStatus}>Pinned</Text></View>
-                            <PinnedNotes />
+                            <PinnedNotes layout={this.props.layout}/>
                         </View>
 
                         <View style={{ width: '100%' }}>
                             <View><Text style={style.noteStatus}>Others</Text></View>
-                            <OtherNotes />
+                            <OtherNotes layout={this.props.layout}/>
                         </View>
                     </View>
                 </View>
