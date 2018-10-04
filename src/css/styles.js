@@ -278,7 +278,7 @@ export const style = StyleSheet.create({
     margin: 7
   },
   listView : {
-    width: '95%',
+    width: '96%',
     margin: 7
   }
 })

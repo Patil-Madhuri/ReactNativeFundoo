@@ -36,7 +36,7 @@ export default class TrashNotes extends Component {
                         if(note.isTrash === true)
                         {
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }                
                     })}

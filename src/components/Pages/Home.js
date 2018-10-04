@@ -120,13 +120,13 @@ export default class Home extends Component {
         if (this.state.viewState === 'home') {
             view = <DisplayNotes layout={this.state.isLayoutChange}/>
         } else if (this.state.viewState === 'archive') {
-            view = <ArchiveNotes />
+            view = <ArchiveNotes layout={this.state.isLayoutChange}/>
         }
         else if (this.state.viewState === 'trash') {
-            view = <TrashNotes />
+            view = <TrashNotes layout={this.state.isLayoutChange}/>
         }
         else if (this.state.viewState === 'reminders') {
-            view = <ReminderNotes />
+            view = <ReminderNotes layout={this.state.isLayoutChange}/>
         }
 
         return (

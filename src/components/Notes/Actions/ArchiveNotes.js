@@ -36,7 +36,7 @@ export default class ArchiveNotes extends Component {
                         if(note.isArchive === true)
                         {
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }                
                     })}

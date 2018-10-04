@@ -41,7 +41,7 @@ export default class NotesWithImages extends Component{
                         
                         if (note.ImageUrl && note.isTrash === false) {
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }
                     })}

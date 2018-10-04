@@ -42,7 +42,7 @@ export default class ReminderNotes extends Component {
 
                         if (note.Reminder && note.isTrash === false) {
                             return (
-                                <Note note={note} noteKey={noteKey} />
+                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
                             )
                         }
                     })}
