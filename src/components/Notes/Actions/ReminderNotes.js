@@ -38,8 +38,6 @@ export default class ReminderNotes extends Component {
                         var noteKey = key;
                         var note = this.state.notes[noteKey];
                         note.isSelected = false;
-                        console.log("From Reminder:-----------", note);
-
                         if (note.Reminder && note.isTrash === false) {
                             return (
                                 <Note note={note} noteKey={noteKey} layout={this.props.layout}/>

@@ -1,40 +1,47 @@
 import app from '../config/Firebase';
-import localStorage from 'react-native-sync-localstorage';
-import RNFetchBlob from 'react-native-fetch-blob';
+import AppCache from '../config/AppCache';
 var noteService = require('../services/NoteService.js')
 module.exports = {
     createNote: function (note) {
         var database = app.database();
         var noteRef = database.ref('/notes');
-        var userKey = localStorage.getItem('userKey');
-
-        if (note.noteTitle != "" && note.noteDescription && note.noteTitle != null && note.noteDescription != null) {
-            noteRef.push({
-                UserId: userKey,
-                Notetitle: note.noteTitle,
-                NoteDesc: note.noteDescription,
-                isPin: false,
-                isTrash: false,
-                isArchive: false,
-                Reminder: '',
-                ImageUrl: '',
-                labels: '',
-                color: "#fafafa"
-            })
-        }
-
+     AppCache.getItem('userKey', (error, key) => {
+            if (error != null) {
+              console.error(error);
+            }
+            if (note.noteTitle != "" && note.noteDescription && note.noteTitle != null && note.noteDescription != null) {
+                noteRef.push({
+                    UserId: key,
+                    Notetitle: note.noteTitle,
+                    NoteDesc: note.noteDescription,
+                    isPin: false,
+                    isTrash: false,
+                    isArchive: false,
+                    Reminder: '',
+                    ImageUrl: '',
+                    labels: '',
+                    color: "#fafafa"
+                })
+            }
+    
+        });
     },
     getNotes: function (callback) {
         var database = app.database();
         var noteRef = database.ref('notes');
-        var userKey = localStorage.getItem('userKey');
-        var notes;
-        noteRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
-            var notesResponse = snapshot.val();
-            notes = notesResponse;
-            return callback(notes);
-        });
-
+         AppCache.getItem('userKey', (error, key) => {
+            if (error != null) {
+              console.error(error);
+            }
+            var notes;
+            noteRef.orderByChild('UserId').equalTo(key).on('value', function (snapshot) {
+                var notesResponse = snapshot.val();
+                notes = notesResponse;
+                return callback(notes);
+            });
+    
+        })
+       
     },
     isPinNote: function (key, note) {
         if (note.isPin === false) {
@@ -110,27 +117,36 @@ module.exports = {
         }
     },
     createLabel: function (labelName) {
-        var userKey = localStorage.getItem('userKey');
         var database = app.database();
         var labelRef = database.ref('labels');
-        if (labelName !== null) {
-            labelRef.push({
-                UserId: userKey,
-                labelName: labelName
-            })
-        }
+        AppCache.getItem('userKey', (error, key) => {
+            if (error != null) {
+              console.error(error);
+            }
+            if (labelName !== null) {
+                labelRef.push({
+                    UserId: key,
+                    labelName: labelName
+                })
+            }
+        })
+       
 
     },
     getLabels: function (callback) {
-        var userKey = localStorage.getItem('userKey');
         var database = app.database();
         var labelRef = database.ref('labels');
         var labels;
-        labelRef.orderByChild('UserId').equalTo(userKey).on('value', function (snapshot) {
+        AppCache.getItem('userKey', (error, key) => {
+            if (error != null) {
+              console.error(error);
+            }
+        labelRef.orderByChild('UserId').equalTo(key).on('value', function (snapshot) {
             var labelResponse = snapshot.val();
             labels = labelResponse;
             return callback(labels);
         });
+    });
     },
     deleteLabel: function (labelId) {
         var database = app.database();

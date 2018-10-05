@@ -7,8 +7,6 @@ import DisplayNotes from '../Notes/DisplayNotes';
 import ArchiveNotes from '../Notes/Actions/ArchiveNotes';
 import TrashNotes from '../Notes/Actions/TrashNotes';
 import ReminderNotes from '../Notes/Actions/ReminderNotes';
-import SearchNote from '../Notes/Actions/SearchNote';
-// import DashboardHeaderOptions from '../Notes/Actions/DashboardHeaderOptions';
 var noteService = require('../../services/NoteService');
 var styleSheet = require('../../css/styles');
 var style = styleSheet.style;
@@ -38,8 +36,6 @@ export default class Home extends Component {
     }
 
     layoutChange() {
-        console.log("Layout+++++++++++++",this.state.isLayoutChange);
-        
         this.setState({
             isLayoutChange: !this.state.isLayoutChange
         })
@@ -97,7 +93,7 @@ export default class Home extends Component {
                     <View style={style.navigationButton}>
                         <Icon name='refresh' size={30} color='white' iconStyle={{ padding: 8 }} />
                         <Icon name='search' size={30} color='white' iconStyle={{ padding: 8 }}
-                            onPress={() => this.props.navigation.push('SearchNote')} />
+                            onPress={() => {this.props.navigation.push('SearchNote')}} />
                         {layoutIcon}
                     </View>
                 }
@@ -129,7 +125,7 @@ export default class Home extends Component {
         else if (this.state.viewState === 'reminders') {
             view = <ReminderNotes layout={this.state.isLayoutChange}/>
         }
-
+       
         return (
             <DrawerLayoutAndroid
                 ref={(_drawer) => this.drawer = _drawer}

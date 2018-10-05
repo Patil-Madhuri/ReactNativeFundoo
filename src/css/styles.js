@@ -1,6 +1,22 @@
 import { StyleSheet } from 'react-native';
 
 export const style = StyleSheet.create({
+    splashScreen : {
+        backgroundColor: "#fb0",
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    splashScreenTitle : {
+            fontSize: 34,
+            fontWeight: 'bold',
+            color: 'white',
+            shadowOffset: {
+                width: 1,
+                height: 1
+            },
+            shadowOpacity: 0.8
+    },
     titleText: {
         fontWeight: 'bold',
         fontSize: 30,

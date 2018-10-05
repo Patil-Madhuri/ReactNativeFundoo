@@ -1,90 +1,62 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity, Platform } from "react-native";
+import { View, Text, Image, ImageBackground, TouchableOpacity,Alert } from "react-native";
 import { Icon, Divider } from 'react-native-elements';
-import localStorage from 'react-native-sync-localstorage';
+import AppCache from '../../../config/AppCache';
 import app from '../../../config/Firebase';
-import RNFetchBlob from 'react-native-fetch-blob';
-var ImagePicker = require('react-native-image-picker');
+import Firebase from 'firebase';
 var noteService = require('../../../services/NoteService');
 var userService = require('../../../services/UserService')
 var styleSheet = require('../../../css/styles');
 var styles = styleSheet.style;
 
-const Blob = RNFetchBlob.polyfill.Blob
-const fs = RNFetchBlob.fs
-window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
-window.Blob = Blob
+
 export default class Drawer extends Component {
     constructor() {
         super();
         this.state = {
-            labels: []
+            labels: [],
+            email : null,
+            firstName : null,
+            lastName : null,
+            imageUrl : null
         }
     }
-    logOut() {
-        localStorage.clear();
-        this.props.navigation.navigate('Login');
-    }
-    uploadImage(uri, mime = 'application/octet-stream') {
-
-        var userKey = localStorage.getItem('userKey');
-        console.log("inside uploadImage................");
-
-        return new Promise((resolve, reject) => {
-            const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri
-            let uploadBlob = null
-
-            const imageRef = app.storage().ref('images').child(mime)
-            fs.readFile(uploadUri, 'base64')
-                .then((data) => {
-                    return Blob.build(data, { type: `${mime};BASE64` })
+  
+    componentWillMount() {
+        AppCache.getItem('email', (error, value) =>{
+            if (error != null) {
+                console.error(error);
+                this.setState({
+                    email : value
                 })
-                .then((blob) => {
-                    uploadBlob = blob
-                    return imageRef.put(blob, { contentType: mime })
-                }).then(() => {
-                    return imageRef.getDownloadURL().then(function (imageurl) {
-                        userService.uploadProfilePic(userKey, imageurl)
-                    })
-                })
-                .catch((error) => {
-                    reject(error)
-                })
-        })
+            }
+        });
+        AppCache.getItem('firstName', (error, value) =>{
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                firstName : value
+            })
+        });
+        AppCache.getItem('lastName', (error, value) =>{
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                lastName : value
+            })
+        });
+        AppCache.getItem('imageUrl', (error, value) =>{
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                imageUrl : value
+            })
+        });
     }
-    chooseProfilePicImage() {
-        console.log("inside choose image...........");
-        var options = {
-            title: 'Select Avatar',
-            customButtons: [
-                { name: 'fb', title: 'Choose Photo from Facebook' },
-            ],
-            storageOptions: {
-                skipBackup: true,
-                path: 'images'
-            }
-        };
-
-        ImagePicker.launchImageLibrary(options, (response) => {
-            console.log('Response = ', response.fileName);
-            var image = response.fileName;
-            console.log("Path....", response.path);
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            }
-            else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            }
-            else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            }
-            else {
-                console.log(response.uri);
-                console.log(image);
-                this.uploadImage(response.uri, image);
-            }
-        })
-    }
+  
     componentDidMount() {
         var self = this;
         noteService.getLabels(function (labelList) {
@@ -97,20 +69,47 @@ export default class Drawer extends Component {
         });
     }
 
+    logout () {
+        console.log("Logging Out....");
+    
+        Alert.alert(
+            null,
+            'Do you want to logout ?',
+            [
+                { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: 'Yes', onPress : () => {
+                        try {
+                            AppCache.clearAll(function(err) {
+                              if(err !== null){
+                                console.log(err);            
+                              }
+                                Firebase.auth().signOut();
+                               this.props.navigation.navigate('Login');
+                            });
+                           
+                        } catch (e) {
+                            console.log(e);
+                        }
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+      }
+
     render() {
-        var userEmail = localStorage.getItem('email');
-        var userName = localStorage.getItem('firstName') + " " + localStorage.getItem('lastName');
-        var imageurl = localStorage.getItem('imageUrl');
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: '100%' }}>
                     <View style={{ height: 150 }}>
                         <ImageBackground source={require('../../../assets/drawerCover.webp')} style={styles.backgroundImage} >
                             <View>
-                                <TouchableOpacity onPress={() => this.chooseProfilePicImage(this)}>
+                                <TouchableOpacity onPress={() => {userService.chooseProfilePicImage()}}>
                                     {
-                                        imageurl ?
-                                            <Image source={{ uri: imageurl }} style={styles.profileImage} />
+                                        this.state.imageUrl ?
+                                            <Image source={{ uri: this.state.imageUrl }} style={styles.profileImage} />
                                             :
                                             <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
                                     }
@@ -118,8 +117,8 @@ export default class Drawer extends Component {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginTop: 20, marginLeft: 20 }}>
-                                <Text style={styles.nameFont}>{userName}</Text>
-                                <Text style={{ fontSize: 15 }}>{userEmail}</Text>
+                                <Text style={styles.nameFont}>{this.state.firstName + " " +this.state.lastName}</Text>
+                                <Text style={{ fontSize: 15 }}>{this.state.email}</Text>
                             </View>
                         </ImageBackground>
                     </View>
@@ -197,7 +196,7 @@ export default class Drawer extends Component {
                             <Text style={styles.sidebarText}>Help & feedback</Text>
                         </View>
 
-                        <TouchableOpacity onPress={() => { this.logOut() }}>
+                        <TouchableOpacity onPress={() => {this.logout()}}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='power-settings-new' size={30} />
                                 <Text style={styles.sidebarText}>Logout</Text>

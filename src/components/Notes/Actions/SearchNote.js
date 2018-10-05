@@ -5,8 +5,9 @@ var styles = styleSheet.style;
 export default class SearchNote extends Component {
     constructor(props) {
         super(props);
-        // console.log("Props from constructor.............", props);   
     }
+  
+
     static navigationOptions = () => {
         return {
             headerTitle:

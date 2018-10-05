@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, Alert } from 'react-native';
 import { Card, Button, Icon, Divider } from 'react-native-elements';
-import localStorage from 'react-native-sync-localstorage';
+import Firebase from 'firebase';
 var userService = require('../../services/UserService');
 var styleSheet = require('../../css/styles');
 var styles = styleSheet.style;
@@ -16,9 +16,8 @@ export default class Login extends Component {
     this.loginUser = this.loginUser.bind(this);
   }
 
-  loginUser(email, password) {    
+  loginUser(email, password) {
     console.log("This is login User...........", email);
-    
     var emailExp = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
     if (email == '' || !emailExp.test(email)) {
       Alert.alert('Invalid email');
@@ -30,25 +29,19 @@ export default class Login extends Component {
     }
     userService.getUser(email, password, (success) => {
       if (success) {
-        this.props.navigation.navigate('Home');
+        Firebase.auth().signInWithEmailAndPassword(email, password)
+          .then(() => {
+            this.props.navigation.navigate('Home');
+          })
       }
-
     });
   }
-
-  clearInput(){
+  
+  clearInput() {
     this.textInput.clear();
     this.textInput1.clear();
   }
-  componentDidMount(){
-    var userKey = localStorage.getItem('userKey');     
-    if(userKey){
-      this.props.navigation.navigate('Home');
-    }else{
-      this.props.navigation.navigate('Login');
-    }
-  }
-
+  
   render() {
     const { navigate } = this.props.navigation;
 
@@ -60,15 +53,15 @@ export default class Login extends Component {
           <View style={styles.flexRow}>
             <Icon color="grey" name='email' size={24} />
             <TextInput placeholder="Username" style={styles.username}
-              onChangeText={(email) => this.setState({ email })} 
-              ref={input => { this.textInput = input }}/>
+              onChangeText={(email) => this.setState({ email })}
+              ref={input => { this.textInput = input }} />
           </View>
 
           <View style={styles.flexRow}>
             <Icon color="grey" name='vpn-key' size={24} />
             <TextInput secureTextEntry={true} placeholder="Password" style={styles.username}
-              onChangeText={(password) => this.setState({ password })} 
-              ref={input1 => { this.textInput1 = input1 }}/>
+              onChangeText={(password) => this.setState({ password })}
+              ref={input1 => { this.textInput1 = input1 }} />
           </View>
 
 
@@ -77,7 +70,7 @@ export default class Login extends Component {
             titleStyle={{ fontWeight: "700" }}
             buttonStyle={styles.loginBtn}
             containerStyle={{ marginTop: 20 }}
-            onPress={() => { this.clearInput();this.loginUser(this.state.email, this.state.password) }}
+            onPress={() => { this.clearInput(); this.loginUser(this.state.email, this.state.password) }}
           />
           <Divider style={{ marginTop: 10, marginBottom: 10 }} />
 

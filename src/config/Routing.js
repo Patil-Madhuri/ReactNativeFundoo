@@ -12,8 +12,10 @@ import CreateLabel from '../components/Notes/Actions/CreateLabel';
 import ReminderNotes from '../components/Notes/Actions/ReminderNotes';
 import SearchNote from '../components/Notes/Actions/SearchNote';
 import NotesWithImages from '../components/Notes/Actions/NotesWithImages';
+import SplashScreen from '../components/Pages/SplashScreen';
 
 const Router = createStackNavigator({
+    Splash: { screen: SplashScreen, navigationOptions: { header: null } },
     Login: { screen: Login },
     Register: { screen: Register },
     ForgotPassword: { screen: ForgotPassword },
@@ -27,7 +29,7 @@ const Router = createStackNavigator({
     ImagesNotes: { screen: NotesWithImages }
 },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Splash'
     },
     {
         headerMode: 'screen'

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { View, TextInput} from 'react-native';
+import { View, TextInput, ScrollView} from 'react-native';
 import Note from "./Note";
 var noteService = require('../../../services/NoteService');
 
-export default class NotesWithImages extends Component{
+export default class NotesWithImages extends Component {
     constructor() {
         super();
         this.state = {
@@ -33,20 +33,22 @@ export default class NotesWithImages extends Component{
     }
     render() {
         return (
-            <View style={{ width: '100%', flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {Object.keys(this.state.notes).map((key) => {
-                        var noteKey = key;
-                        var note = this.state.notes[noteKey];
-                        
-                        if (note.ImageUrl && note.isTrash === false) {
-                            return (
-                                <Note note={note} noteKey={noteKey} layout={this.props.layout}/>
-                            )
-                        }
-                    })}
+            <ScrollView>
+                <View style={{ width: '100%', flexDirection: 'column' }}>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {Object.keys(this.state.notes).map((key) => {
+                            var noteKey = key;
+                            var note = this.state.notes[noteKey];
+
+                            if (note.ImageUrl && note.isTrash === false) {
+                                return (
+                                    <Note note={note} noteKey={noteKey} layout={this.props.layout} />
+                                )
+                            }
+                        })}
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }

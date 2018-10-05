@@ -116,7 +116,7 @@ export default class UpdateNote extends Component {
 
     renderHeader() {
         var noteKey = this.props.noteKey;
-        
+
         return (
             <View style={{ flexDirection: 'row' }}>
                 <Icon name="arrow-back"
@@ -240,16 +240,16 @@ export default class UpdateNote extends Component {
                     rightComponent={this.renderRightHeader()}
                     backgroundColor="white"
                 />
-                  <ScrollView>
-                  {
+                <ScrollView>
+                    {
                         note.ImageUrl ?
-                                <View >
-                                    <Image source={{ uri: note.ImageUrl }} style={{ height: 400 }}></Image>
-                                </View>
+                            <View >
+                                <Image source={{ uri: note.ImageUrl }} style={{ height: 400 }}></Image>
+                            </View>
                             :
                             null
                     }
-              
+
 
                     <TextInput placeholder="Title" style={{ fontSize: 20, fontWeight: 'bold', padding: 15 }}
                         defaultValue={note.Notetitle}

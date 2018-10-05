@@ -26,7 +26,8 @@ export default class Note extends Component {
         const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         var layout = this.props.layout;
-
+        console.log("Layout+++++++++++++",layout);
+        
         return (
                 <View style={layout ? styles.gridView : styles.listView}>
                     <Card key={noteKey} containerStyle={{ backgroundColor: note.color,margin: 7}}>
