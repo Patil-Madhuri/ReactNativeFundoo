@@ -205,4 +205,5 @@ export default class Drawer extends Component {
             </View>
         );
     }
+    
 }
