@@ -64,7 +64,6 @@ export default class Login extends Component {
               ref={input1 => { this.textInput1 = input1 }} />
           </View>
 
-
           <Button
             title="Login"
             titleStyle={{ fontWeight: "700" }}

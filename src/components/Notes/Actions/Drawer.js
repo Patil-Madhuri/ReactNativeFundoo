@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground, TouchableOpacity,Alert } from "react-native";
+import { View, Text, Image, ImageBackground, TouchableOpacity, Alert } from "react-native";
 import { Icon, Divider } from 'react-native-elements';
 import AppCache from '../../../config/AppCache';
 import app from '../../../config/Firebase';
@@ -15,48 +15,14 @@ export default class Drawer extends Component {
         super();
         this.state = {
             labels: [],
-            email : null,
-            firstName : null,
-            lastName : null,
-            imageUrl : null
+            email: null,
+            firstName: null,
+            lastName: null,
+            imageUrl: null
         }
     }
-  
-    componentWillMount() {
-        AppCache.getItem('email', (error, value) =>{
-            if (error != null) {
-                console.error(error);
-                this.setState({
-                    email : value
-                })
-            }
-        });
-        AppCache.getItem('firstName', (error, value) =>{
-            if (error != null) {
-                console.error(error);
-            }
-            this.setState({
-                firstName : value
-            })
-        });
-        AppCache.getItem('lastName', (error, value) =>{
-            if (error != null) {
-                console.error(error);
-            }
-            this.setState({
-                lastName : value
-            })
-        });
-        AppCache.getItem('imageUrl', (error, value) =>{
-            if (error != null) {
-                console.error(error);
-            }
-            this.setState({
-                imageUrl : value
-            })
-        });
-    }
-  
+
+
     componentDidMount() {
         var self = this;
         noteService.getLabels(function (labelList) {
@@ -67,27 +33,61 @@ export default class Drawer extends Component {
                 self.setState({ labels: [] });
             }
         });
+        AppCache.getItem('email', (error, value) => {
+            if (error != null) {
+                console.error(error);
+            }
+            console.log("Value.........", value);
+            
+            this.setState({
+                email: value
+            })
+        });
+        AppCache.getItem('firstName', (error, value) => {
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                firstName: value
+            })
+        });
+        AppCache.getItem('lastName', (error, value) => {
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                lastName: value
+            })
+        });
+        AppCache.getItem('imageUrl', (error, value) => {
+            if (error != null) {
+                console.error(error);
+            }
+            this.setState({
+                imageUrl: value
+            })
+        });
     }
 
-    logout () {
+    logout() {
         console.log("Logging Out....");
-    
+
         Alert.alert(
             null,
             'Do you want to logout ?',
             [
                 { text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                 {
-                    text: 'Yes', onPress : () => {
+                    text: 'Yes', onPress: () => {
                         try {
-                            AppCache.clearAll(function(err) {
-                              if(err !== null){
-                                console.log(err);            
-                              }
+                            AppCache.clearAll(function (err) {
+                                if (err !== null) {
+                                    console.log(err);
+                                }
                                 Firebase.auth().signOut();
-                               this.props.navigation.navigate('Login');
+                                this.props.navigation.navigate('Login');
                             });
-                           
+
                         } catch (e) {
                             console.log(e);
                         }
@@ -96,28 +96,26 @@ export default class Drawer extends Component {
             ],
             { cancelable: false }
         )
-      }
+    }
 
     render() {
-
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: '100%' }}>
                     <View style={{ height: 150 }}>
                         <ImageBackground source={require('../../../assets/drawerCover.webp')} style={styles.backgroundImage} >
                             <View>
-                                <TouchableOpacity onPress={() => {userService.chooseProfilePicImage()}}>
+                                <TouchableOpacity onPress={() => { userService.chooseProfilePicImage() }}>
                                     {
                                         this.state.imageUrl ?
                                             <Image source={{ uri: this.state.imageUrl }} style={styles.profileImage} />
                                             :
                                             <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
                                     }
-
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ marginTop: 20, marginLeft: 20 }}>
-                                <Text style={styles.nameFont}>{this.state.firstName + " " +this.state.lastName}</Text>
+                            <View style={{ marginTop: 15, marginLeft: 20 }}>
+                                <Text style={styles.nameFont}>{this.state.firstName + " " + this.state.lastName}</Text>
                                 <Text style={{ fontSize: 15 }}>{this.state.email}</Text>
                             </View>
                         </ImageBackground>
@@ -196,7 +194,7 @@ export default class Drawer extends Component {
                             <Text style={styles.sidebarText}>Help & feedback</Text>
                         </View>
 
-                        <TouchableOpacity onPress={() => {this.logout()}}>
+                        <TouchableOpacity onPress={() => { this.logout() }}>
                             <View style={styles.sidebarBtn} >
                                 <Icon color="grey" name='power-settings-new' size={30} />
                                 <Text style={styles.sidebarText}>Logout</Text>

@@ -2,34 +2,42 @@ import app from '../config/Firebase';
 import AppCache from '../config/AppCache';
 import { Platform } from "react-native";
 import RNFetchBlob from 'react-native-fetch-blob';
-
+var userService = require('../services/UserService');
+var sha256 = require('sha256');
 var ImagePicker = require('react-native-image-picker');
 
+//creating blob
 const Blob = RNFetchBlob.polyfill.Blob
 const fs = RNFetchBlob.fs
 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
 window.Blob = Blob
+
 module.exports = {
   registerUser: function (user) {
     var database = app.database();
     var userRef = database.ref('/users');
+    console.log("Encrypted Password:.....", sha256(user.Password));
+    
     userRef.push({
       Firstname: user.Firstname,
       Lastname: user.Lastname,
       Email: user.email,
-      Password: user.Password,
+      Password: sha256(user.Password),
       ImageUrl: ''
     })
   },
 
   getUser: function (email, password, callback) {
+    var newPassword = sha256(password);
+    console.log(newPassword);
+    
     var database = app.database();
     var userRef = database.ref('/users');
     userRef.orderByChild("Email").equalTo(email).once('value', function (snap) {
       snap.forEach(function (snap) {
         var value = snap.val();
         var key = snap.key;
-        if (value.Password == password) {
+        if (value.Password == newPassword) {
           AppCache.setItem('userKey', key, function (err) {
             if (err != null) {
               console.error(err);
@@ -42,6 +50,8 @@ module.exports = {
             console.log(key)
             userRef.child(key).once('value', function (snap) {
               var userData = snap.val();
+              console.log("userData+++++++++++++", userData.Email);
+
               AppCache.setItem('email', userData.Email, function (err) {
                 if (err != null) {
                   console.error(err);
@@ -78,16 +88,6 @@ module.exports = {
     })
   },
 
-  uploadProfilePic(userKey, imageurl) {
-    console.log("inside UploadImage service............", imageurl);
-    var update = {
-      ImageUrl: imageurl
-    }
-    var database = app.database();
-    var userRef = database.ref('users');
-    userRef.child(userKey).update(update);
-  },
-  
   uploadImage(uri, mime = 'application/octet-stream') {
 
     AppCache.getItem('userKey', (error, value) => {
@@ -109,7 +109,8 @@ module.exports = {
             return imageRef.put(blob, { contentType: mime })
           }).then(() => {
             return imageRef.getDownloadURL().then(function (imageurl) {
-              this.uploadProfilePic(value, imageurl);
+              userService.uploadProfilePic(value, imageurl);
+              // this.uploadProfilePic(value, imageurl);
             })
           })
           .catch((error) => {
@@ -118,6 +119,9 @@ module.exports = {
       })
     })
   },
+
+ 
+
   chooseProfilePicImage() {
     console.log("inside choose image...........");
     var options = {
@@ -148,11 +152,17 @@ module.exports = {
         console.log(response.uri);
         console.log(image);
         this.uploadImage(response.uri, image);
-        
+
       }
     })
   }
 }
 
-
-
+exports.uploadProfilePic = (userKey, imageurl) => {
+  var update = {
+    ImageUrl: imageurl
+  }
+  var database = app.database();
+  var userRef = database.ref('users');
+  userRef.child(userKey).update(update);
+}
