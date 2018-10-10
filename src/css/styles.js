@@ -295,5 +295,8 @@ export const style = StyleSheet.create({
   },
   listView : {
     width: '98%',
+  },
+  animation : {
+      zIndex : 3
   }
 })

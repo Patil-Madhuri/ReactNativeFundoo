@@ -8,7 +8,7 @@ import { Dialog } from "react-native-simple-dialogs";
 import RadioButton from 'react-native-radio-button'
 import { Dropdown } from 'react-native-material-dropdown';
 import MoreBtnLabel from "./MoreBtnLabel";
-// import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 import ReminderFunction from '../../../config/ReminderFunction';
 var noteService = require('../../../services/NoteService');
 var styleSheet = require('../../../css/styles.js');
@@ -23,10 +23,20 @@ export default class UpdateNote extends Component {
         this.setValue = this.setValue.bind(this);
         this.getSelectedValue = this.getSelectedValue.bind(this);
         this.openLabelDaialog = this.openLabelDaialog.bind(this);
+        this.showDateTimePicker = this.showDateTimePicker.bind(this);
+        this.hideDateTimePicker = this.hideDateTimePicker.bind(this);
+
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
-        console.log("CurrentDate:-----", currentDate);
+
+        var time = new Date().toTimeString();
+        var hourEnd = time.indexOf(":");
+        var H = +time.substr(0, hourEnd);
+        var h = H % 12 || 12;
+        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        time = h + time.substr(hourEnd, 3) + " " +ampm;
+
         this.state = {
             title: '',
             description: '',
@@ -39,13 +49,14 @@ export default class UpdateNote extends Component {
             isDateTimePickerVisible: false,
             value: currentDate,
             openLabelDialog: false,
-            temp: false
+            temp: false,
+            isDateTimePickerVisible: false,
+            valueForCustomReminderTime : time,
+            customTimeSetToReminder : null
         }
     }
 
     setTemp() {
-        // console.log("asnjascdcbhbc");
-
         this.setState({ temp: true });
     }
 
@@ -114,9 +125,33 @@ export default class UpdateNote extends Component {
         })
     }
 
+    showDateTimePicker(value) {
+        console.log(value);
+        this.setState({ isDateTimePickerVisible: true });
+    }
+
+    hideDateTimePicker() {
+        this.setState({ isDateTimePickerVisible: false });
+    }
+
+    handleDatePicked = (date) => {
+        var selectedTime = date.toLocaleTimeString();
+        console.log(selectedTime);
+        
+        var hourEnd = selectedTime.indexOf(":");
+        var H = +selectedTime.substr(0, hourEnd);
+        var h = H % 12 || 12;
+        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        selectedTime = h + selectedTime.substr(hourEnd, 3) + " " +ampm;
+        console.log("Selected....",selectedTime);
+        this.setState({
+            customTimeSetToReminder : selectedTime
+        })
+        this.hideDateTimePicker();
+    };
+
     renderHeader() {
         var noteKey = this.props.noteKey;
-
         return (
             <View style={{ flexDirection: 'row' }}>
                 <Icon name="arrow-back"
@@ -137,17 +172,17 @@ export default class UpdateNote extends Component {
             value: 'Next Week',
         },
         {
-            value: 'Pick a date...'
+            value : 'Pick a date...'
         }];
 
         let data2 = [{
-            value: 'Pick a time...'
+            value : this.state.valueForCustomReminderTime
         }]
 
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
-        console.log("CurrentDate:-----", this.state.value);
+
         return (
             <View>
                 <View style={{ flexDirection: 'row', marginLeft: 220 }}>
@@ -209,7 +244,15 @@ export default class UpdateNote extends Component {
                                 <Dropdown
                                     value={'Pick a date...'}
                                     data={data2}
-                                    containerStyle={{ width: '80%' }} />
+                                    containerStyle={{ width: '80%' }}
+                                    onChangeText={this.showDateTimePicker} />
+                                <DateTimePicker
+                                    isVisible={this.state.isDateTimePickerVisible}
+                                    onConfirm={this.handleDatePicked}
+                                    onCancel={this.hideDateTimePicker}
+                                    mode='time'
+                                    is24Hour={false}
+                                />
                             </View>
                         </View>
                         :

@@ -1,20 +1,23 @@
 import React, { Component } from "react";
-import { Text, Modal, TouchableOpacity, View, Image, PanResponder, Animated } from "react-native";
+import { Text, Modal, TouchableOpacity, View, Image, PanResponder, Animated, AppState, Platform } from "react-native";
 import { Card, Icon } from "react-native-elements";
 import UpdateNote from "../Actions/UpdateNote";
 import ReminderFunction from '../../../config/ReminderFunction';
+import PushNotification from 'react-native-push-notification';
 
 var styleSheet = require('../../../css/styles');
 var styles = styleSheet.style;
 
 export default class Note extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.setModalVisible = this.setModalVisible.bind(this);
+        this.handleAppStateChange = this.handleAppStateChange.bind(this);
         this.state = {
             modalVisible: false,
             pan: new Animated.ValueXY(),
-            scale: new Animated.Value(1)
+            scale: new Animated.Value(1),
+            secondsToDisplayNotification : 10
         };
     }
 
@@ -51,15 +54,39 @@ export default class Note extends Component {
         this.setState({ modalVisible: visible });
     }
 
+    handleAppStateChange(appState) {
+        if (appState === 'background') {
+          let date = new Date(Date.now() + (this.state.seconds * 1000));
+    
+          if (Platform.OS === 'ios') {
+            date = date.toISOString();
+          }
+    
+          PushNotification.localNotificationSchedule({
+            message: "My Notification Message",
+            date,
+          });
+        }
+      }
+
+      componentDidMount () {
+        AppState.addEventListener('change', this.handleAppStateChange);
+
+        PushNotification.configure({
+            onNotification: function(notification) {
+              console.log( 'NOTIFICATION:', notification );
+            },
+          });
+      }
+
     render() {
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         const labelStyle = note.labels === '' ? styles.reminderContainerHideStyle : styles.reminderContainerStyle;
         var layout = this.props.layout;
-        console.log("Layout+++++++++++++", layout);
         let { pan } = this.state;
-
+        
         // Calculate the x and y transform from the pan value
         let [translateX, translateY] = [pan.x, pan.y];
         let scale = this.state.scale;
@@ -69,7 +96,7 @@ export default class Note extends Component {
         let imageStyle = { transform: [{ translateX }, { translateY }, { rotate }, { scale }] };
         return (
             <View style={layout ? styles.gridView : styles.listView}>
-                <Animated.View style={imageStyle} {...this._panResponder.panHandlers}>
+                <Animated.View style={[imageStyle,styles.animation]} {...this._panResponder.panHandlers}>
                     <Card key={noteKey} containerStyle={{ backgroundColor: note.color, margin: 7 }}>
                         <View >
                             <Image source={{ uri: note.ImageUrl }} style={{ height: 120, width: '100%' }}></Image>
