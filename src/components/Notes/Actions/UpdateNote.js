@@ -30,13 +30,6 @@ export default class UpdateNote extends Component {
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
 
-        var time = new Date().toTimeString();
-        var hourEnd = time.indexOf(":");
-        var H = +time.substr(0, hourEnd);
-        var h = H % 12 || 12;
-        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-        time = h + time.substr(hourEnd, 3) + " " +ampm;
-
         this.state = {
             title: '',
             description: '',
@@ -51,8 +44,8 @@ export default class UpdateNote extends Component {
             openLabelDialog: false,
             temp: false,
             isDateTimePickerVisible: false,
-            valueForCustomReminderTime : time,
-            customTimeSetToReminder : null
+            valueForCustomReminderTime: ReminderFunction.convertTimeToAmPm(new Date().toTimeString()),
+            customTimeSetToReminder: null
         }
     }
 
@@ -102,9 +95,6 @@ export default class UpdateNote extends Component {
         this.setState({ color: color });
     }
     openLabelDaialog(isModalVisible) {
-        console.log("Hello Mukesh");
-
-        console.log("From update: ......", isModalVisible);
         this.setState({ openLabelDialog: isModalVisible })
     }
     handleMorePress = () => {
@@ -135,18 +125,13 @@ export default class UpdateNote extends Component {
     }
 
     handleDatePicked = (date) => {
-        var selectedTime = date.toLocaleTimeString();
-        console.log(selectedTime);
-        
-        var hourEnd = selectedTime.indexOf(":");
-        var H = +selectedTime.substr(0, hourEnd);
-        var h = H % 12 || 12;
-        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
-        selectedTime = h + selectedTime.substr(hourEnd, 3) + " " +ampm;
-        console.log("Selected....",selectedTime);
+        var noteKey = this.props.noteKey;
+        var note = this.props.note;
         this.setState({
-            customTimeSetToReminder : selectedTime
+            valueForCustomReminderTime: ReminderFunction.convertTimeToAmPm(date)
         })
+        note.Reminder = date;
+        noteService.setReminder(noteKey, note);
         this.hideDateTimePicker();
     };
 
@@ -172,13 +157,12 @@ export default class UpdateNote extends Component {
             value: 'Next Week',
         },
         {
-            value : 'Pick a date...'
+            value: 'Pick a date...'
         }];
 
         let data2 = [{
-            value : this.state.valueForCustomReminderTime
+            value: this.state.valueForCustomReminderTime
         }]
-
         var month = new Date().toDateString().split(' ')[1];
         var date = new Date().toDateString().split(' ')[2];
         var currentDate = month + "  " + date;
@@ -242,7 +226,7 @@ export default class UpdateNote extends Component {
                             </View>
                             <View style={{ flexDirection: 'row', width: '100%' }}>
                                 <Dropdown
-                                    value={'Pick a date...'}
+                                    value={this.state.valueForCustomReminderTime}
                                     data={data2}
                                     containerStyle={{ width: '80%' }}
                                     onChangeText={this.showDateTimePicker} />
@@ -262,7 +246,12 @@ export default class UpdateNote extends Component {
                         </View>
                     }
                     <View style={style.flexRow}>
-                        <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey, note)} />
+                        {
+                            note.Reminder ?
+                                <Button title="Delete" onPress={() => noteService.removeRemainder(noteKey, note)} />
+                                :
+                                null
+                        }
                         <Button title="Cancel" onPress={() => this.openDialog(false)} />
                         <Button title="Save" onPress={this.getSelectedValue} />
                     </View>
@@ -272,6 +261,8 @@ export default class UpdateNote extends Component {
         )
     }
     render() {
+        console.log("vajkgjhfghjgfhgfhcf:.........", this.state.valueForCustomReminderTime);
+
         var note = this.props.note;
         var noteKey = this.props.noteKey;
         const reminderStyle = note.Reminder === '' ? style.reminderContainerHideStyle : style.reminderContainerStyle;

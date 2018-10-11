@@ -47,5 +47,15 @@ class ReminderFunction {
         const defaultDateStr = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]} ${time}`;
         return new Date(defaultDateStr).toString();
     }
+    
+    static convertTimeToAmPm(time) {
+        var selectedTime = time.toLocaleTimeString();
+        var hourEnd = selectedTime.indexOf(":");
+        var H = +selectedTime.substr(0, hourEnd);
+        var h = H % 12 || 12;
+        var ampm = (H < 12 || H === 24) ? "AM" : "PM";
+        selectedTime = h + selectedTime.substr(hourEnd, 3) + " " + ampm;
+        return selectedTime;
+    }
 }
 export default ReminderFunction;
